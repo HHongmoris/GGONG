@@ -4,7 +4,7 @@ import React, { useState } from 'react';
  * 값들을 전달받아 아이콘 버튼 컴포넌트를 반환하는 함수
  *
  * @param {string} icon 기본적으로 버튼에 표시할 아이콘
- * @param {function} handleClick 버튼을 클릭했을 때 실행할 함수
+ * @param {function} onClick 버튼을 클릭했을 때 실행할 함수
  * @param {boolean} toggle 토글 버튼인지 여부
  * @param {string} toggleIcon 토글됐을 때 표시할 아이콘
  * @returns 아이콘 버튼 컴포넌트
