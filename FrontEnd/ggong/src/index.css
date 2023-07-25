@@ -1,0 +1,20 @@
+@font-face {
+  font-family: 'TheJamsil';
+  src: url('../public/font/TheJamsil3Regular.ttf');
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'TheJamsil';
+  src: url('../public/font/TheJamsil5Bold.ttf');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+html,
+textarea {
+  font-family: 'TheJamsil';
+}
