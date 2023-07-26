@@ -1,5 +1,6 @@
 import React from 'react';
 
+// h1 태그에 속성 부여
 const Heading1 = ({ content = 'h1' }) => {
   return (
     <div>
@@ -8,6 +9,7 @@ const Heading1 = ({ content = 'h1' }) => {
   );
 };
 
+// h2 태그에 속성 부여
 const Heading2 = ({ content = 'h2' }) => {
   return (
     <div>
@@ -16,6 +18,7 @@ const Heading2 = ({ content = 'h2' }) => {
   );
 };
 
+// h3 태그에 속성 부여
 const Heading3 = ({ content = 'h3' }) => {
   return (
     <div>
