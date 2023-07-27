@@ -19,16 +19,16 @@ const DataCard = ({ title = '제목', data = '데이터' }) => {
         className={`card-body items-center md: h-1/5 ${bgTitle} border ${borderColor} rounded-t-xl`}
         style={{ '--padding-card': '1rem' }}
       >
-        <Subtitle content={title} />
-        {/* <span className="font-bold">{title}</span> */}
+        {/* <Subtitle content={title} /> */}
+        <span className="text-xl">{title}</span>
       </div>
       <div
         className={`card-body md: h-1/5 items-center ${borderColor} border rounded-b-xl`}
         style={{ '--padding-card': '1rem' }}
       >
-        <p>{data}</p>
+        {/* <p>{data}</p> */}
         {/* <p className="font-bold">{data}</p> */}
-        {/* <Subtitle content={data + ' 명'} /> */}
+        <Subtitle content={data} />
       </div>
     </div>
   );
