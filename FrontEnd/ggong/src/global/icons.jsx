@@ -1,6 +1,7 @@
 import {
   LiaBarsSolid,
   LiaChartBarSolid,
+  LiaCoinsSolid,
   LiaHeart,
   LiaHeartSolid,
   LiaMap,
@@ -26,7 +27,7 @@ export default {
   USER: <LiaUserSolid />, // 회원 아이콘
   MAP: <LiaMap />, // 지도 아이콘
   CIGAR: <LiaSmokingSolid />, // 담배 아이콘
-  POINT: <LiaCoinSolid />, // 포인트 아이콘
+  POINT: <LiaCoinsSolid />, // 포인트 아이콘
   VOTE: <LiaVoteYeaSolid />, // 투표 아이콘
   STAT: <LiaChartBarSolid />, // 통계 아이콘
 };
