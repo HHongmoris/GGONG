@@ -1,30 +1,13 @@
 import React from 'react';
 
 // h1 태그에 속성 부여
-const Heading1 = ({ content = 'h1' }) => {
-  return (
-    <div>
-      <h1 className="text-2xl font-bold ml-4">{content}</h1>
-    </div>
-  );
+const Title = ({ content = '제목입니다' }) => {
+  return <h1 className="text-3xl font-bold">{content}</h1>;
 };
 
 // h2 태그에 속성 부여
-const Heading2 = ({ content = 'h2' }) => {
-  return (
-    <div>
-      <h2 className="text-xl ml-4">{content}</h2>
-    </div>
-  );
+const Subtitle = ({ content = '부제목입니다' }) => {
+  return <h2 className="text-xl font-bold">{content}</h2>;
 };
 
-// h3 태그에 속성 부여
-const Heading3 = ({ content = 'h3' }) => {
-  return (
-    <div>
-      <h3 className="text-l ml-4">{content}</h3>
-    </div>
-  );
-};
-
-export { Heading1, Heading2, Heading3 };
+export { Title, Subtitle };
