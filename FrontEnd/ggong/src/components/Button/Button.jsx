@@ -16,9 +16,10 @@ const Button = ({
     console.log('버튼 클릭함');
   },
   leftIcon = false,
+  size,
 }) => {
   return (
-    <button className="btn bg-yellow-400 text-zinc-600" onClick={handleClick}>
+    <button className={`btn bg-yellow-400 text-zinc-600 ${size === 'small' && 'btn-sm'}`} onClick={handleClick}>
       {/* icon이 있으면 type에 따라 icon을 표시한다 */}
       {icon && leftIcon && <span>{icon}</span>}
       <span>{value}</span>
