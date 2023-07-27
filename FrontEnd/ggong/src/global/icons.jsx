@@ -20,7 +20,7 @@ export default {
 
   HEART: <LiaHeart />, // 비워진 하트 아이콘
   HEART_FILL: <LiaHeartSolid />, // 채워진 하트 아이콘
-  QR: <LiaQrcodeSolid />, // QR 아이콘
+  QR: <LiaQrcodeSolid size={40} />, // QR 아이콘
   PEN: <LiaPenSolid />, // 수정 아이콘
 
   MENU: <LiaBarsSolid />, // 메뉴바 아이콘
