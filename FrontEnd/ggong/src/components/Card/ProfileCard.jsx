@@ -17,7 +17,7 @@ const ProfileCard = ({ grade = '등급', nickname = '닉네임', point = '현재
           />
           <div className="card-body" style={{ '--padding-card': '1rem' }}>
             <h2 className="card-title">{nickname}</h2>
-            <p>{point}</p>
+            <p>{point} p</p>
           </div>
         </div>
         <div className="flex justify-center items-center mr-6">
