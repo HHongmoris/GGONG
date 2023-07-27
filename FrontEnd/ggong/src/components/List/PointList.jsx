@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { Text } from '../global/colors';
-import { Heading1 } from './Heading';
+import { Text } from '../../global/colors';
+import { Heading1 } from '../Heading';
 import PointListItem from './PointListItem';
 
 /**

@@ -1,7 +1,7 @@
 import React from 'react';
 import { TableData } from './TableItem';
 import { TableItem } from './TableItem';
-import { Background, Border, Text } from '../global/colors';
+import { Background, Border, Text } from '../../global/colors';
 
 // 테이블 컴포넌트 -> 여기선 TableData를 기본으로 받음. 추후에 데이터 받아오면 바뀜
 // 스크롤 구현을 위해 table-pin-rows를 적용, 테이블을 스타일에 맞게 꾸며줬음

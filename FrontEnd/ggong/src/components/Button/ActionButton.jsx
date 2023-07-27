@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 
+import icons from '../../global/icons';
 /**
  * 값들을 전달받아 액션 버튼 컴포넌트를 반환하는 함수
  *
@@ -37,7 +38,8 @@ const ActionButton = ({
     <>
       {clicked ? (
         <button className="btn rounded-full shadow-lg shadow-zinc-300 bg-yellow-400 text-white" onClick={handleCancel}>
-          {description} X
+          <span>{description}</span>
+          {icons.CANCEL}
         </button>
       ) : (
         <button className="btn btn-circle shadow-lg shadow-zinc-300 bg-yellow-400 text-white" onClick={handleAction}>

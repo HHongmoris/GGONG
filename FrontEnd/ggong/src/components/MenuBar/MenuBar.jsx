@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import MenuBarItem from './MenuBarItem';
 import MenuBarAccordian from './MenuBarAccordian';
-import { Heading2 } from './Heading';
+import { Heading2 } from '../Heading';
 
 // 메뉴바를 구현한 컴포넌트 (닉네임과 이메일을 값으로 받아준다.)
 const MenuBar = ({ nickname = '닉네임', email = '이메일' }) => {

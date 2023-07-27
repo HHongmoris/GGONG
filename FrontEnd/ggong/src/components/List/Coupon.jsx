@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Background, Text } from '../global/colors';
+import { Background, Text } from '../../global/colors';
 
 /**
  * 전달받은 가격의 쿠폰 아이콘을 반환하는 컴포넌트
