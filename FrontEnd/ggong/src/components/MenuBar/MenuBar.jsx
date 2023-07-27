@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import MenuBarItem from './MenuBarItem';
 import MenuBarAccordian from './MenuBarAccordian';
-import { Heading2 } from '../Heading';
+import { Subtitle } from '../Heading';
 
 // 메뉴바를 구현한 컴포넌트 (닉네임과 이메일을 값으로 받아준다.)
 const MenuBar = ({ nickname = '닉네임', email = '이메일' }) => {
@@ -32,8 +32,8 @@ const MenuBar = ({ nickname = '닉네임', email = '이메일' }) => {
         <ul className="menu p-4 w-80 h-full bg-base-200 text-base-content">
           {/* Sidebar content here */}
           <li className="bg-yellow-400">
-            <Heading2 content={`${nickname}님, 환영합니다.`} />
-            <Heading2 content={`${email}`} />
+            <Subtitle content={`${nickname}님, 환영합니다.`} />
+            <Subtitle content={`${email}`} />
           </li>
           {/* 아이콘하고 링크만 바꿔서 사용하면 될 듯 합니다. */}
           <li>

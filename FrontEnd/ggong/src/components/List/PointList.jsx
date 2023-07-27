@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Text } from '../../global/colors';
-import { Heading1 } from '../Heading';
+import { Title } from '../Heading';
 import PointListItem from './PointListItem';
 
 /**
@@ -12,7 +12,7 @@ import PointListItem from './PointListItem';
 const PointList = ({ data = [] }) => {
   return (
     <div>
-      <Heading1 content="포인트 내역" />
+      <Title content="포인트 내역" />
       <div className="divider"></div>
       <span>기간 설정</span>
       {/* 내역을 보고 싶은 기간의 시작일 */}

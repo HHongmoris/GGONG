@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text } from '../global/colors';
+import { Text } from '../../global/colors';
 
 /**
  * 포인트 내역 리스트에서 한 내역을 표시하기 위한 컴포넌트
