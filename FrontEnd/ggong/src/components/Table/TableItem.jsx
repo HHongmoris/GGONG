@@ -1,5 +1,5 @@
 import React from 'react';
-import { Border } from '../global/colors';
+import { Border } from '../../global/colors';
 
 // 임시로 넣어둔 테이블 데이터... 나중에 데이터 받아오면 없애면 됩니다.
 const TableData = [
