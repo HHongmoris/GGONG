@@ -1,12 +1,16 @@
 import './App.css';
+import IconButton from './components/Button/IconButton';
+import ActionButton from './components/Button/ActionButton';
+import Button from './components/Button/Button';
+
+import icons from './global/icons';
 
 function App() {
   return (
     <div className="App">
-      <span>테스트 문구</span>
-      <span>
-        <b>테스트 문구</b>
-      </span>
+      <Button icon={icons.PLUS} leftIcon={true} />
+      <IconButton icon={icons.PLUS} />
+      <ActionButton icon={icons.PLUS} />
     </div>
   );
 }
