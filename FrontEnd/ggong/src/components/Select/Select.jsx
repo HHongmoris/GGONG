@@ -11,7 +11,7 @@ const Select = ({ data = SelectData }) => {
   // map 함수를 이용해 option들 구현
   // 선호 담배 드롭다운으로 바꾸려면 관심기기를 선택해주세요 부분 태그를 날려버리면 됨.
   return (
-    <div className="flex w-full component-preview p-4 gap-2">
+    <div className="component-preview p-4 gap-2">
       <select value={value} onChange={event => setValue(event.target.value)}>
         <SelectItem sendValue={'default'} optionName="관심기기를 선택해주세요." canSelect={false} />
         {data.map(datum => {
