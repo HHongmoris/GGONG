@@ -5,7 +5,7 @@ import icons from '../../global/icons';
 // 프로필 카드 컴포넌트 : 등급 이미지, 닉네임, 현재 포인트, 큐알 정보를 항목으로 갖는다.
 const ProfileCard = ({ grade = '등급', nickname = '닉네임', point = '현재 포인트', qr = 'qr' }) => {
   return (
-    <div className="card bg-white shadow-xl border border-zinc-400">
+    <div className="card bg-white border border-zinc-400">
       <div className="flex justify-between">
         <div className="flex items-center">
           <img
