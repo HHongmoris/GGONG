@@ -10,7 +10,7 @@ import { Background, Text } from '../../global/colors';
  */
 const Coupon = ({ price = 0 }) => {
   return (
-    <div className="relative w-48">
+    <div className="relative w-48 z-0">
       {/* 쿠폰 우측 펀칭 모양을 표현하는 요소 */}
       <div className={`absolute left-44 top-8 w-8 h-8 rounded-full ${Background.WHITE}`}></div>
       {/* 쿠폰을 표현하는 요소 */}

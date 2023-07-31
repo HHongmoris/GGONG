@@ -3,6 +3,7 @@ import React from 'react';
 import { Text } from '../../global/colors';
 import Coupon from './Coupon';
 import Button from '../Button/Button';
+import BuyModal from '../Modal/BuyModal';
 
 /**
  * 포인트 내역 리스트에서 한 내역을 표시하기 위한 컴포넌트
@@ -23,7 +24,7 @@ const PointListItem = ({ price = 0 }) => {
           <span>문화상품권 {priceSep}원</span>
           <div className="flex justify-between items-center">
             <span>{priceSep} P</span>
-            <Button value="구매" size="small" />
+            <BuyModal />
           </div>
         </div>
       </div>
