@@ -12,6 +12,7 @@ import {
   LiaTimesSolid,
   LiaUserSolid,
   LiaVoteYeaSolid,
+  LiaSearchSolid,
 } from 'react-icons/lia';
 
 export default {
@@ -22,6 +23,7 @@ export default {
   HEART_FILL: <LiaHeartSolid />, // 채워진 하트 아이콘
   QR: <LiaQrcodeSolid size={40} />, // QR 아이콘
   PEN: <LiaPenSolid />, // 수정 아이콘
+  SEARCH: <LiaSearchSolid />, // 검색 아이콘
 
   MENU: <LiaBarsSolid />, // 메뉴바 아이콘
   USER: <LiaUserSolid />, // 회원 아이콘
