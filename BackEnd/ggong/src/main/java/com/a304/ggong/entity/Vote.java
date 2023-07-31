@@ -6,6 +6,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.Getter;
@@ -22,8 +24,20 @@ public class Vote {
 	@Column(name = "vote_no")
 	private int voteNo;
 
-	// user_no, machine_no, question_ID는 어노테이션으로 조인해줘야해서...
-	// 머지 후에 하겠습니당
+	// user_no
+	@ManyToOne
+	@JoinColumn(name = "user_no")
+	private User user;
+
+	// machine_no
+	@ManyToOne
+	@JoinColumn(name = "machine_no")
+	private Machine machine;
+
+	// question_ID
+	@ManyToOne
+	@JoinColumn(name = "question_ID")
+	private Question question;
 
 	@Column(name = "vote_date")
 	private Timestamp voteDate;
