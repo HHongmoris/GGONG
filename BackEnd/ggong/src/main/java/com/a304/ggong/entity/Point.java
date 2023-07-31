@@ -28,11 +28,15 @@ public class Point {
     //잔여 포인트
     private int balancePoint;
 
-
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "vote_no")
     //투표 번호(vote 테이블)
-    private int voteNo;
+    private Vote voteNo;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_no")
     //사용자 번호(user 테이블)
-    private int userNo;
+    private User userNo;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "buy_no")
