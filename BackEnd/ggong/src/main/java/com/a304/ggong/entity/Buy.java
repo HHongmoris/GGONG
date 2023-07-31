@@ -20,9 +20,10 @@ public class Buy {
     //상품 구매시간
     private String buyTime;
 
-    @Column(name = "user_no")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_no")
     //구매한 사용자 번호(user 테이블)
-    private int userNo;
+    private User userNo;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_no")
