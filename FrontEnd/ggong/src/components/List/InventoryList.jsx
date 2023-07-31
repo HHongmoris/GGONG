@@ -5,8 +5,8 @@ import InventoryListItem from './InventoryListItem';
 
 /**
  *
- * @param {Array} data 포인트 내역의 배열
- * @returns data를 토대로 포인트 내역 리스트 컴포넌트를 만들어서 반환
+ * @param {Array} data 구매 내역의 배열
+ * @returns data를 토대로 구매 내역 리스트 컴포넌트를 만들어서 반환
  */
 const InventoryList = ({ products = [] }) => {
   return (
