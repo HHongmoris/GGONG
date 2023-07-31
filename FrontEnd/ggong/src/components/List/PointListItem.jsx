@@ -12,7 +12,7 @@ import { Text } from '../../global/colors';
  */
 const PointListItem = ({ datetime = 'yyyy-MM-dd(ddd) HH:MM', detail = '사용 내역', variant = 0, balance = 0 }) => {
   // 숫자에 3자리 단위마다 콤마를 표시하고, 변동량이 양수라면 앞에 +를 붙입니다.
-  variant = (variant > 0 ? '+' : '') + variant.toLocaleString('ko-KR');
+  const variantString = (variant > 0 ? '+' : '') + variant.toLocaleString('ko-KR');
   // 숫자에 3자리 단위마다 콤마를 표시합니다.
   balance = balance.toLocaleString('ko-KR');
 
@@ -27,7 +27,7 @@ const PointListItem = ({ datetime = 'yyyy-MM-dd(ddd) HH:MM', detail = '사용 �
           <span>{time}</span>
         </div>
         {/* 변동량이 양수이면 빨강, 0을포함한 음수이면 파랑색으로 표시합니다. */}
-        <div className={`${variant > 0 ? 'text-red-400' : 'text-blue-400'}`}>{variant} p</div>
+        <div className={`${variant > 0 ? 'text-red-400' : 'text-blue-400'}`}>{variantString} p</div>
       </div>
       <div className="flex justify-between">
         <div className="font-bold">{detail}</div>
