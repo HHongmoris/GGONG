@@ -17,7 +17,7 @@ const PointListItem = ({ price = 0 }) => {
 
   return (
     <div>
-      <div className="flex justify-between">
+      <div className="flex justify-between mb-8 mt-8">
         <Coupon price={price} />
         <div className="flex flex-col justify-center">
           <span className={`text-sm ${Text.GRAY}`}>컬쳐랜드</span>
