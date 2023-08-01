@@ -14,7 +14,7 @@ public class Point {
     @GeneratedValue
     @Column(name = "point_no")
     //포인트 번호(id)
-    private int pointNo;
+    private Long pointNo;
 
     @Column(name = "event_time")
     //포인트 적립/사용 시간

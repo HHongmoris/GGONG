@@ -14,7 +14,7 @@ public class Buy {
     @GeneratedValue
     @Column(name = "buy_no")
     //구매내역 번호(id)
-    private int buyNo;
+    private Long buyNo;
 
     @Column(name = "buy_time")
     //상품 구매시간

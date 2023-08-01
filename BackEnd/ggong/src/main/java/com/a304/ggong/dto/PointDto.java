@@ -9,7 +9,7 @@ import lombok.*;
 @ToString
 public class PointDto {
     //포인트 번호(id)
-    private int pointNo;
+    private Long pointNo;
     //포인트 적립/사용 시간
     private String eventTime;
     //적립/사용 포인트(적립은 +, 사용은 -)

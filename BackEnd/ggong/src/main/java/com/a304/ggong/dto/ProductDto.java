@@ -9,7 +9,7 @@ import lombok.*;
 @ToString
 public class ProductDto {
     //상품 id번호
-    private int productNo;
+    private Long productNo;
     //상품 pin 번호
     private String pin;
     //상품 가격정보
