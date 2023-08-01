@@ -9,12 +9,12 @@ import lombok.*;
 @ToString
 public class UserDto {
 
-    private Long user_no;
+    private Long userNo;
     private String name;
-    private String age_range;
+    private String ageRange;
     private String gender;
     private String email;
-    private String favorite_cigarette;
+    private String favoriteCigarette;
     private String QR;
-    private String user_rating;
+    private String userRating;
 }
