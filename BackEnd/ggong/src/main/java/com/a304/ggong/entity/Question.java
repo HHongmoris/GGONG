@@ -20,7 +20,7 @@ public class Question {
 	@Id
 	@GeneratedValue
 	@Column(name = "question_ID")
-	private int questionID;
+	private Long questionID;
 
 	@Column(name = "content")
 	private String content;
