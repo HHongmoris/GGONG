@@ -26,10 +26,10 @@ public class User {
     @Column(name = "gender")
     private String gender;
 
-    @Column(name = "gender")
+    @Column(name = "email")
     private String email;
 
-    @Column(name = "email")
+    @Column(name = "favorite_cigarette")
     private String favoriteCigarette;
 
     @Column(name = "QR")
