@@ -14,7 +14,7 @@ public class Product {
     @GeneratedValue
     @Column(name = "product_no")
     //상품 id번호
-    private int productNo;
+    private Long productNo;
 
     @Column(name = "pin")
     //상품 pin 번호

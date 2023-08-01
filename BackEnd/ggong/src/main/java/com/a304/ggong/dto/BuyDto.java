@@ -9,7 +9,7 @@ import lombok.*;
 @ToString
 public class BuyDto {
     //구매내역 번호(id)
-    private int buyNo;
+    private Long buyNo;
     //상품 구매시간
     private String buyTime;
     //구매한 사용자 번호(user 테이블)
