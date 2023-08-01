@@ -1,5 +1,13 @@
 import React from 'react';
 
+// 필요한 카테고리 데이터
+const category = [
+  ['공통', '대학', '기업'],
+  ['지역별', '연령별', '대학별'],
+  ['지역별', '연령별', '기업별'],
+  ['지역별', '연령별'],
+];
+
 // 탭에 쓰일 카테고리, 활성화탭 여부, 클릭이벤트
 const Tab = ({ category, activeTab, onClick }) => {
   return (
@@ -21,4 +29,4 @@ const Tab = ({ category, activeTab, onClick }) => {
   );
 };
 
-export default Tab;
+export { category, Tab };
