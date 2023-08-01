@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Title } from '../../components/Heading';
 import { Border } from '../../global/colors';
-import Tab from '../../components/Tab';
+import { Tab, category } from '../../components/Tab';
 import BarChart from '../../components/Chart/BarChart';
 
 // 샘플 데이터들... 나중에 데이터 받으면 없앱시다.
@@ -42,14 +42,6 @@ const sampleData3 = [
     value: 45,
     ratio: 45,
   },
-];
-
-// 필요한 카테고리 데이터
-const category = [
-  ['공통', '대학', '기업'],
-  ['지역별', '연령별', '대학별'],
-  ['지역별', '연령별', '기업별'],
-  ['지역별', '연령별'],
 ];
 
 // 페이지 num => 어떤 카테고리를 쓸지 0이면 ['공통', '대학', '기업'], 2면 ['지역별', '연령별', '기업별']
