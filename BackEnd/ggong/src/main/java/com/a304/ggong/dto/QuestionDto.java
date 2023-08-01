@@ -13,7 +13,7 @@ import lombok.ToString;
 @ToString
 public class QuestionDto {
 
-	private int questionID;
+	private Long questionID;
 	private String content;
 	private int group;
 	private String category;

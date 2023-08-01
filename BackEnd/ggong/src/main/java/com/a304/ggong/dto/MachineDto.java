@@ -13,7 +13,7 @@ import lombok.ToString;
 @ToString
 public class MachineDto {
 
-	private int machineNo;
+	private Long machineNo;
 	private double latitude;
 	private double longitude;
 	private String name;

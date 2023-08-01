@@ -13,10 +13,10 @@ import lombok.ToString;
 @ToString
 public class VoteDto {
 
-	private int voteNo;
-	private int userNo;
-	private int machineNo;
-	private int questionID;
-	private int voteDate;
-	private int answer;
+	private Long voteNo;
+	private Long userNo;
+	private Long machineNo;
+	private Long questionID;
+	private Long voteDate;
+	private Long answer;
 }
