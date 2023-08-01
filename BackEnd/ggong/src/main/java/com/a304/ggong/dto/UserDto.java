@@ -9,7 +9,7 @@ import lombok.*;
 @ToString
 public class UserDto {
 
-    private int user_no;
+    private Long user_no;
     private String name;
     private String age_range;
     private String gender;
