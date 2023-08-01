@@ -48,7 +48,7 @@ const PieChart = ({ title, data = [], showNarrowLabel = false }) => {
                 dx={dx}
                 dy={dy}
                 // 라벨을 영역 중앙에 표시해 줌
-                text-anchor="middle"
+                textAnchor="middle"
                 style={{
                   fill: '#fff',
                   pointerEvents: 'none',
