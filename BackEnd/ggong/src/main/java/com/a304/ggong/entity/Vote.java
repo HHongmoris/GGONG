@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -22,20 +23,20 @@ public class Vote {
 	@Id
 	@GeneratedValue
 	@Column(name = "vote_no")
-	private int voteNo;
+	private Long voteNo;
 
 	// user_no
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_no")
 	private User user;
 
 	// machine_no
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "machine_no")
 	private Machine machine;
 
 	// question_ID
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "question_ID")
 	private Question question;
 

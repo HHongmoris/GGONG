@@ -18,7 +18,7 @@ public class Machine {
 	@Id
 	@GeneratedValue
 	@Column(name = "machine_no")
-	private int machineNo;
+	private Long machineNo;
 
 	@Column(name = "latitude")
 	private int latitude;

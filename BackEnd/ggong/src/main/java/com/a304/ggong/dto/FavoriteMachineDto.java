@@ -13,6 +13,7 @@ import lombok.ToString;
 @ToString
 public class FavoriteMachineDto {
 
-	private int userNo;
-	private int machineNo;
+	private Long favoriteMachineNo;
+	private Long userNo;
+	private Long machineNo;
 }
