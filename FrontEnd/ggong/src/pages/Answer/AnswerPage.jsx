@@ -1,8 +1,8 @@
 import React from 'react';
 
 // 질문에 대한 응답 페이지
-const QuestionPage = () => {
+const AnswerPage = () => {
   return <></>;
 };
 
-export default QuestionPage;
+export default AnswerPage;
