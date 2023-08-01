@@ -9,7 +9,7 @@ import BarChart from '../Chart/BarChart';
 
 const MachineCard = ({ machine = {} }) => {
   return (
-    <div className="card border border-black">
+    <div className="card border border-black bg-white">
       <div className="card-body">
         <div className="flex justify-between">
           <Select />
