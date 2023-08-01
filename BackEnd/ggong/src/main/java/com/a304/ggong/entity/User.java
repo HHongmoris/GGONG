@@ -15,13 +15,13 @@ import javax.persistence.*;
 public class User {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_no")
-    private Long user_no;
+    private Long userNo;
 
     @Column(name = "nickname")
     private String name;
 
     @Column(name = "age_range")
-    private String age_range;
+    private String ageRange;
 
     @Column(name = "gender")
     private String gender;
@@ -30,13 +30,13 @@ public class User {
     private String email;
 
     @Column(name = "email")
-    private String favorite_cigarette;
+    private String favoriteCigarette;
 
     @Column(name = "QR")
     private String QR;
 
     @Column(name = "user_rating")
-    private String user_rating;
+    private String userRating;
 
 
 
