@@ -1,0 +1,2 @@
+package com.a304.ggong.service;public interface AnswerService {
+}
