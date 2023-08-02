@@ -8,14 +8,11 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AllItemResponse {
-    private long productNo;
+    private Long productNo;
     private int price;
 
-//    //얘는 리스폰스니까 이거 없어야함
-//    public Product toEntity(){
-//        return Product.builder()
-//                .productNo(productNo)
-//                .price(price)
-//                .build();
-//    }
+    public AllItemResponse(Product entity){
+        this.productNo = entity.getProductNo();
+        this.price = entity.getPrice();
+    }
 }
