@@ -11,4 +11,6 @@ import com.a304.ggong.entity.Machine;
 public interface MachineRepository extends JpaRepository<Machine, Long> {
 
 	Optional<Machine> findByAreaGu(String areaGu);
+
+	Optional<Machine> findByName(String name);
 }
