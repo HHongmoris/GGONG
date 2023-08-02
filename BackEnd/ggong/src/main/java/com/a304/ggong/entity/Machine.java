@@ -25,17 +25,17 @@ public class Machine {
 	private Long machineNo;
 
 	@Column(name = "latitude")
-	private int latitude;
+	private double latitude;
 
 	@Column(name = "longitude")
-	private int longitude;
+	private double longitude;
 
 	@Column(name = "name")
-	private int name;
+	private String name;
 
 	@Column(name = "SN")
-	private int SN;
+	private String SN;
 
 	@Column(name = "area_gu")
-	private int areaGu;
+	private String areaGu;
 }
