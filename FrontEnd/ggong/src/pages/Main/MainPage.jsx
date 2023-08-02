@@ -17,7 +17,7 @@ const MainPage = ({ user = {}, today = 0, yesterday = 0 }) => {
         {/* 어제 담배 수 */}
         <DataCard title="어제 투표수" data={yesterday} />
       </div>
-      <MachineCard />
+      {/* <MachineCard /> */}
     </div>
   );
 };
