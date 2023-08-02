@@ -1,9 +1,6 @@
 package com.a304.ggong.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -11,7 +8,6 @@ import javax.persistence.*;
 @Table(name = "product")
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
 public class Product {
     //상품 id번호
@@ -27,4 +23,11 @@ public class Product {
     //상품 가격정보
     @Column(name = "price")
     private int price;
+
+    @Builder
+    public Product(Long productNo, String pin, int price) {
+        this.productNo = productNo;
+        this.pin = pin;
+        this.price = price;
+    }
 }
