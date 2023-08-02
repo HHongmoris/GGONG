@@ -1,0 +1,143 @@
+{
+  "users": [
+    {
+      "userNo": 1,
+      "email": "doctorHong@ssafy.com",
+      "nickname": "홍성민",
+      "userRating": "나무",
+      "ageRange": "20대",
+      "gender": "남성",
+      "favoriteCigarette": "말보로",
+      "QR": "https://www.naver.com",
+      "points": 14020
+    }
+  ],
+  "user-smoke": {
+    "currentCount": 5,
+    "pastCount": 10
+  },
+  "user-like": [
+    {
+      "machineNo": 1,
+      "machineName": "멀티캠퍼스 역삼",
+      "userCount": [20, 30, 40, 50, 20, 15, 34],
+      "question": "저녁메뉴 추천",
+      "optionA": "소주",
+      "optionB": "맥주",
+      "answerA": 3000,
+      "answerB": 2000
+    },
+    {
+      "machineNo": 2,
+      "machineName": "스타벅스 어딘가점",
+      "userCount": [20, 30, 40, 20, 20, 15, 34],
+      "question": "담배 추천",
+      "optionA": "에쎄",
+      "optionB": "멘솔",
+      "answerA": 34567,
+      "answerB": 27790
+    }
+  ],
+  "machines": [
+    {
+      "machineNo": 1,
+      "name": "멀티캠퍼스 역삼",
+      "latitude": 38.7464864512,
+      "longitude": 137.12312111
+    },
+    {
+      "machineNo": 2,
+      "name": "스타벅스 어딘가점",
+      "latitude": 38.746486452,
+      "longitude": 137.12312121
+    }
+  ],
+  "machine-like": [
+    {
+      "machineNo": 1,
+      "name": "멀티캠퍼스 역삼"
+    },
+    {
+      "machineNo": 2,
+      "name": "스타벅스 어딘가점"
+    }
+  ],
+  "boughtItems": [
+    {
+      "price": 5000,
+      "pin": "ABCD-1234-ABCD-1234"
+    },
+    {
+      "price": 10000,
+      "pin": "EFGH-5678-EFGH-5678"
+    },
+    {
+      "price": 5000,
+      "pin": "ABCD-5678-ABCD-5678"
+    },
+    {
+      "price": 50000,
+      "pin": "HIJK-1234-HIJK-1234"
+    }
+  ],
+
+  "points": [
+    {
+      "eventTime": "2023-05-31(Mon) 15:35",
+      "balance": 14000,
+      "variant": 200,
+      "machineNmae": "역삼 멀티캠퍼스"
+    },
+    {
+      "eventTime": "2023-07-07(Fri) 15:35",
+      "balance": 19000,
+      "variant": 20,
+      "machineNmae": "역삼 멀티캠퍼스"
+    },
+    {
+      "eventTime": "2023-07-12(Wed) 15:35",
+      "balance": 14000,
+      "variant": -5000,
+      "price": 5000
+    },
+    {
+      "eventTime": "2023-07-31(Mon) 15:35",
+      "balance": 14020,
+      "variant": 20,
+      "machineNmae": "역삼 멀티캠퍼스"
+    }
+  ],
+
+  "machineCnts": [
+    {
+      "machineName": "역삼 멀티캠퍼스",
+      "userCnt": 140
+    },
+    {
+      "machineName": "잠실 롯데타워",
+      "userCnt": 304
+    }
+  ],
+
+  "gender": {
+    "male": 304,
+    "female": 201
+  },
+
+  "ages": {
+    "twenty": 78,
+    "thirty": 51,
+    "fourty": 20,
+    "fifty": 15,
+    "etc": 21
+  },
+
+  "totalData": {
+    "totalUser": 2701,
+    "lastMonthUser": 1204
+  },
+
+  "todayData": {
+    "todayUser": 304
+  }
+}
