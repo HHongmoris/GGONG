@@ -13,7 +13,7 @@ const InventoryContainer = () => {
     useApi('/items/buy', 'GET').then(res => {
       setBougth(res.data);
     });
-  });
+  }, []);
 
   return (
     <div>
