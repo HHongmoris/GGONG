@@ -7,7 +7,6 @@ import MachineCard from '../../components/Card/MachineCard';
 // 메인 페이지
 const MainPage = ({ user = {}, today = 0, yesterday = 0, machines = [] }) => {
   const { userRating = '', nickname = '', points = 0, QR = '' } = user;
-  // console.log('메인페이지', machines[0].question);
 
   return (
     <div>
@@ -18,7 +17,7 @@ const MainPage = ({ user = {}, today = 0, yesterday = 0, machines = [] }) => {
         {/* 어제 담배 수 */}
         <DataCard title="어제 투표수" data={yesterday} />
       </div>
-      <MachineCard machines={machines} />
+      {/* <MachineCard machines={machines} /> */}
     </div>
   );
 };
