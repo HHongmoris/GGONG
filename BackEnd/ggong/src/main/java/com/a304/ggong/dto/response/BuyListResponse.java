@@ -1,10 +1,8 @@
 package com.a304.ggong.dto.response;
 
+import com.a304.ggong.entity.Buy;
 import com.a304.ggong.entity.Product;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
@@ -14,8 +12,8 @@ public class BuyListResponse {
     private int price;
     private String pin;
 
-    public BuyListResponse(Product entity){
-        this.price = entity.getPrice();
-        this.pin = entity.getPin();
+    public BuyListResponse(Buy entity){
+        this.price = entity.getProductNo().getPrice();
+        this.pin = entity.getProductNo().getPin();
     }
 }
