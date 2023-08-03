@@ -86,25 +86,25 @@
       "eventTime": "2023-05-31(Mon) 15:35",
       "balance": 14000,
       "variant": 200,
-      "machineNmae": "역삼 멀티캠퍼스"
+      "detail": "역삼 멀티캠퍼스"
     },
     {
       "eventTime": "2023-07-07(Fri) 15:35",
       "balance": 19000,
       "variant": 20,
-      "machineNmae": "역삼 멀티캠퍼스"
+      "detail": "역삼 멀티캠퍼스"
     },
     {
       "eventTime": "2023-07-12(Wed) 15:35",
       "balance": 14000,
       "variant": -5000,
-      "price": 5000
+      "detail": 5000
     },
     {
       "eventTime": "2023-07-31(Mon) 15:35",
       "balance": 14020,
       "variant": 20,
-      "machineNmae": "역삼 멀티캠퍼스"
+      "detail": "역삼 멀티캠퍼스"
     }
   ],
 
