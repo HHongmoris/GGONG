@@ -20,6 +20,7 @@ public class ItemsServiceImpl implements ItemsService{
     private final BuyRepository buyRepository;
     private final PointRepository pointRepository;
 
+    //모든 상품 조회
     @Override
     public List<AllItemResponse> selectAllItems() {
         return productRepository.findAll().stream()
@@ -27,19 +28,23 @@ public class ItemsServiceImpl implements ItemsService{
                 .collect(Collectors.toList());
     }
 
+    //상품 구매 - 원하는 상품 선택
     @Override
     public Long selectItemById(BuyRequest request) {
+        //상품 id로 상품 찾아서 반환
         return productRepository
                 .findById(request.getProductNo())
                 .orElseThrow()
                 .getProductNo();
     }
 
+    //상품 구매 - 구매
     @Override
     public Boolean buyItem(BuyResponse response) {
         return null;
     }
 
+    //구매내역 조회
     @Override
     public List<BuyListResponse> selectAllBuyList() {
         return buyRepository.findAll().stream()
