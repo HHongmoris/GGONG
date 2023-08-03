@@ -10,10 +10,12 @@ import com.a304.ggong.dto.request.LikeRegistRequest;
 import com.a304.ggong.dto.response.AllMachinesResponse;
 import com.a304.ggong.dto.response.LikeResponse;
 import com.a304.ggong.dto.response.MachineDetailResponse;
+import com.a304.ggong.entity.FavoriteMachine;
 import com.a304.ggong.entity.Machine;
 import com.a304.ggong.entity.Question;
 import com.a304.ggong.entity.User;
 import com.a304.ggong.entity.Vote;
+import com.a304.ggong.exception.FavoriteMachineNotFoundException;
 import com.a304.ggong.repository.FavoriteMachineRepository;
 import com.a304.ggong.repository.MachineRepository;
 import com.a304.ggong.repository.QuestionRepository;
@@ -46,9 +48,20 @@ public class MachineServiceImpl implements MachineService {
 	// 회원 이메일에 따라 관심 기기 조회
 	@Override
 	public List<LikeResponse> getAllFavoriteMachines(String email) {
-		List<LikeResponse> list = favoriteMachineRepository.findByEmail(email).stream().map(LikeResponse::new).collect(
-			Collectors.toList());
-		return list;
+		try {
+			// 먼저, Email을 이용해 유저 객체 가져와야함.
+			User user = userRepository.findByEmail(email).orElseThrow();
+
+			List<LikeResponse> list = favoriteMachineRepository.findByUserNo(user.getUserNo())
+				.stream()
+				.map(LikeResponse::new)
+				.collect(
+					Collectors.toList());
+			return list; // return문을 여기에 쓰는 게 맞나..?
+		} catch (Exception e) {
+			new FavoriteMachineNotFoundException();
+		}
+		return null;
 	}
 
 	// 기기 상세 정보
@@ -77,12 +90,25 @@ public class MachineServiceImpl implements MachineService {
 		Machine machine = machineRepository.findById(entity.getMachineNo()).orElseThrow();
 
 		//user
-		User user = userRepository.findByEmail();
+		User user = userRepository.findByEmail(email).orElseThrow();
+
+		// save메소드에 넣어줄 FavoriteMachine 객체 만들기
+		FavoriteMachine favoriteMachine = entity.toEntity(user, machine);
+
+		favoriteMachineRepository.save(favoriteMachine);
+
+		return new LikeResponse(favoriteMachine);
 	}
 
 	// 관심 기기 삭제
 	@Override
 	public LikeResponse deleteFavoriteMachine(LikeDeleteRequest entity) {
-		return null;
+		// FavoriteMachine 객체 받아오기
+		FavoriteMachine favoriteMachine = favoriteMachineRepository.findByMachineNo(entity.getMachineNo())
+			.orElseThrow();
+
+		favoriteMachineRepository.delete(favoriteMachine);
+
+		return new LikeResponse(favoriteMachine);
 	}
 }
