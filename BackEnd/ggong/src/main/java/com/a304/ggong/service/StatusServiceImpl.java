@@ -22,8 +22,8 @@ public class StatusServiceImpl implements StatusService{
     //당일 수거함 사용자 수 조회
     @Override
     public Long selectUserCnt(TodayUserResponse response) {
-
-        return null;
+        Long todayUser = userRepository.countUserByUserNo(response.getTodayUserCount());
+        return todayUser;
     }
 
     //사용자 통계 데이터 조회
