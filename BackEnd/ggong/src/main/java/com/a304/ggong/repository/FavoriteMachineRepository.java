@@ -10,5 +10,7 @@ import com.a304.ggong.entity.FavoriteMachine;
 @Repository
 public interface FavoriteMachineRepository extends JpaRepository<FavoriteMachine, Long> {
 
-	Optional<FavoriteMachine> findByEmail(String email);
+	Optional<FavoriteMachine> findByMachineNo(Long machineNo);
+
+	Optional<FavoriteMachine> findByUserNo(Long userNo);
 }
