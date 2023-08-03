@@ -119,18 +119,39 @@
     }
   ],
 
-  "gender": {
-    "male": 304,
-    "female": 201
-  },
+  "gender": [
+    {
+      "label": "남성",
+      "value": 304
+    },
+    {
+      "label": "여성",
+      "value": 201
+    }
+  ],
 
-  "ages": {
-    "twenty": 78,
-    "thirty": 51,
-    "fourty": 20,
-    "fifty": 15,
-    "etc": 21
-  },
+  "ages": [
+    {
+      "label": "20대",
+      "value": 78
+    },
+    {
+      "label": "30대",
+      "value": 51
+    },
+    {
+      "label": "40대",
+      "value": 20
+    },
+    {
+      "label": "50대",
+      "value": 15
+    },
+    {
+      "label": "기타",
+      "value": 21
+    }
+  ],
 
   "totalData": {
     "totalUser": 2701,
