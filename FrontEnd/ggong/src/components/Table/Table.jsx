@@ -22,8 +22,8 @@ const Table = ({ data = TableData }) => {
         </thead>
         <tbody>
           {data.map(datum => {
-            const { machineNum, machineName, userNum } = datum;
-            return <TableItem machineNum={machineNum} machineName={machineName} userNum={userNum} />;
+            const { machineNum, machineName, userCnt } = datum;
+            return <TableItem machineNum={machineNum} machineName={machineName} userCnt={userCnt} />;
           })}
         </tbody>
       </table>
