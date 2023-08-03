@@ -1,8 +1,8 @@
 {
   "/api/*": "/$1",
-  "/users/:userNo": "/users?userNo=:userNo",
   "/users/smoke": "/user-smoke",
   "/users/like": "/user-like",
+  "/users/:userNo": "/users?userNo=:userNo",
   "/machines/like": "/machine-like",
   "/items/buy": "/boughtItems",
   "/points": "/points",
