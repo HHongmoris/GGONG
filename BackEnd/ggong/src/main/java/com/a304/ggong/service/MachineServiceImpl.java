@@ -45,7 +45,7 @@ public class MachineServiceImpl implements MachineService {
 		return list;
 	}
 
-	// 회원 이메일에 따라 관심 기기 조회
+	// 회원 이메일에 따라 관심 기기 리스트 조회
 	@Override
 	public List<LikeResponse> getAllFavoriteMachines(String email) {
 		try {
