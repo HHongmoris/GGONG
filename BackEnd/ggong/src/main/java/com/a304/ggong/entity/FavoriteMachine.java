@@ -9,7 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -19,7 +19,6 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 public class FavoriteMachine {
 
 	@Id
@@ -29,11 +28,17 @@ public class FavoriteMachine {
 
 	// user_no
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "user_no")
+	@JoinColumn(name = "email")
 	private User user;
 
 	// machine_no
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "machine_no")
 	private Machine machine;
+
+	@Builder
+	public FavoriteMachine(User user, Machine machine) {
+		this.user = user;
+		this.machine = machine;
+	}
 }
