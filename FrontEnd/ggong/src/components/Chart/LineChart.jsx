@@ -10,6 +10,7 @@ import {
   Legend,
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
+import { Subtitle } from '../Heading';
 
 //  chart.js에서 필요한 스케일(scale)과 요소(element)들을 등록
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
@@ -17,10 +18,10 @@ const options = {
   responsive: true,
   plugins: {
     legend: false,
-    title: {
-      display: true,
-      text: '예상 혼잡도',
-    },
+    // title: {
+    //   display: true,
+    //   text: '예상 혼잡도',
+    // },
   },
 };
 
@@ -38,9 +39,10 @@ const data = {
   ],
 };
 
-const LineChart = () => {
+const LineChart = ({ title }) => {
   return (
     <div className="contentWrap">
+      <Subtitle content="예상 혼잡도" />
       <div className="contentInner">
         <Line options={options} data={data} />
       </div>
