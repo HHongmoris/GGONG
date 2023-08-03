@@ -1,0 +1,14 @@
+{
+  "/api/*": "/$1",
+  "/users/smoke": "/user-smoke",
+  "/users/like": "/user-like",
+  "/users/:userNo": "/users?userNo=:userNo",
+  "/machines/like": "/machine-like",
+  "/items/buy": "/boughtItems",
+  "/points": "/points",
+  "/stat/today": "/todayData",
+  "/stat/user": "/totalData",
+  "/stat/age": "/ages",
+  "/stat/gender": "/gender",
+  "/stat/machine": "/machineCnts"
+}

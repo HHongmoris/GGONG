@@ -3,6 +3,11 @@ import React from 'react';
 import { Text } from '../../global/colors';
 import { Title } from '../Heading';
 import PointListItem from './PointListItem';
+import IconButton from '../Button/IconButton';
+
+import icons from '../../global/icons';
+
+// 할 일 : 서치 아이콘 크기 조절
 
 /**
  *
@@ -11,8 +16,8 @@ import PointListItem from './PointListItem';
  */
 const PointList = ({ data = [] }) => {
   return (
-    <div>
-      <Title content="포인트 내역" />
+    <div className="mt-12">
+      <Title content="포인트 내역" spacing={true} />
       <div className="divider"></div>
       <span>기간 설정</span>
       {/* 내역을 보고 싶은 기간의 시작일 */}
@@ -25,12 +30,15 @@ const PointList = ({ data = [] }) => {
         <div>
           <input type="date" className={`${Text.GRAY}`} />
         </div>
+        <div>
+          <IconButton icon={icons.SEARCH} size={true} />
+        </div>
       </div>
       <div className="divider"></div>
       {/* 각 내역을 PointListItem 형식으로 변환해서 표시 */}
       {data.map((datum, idx) => {
-        const { datetime, detail, variant, balance } = datum;
-        return <PointListItem key={idx} datetime={datetime} detail={detail} variant={variant} balance={balance} />;
+        const { eventTime, detail, variant, balance } = datum;
+        return <PointListItem key={idx} datetime={eventTime} detail={detail} variant={variant} balance={balance} />;
       })}
     </div>
   );
