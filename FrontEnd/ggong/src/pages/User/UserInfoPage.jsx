@@ -10,9 +10,9 @@ import Button from '../../components/Button/Button';
 
 // 회원 정보 페이지
 const UserInfoPage = () => {
-  let { userRating, nickname, points, email, gender, ageRange, favoriteCigarette } = useSelector(state => state.user);
+  const { userRating, nickname, points, email, gender, ageRange, favoriteCigarette } = useSelector(state => state.user);
 
-  let dispatch = useDispatch();
+  // let dispatch = useDispatch();
 
   return (
     <div>
