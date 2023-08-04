@@ -10,8 +10,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class GenderStatResponse {
-    private Long male;
-    private Long female;
+    private String male;
+    private String female;
     
     //성별에 따른 사용자 수 카운트 해야함
 }
