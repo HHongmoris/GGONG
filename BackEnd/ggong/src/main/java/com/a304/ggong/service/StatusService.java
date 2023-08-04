@@ -9,6 +9,9 @@ public interface StatusService {
     //당일 수거함 사용자 수 조회
     Long selectUserCnt(TodayUserResponse response);
 
+    //전체 회원수 조회
+    Long selectOurUserCnt(AllUserResponse response);
+
     //사용자 통계 데이터 조회
     Long selectLastUserCnt(AllUserResponse response);
 
