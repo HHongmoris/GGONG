@@ -1,5 +1,6 @@
 import { configureStore, createSlice } from '@reduxjs/toolkit';
 
+// 로그인한 유저의 정보를 저장하고 있는 객체입니다.
 let user = createSlice({
   name: 'user',
   initialState: {
@@ -13,6 +14,7 @@ let user = createSlice({
     QR: '',
     points: 0,
   },
+  // login과 changeCigar를 통해 user 객체의 데이터를 변경할 수 있습니다.
   reducers: {
     login(state, action) {
       state.userNo = action.payload.userNo;
