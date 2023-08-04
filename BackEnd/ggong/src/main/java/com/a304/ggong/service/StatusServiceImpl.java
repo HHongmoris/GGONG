@@ -5,11 +5,14 @@ import com.a304.ggong.dto.response.GenderStatResponse;
 import com.a304.ggong.dto.response.MachineStatResponse;
 import com.a304.ggong.dto.response.TodayUserResponse;
 import com.a304.ggong.entity.User;
+import com.a304.ggong.entity.Vote;
 import com.a304.ggong.repository.MachineRepository;
 import com.a304.ggong.repository.UserRepository;
 import com.a304.ggong.repository.VoteRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
 
 @Service
 @RequiredArgsConstructor
@@ -29,6 +32,11 @@ public class StatusServiceImpl implements StatusService{
     //사용자 통계 데이터 조회
     @Override
     public Long selectLastUserCnt(AllUserResponse response) {
+        //현재 시간 입력
+        LocalDate today = LocalDate.now();
+        //하루 기간 설정
+        LocalDate end = today.plusDays(1);
+//        Vote vote = voteRepository.countByVoteDate(today, end);
         return null;
     }
 
