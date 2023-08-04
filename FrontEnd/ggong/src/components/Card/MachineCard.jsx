@@ -16,11 +16,11 @@ const MachineCard = ({ machine = {} }) => {
   const likeFunction = toggle => {
     if (toggle) {
       // console.log(`1: ${toggle}`);
-      // useApi('/machines/delete', 'DELETE').then();
+      useApi('/machines', 'DELETE').then();
       console.log('DELETE 성공');
     } else {
       // console.log(`2: ${toggle}`);
-      // useApi('/machines/regist', 'POST').then();
+      useApi('/machines', 'POST').then();
       console.log('POST 성공');
     }
   };
