@@ -13,6 +13,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.Optional;
+import java.util.OptionalLong;
 
 @Service
 @RequiredArgsConstructor
@@ -48,13 +50,17 @@ public class StatusServiceImpl implements StatusService{
 
     //연령대별 통계 데이터 조회
     @Override
-    public Long selectUserByAgeCnt(GenderStatResponse response) {
+    public String[][] selectUserByAgeCnt(GenderStatResponse response) {
+        String[][] userGender = new String[2][2];
+        userGender[0][0] = "남성";
+        userGender[0][1] = userRepository.countUserByGender(response.getMale());
         return null;
     }
 
     //성별 통계 데이터 조회
     @Override
     public Long selectUserByGenderCnt(GenderStatResponse response) {
+        Long userGender = userRepository.countUserByGender();
         return null;
     }
 

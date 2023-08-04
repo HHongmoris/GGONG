@@ -5,6 +5,9 @@ import com.a304.ggong.dto.response.GenderStatResponse;
 import com.a304.ggong.dto.response.MachineStatResponse;
 import com.a304.ggong.dto.response.TodayUserResponse;
 
+import java.util.Optional;
+import java.util.OptionalLong;
+
 public interface StatusService {
     //당일 수거함 사용자 수 조회
     Long selectUserCnt(TodayUserResponse response);
@@ -16,7 +19,7 @@ public interface StatusService {
     Long selectLastUserCnt(AllUserResponse response);
 
     //연령대별 통계 데이터 조회
-    Long selectUserByAgeCnt(GenderStatResponse response);
+    String[][] selectUserByAgeCnt(GenderStatResponse response);
 
     //성별 통계 데이터 조회
     Long selectUserByGenderCnt(GenderStatResponse response);
