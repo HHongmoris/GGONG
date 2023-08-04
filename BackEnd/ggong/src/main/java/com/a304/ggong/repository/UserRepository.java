@@ -19,7 +19,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 	Optional<User> findByAgeRange(String ageRange);
 
 	//총 회원수
-	Long countUserByUserNo(Long userNo);
+	Long countBy();
 
 	//연령별 통계
 	Long countUserByAgeRange(String ageRange);
