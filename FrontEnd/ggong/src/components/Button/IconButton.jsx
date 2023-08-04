@@ -12,6 +12,7 @@ import React, { useState } from 'react';
 const IconButton = ({
   icon,
   onClick = () => {
+    // onClick을 다르게 주면 되겠다!
     console.log('버튼 클릭함');
   },
   toggle = false,
