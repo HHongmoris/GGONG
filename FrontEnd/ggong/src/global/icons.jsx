@@ -22,7 +22,7 @@ export default {
   HEART: <LiaHeart size={24} color="#ef4444" />, // 비워진 하트 아이콘
   HEART_FILL: <LiaHeartSolid size={24} color="#ef4444" />, // 채워진 하트 아이콘
   QR: <LiaQrcodeSolid size={40} />, // QR 아이콘
-  PEN: <LiaPenSolid />, // 수정 아이콘
+  PEN: <LiaPenSolid size={20} />, // 수정 아이콘
   SEARCH: <LiaSearchSolid />, // 검색 아이콘
 
   MENU: <LiaBarsSolid />, // 메뉴바 아이콘
