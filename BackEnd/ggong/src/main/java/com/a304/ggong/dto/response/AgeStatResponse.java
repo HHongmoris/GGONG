@@ -1,15 +1,13 @@
 package com.a304.ggong.dto.response;
 
 import com.a304.ggong.entity.User;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class AgeStatResponse {
     private String ageRange;
     private Long ageRangeCnt;

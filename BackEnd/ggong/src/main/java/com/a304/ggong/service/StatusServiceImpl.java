@@ -1,9 +1,6 @@
 package com.a304.ggong.service;
 
-import com.a304.ggong.dto.response.AllUserResponse;
-import com.a304.ggong.dto.response.GenderStatResponse;
-import com.a304.ggong.dto.response.MachineStatResponse;
-import com.a304.ggong.dto.response.TodayUserResponse;
+import com.a304.ggong.dto.response.*;
 import com.a304.ggong.entity.User;
 import com.a304.ggong.entity.Vote;
 import com.a304.ggong.repository.MachineRepository;
@@ -13,8 +10,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.Optional;
-import java.util.OptionalLong;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -50,17 +47,26 @@ public class StatusServiceImpl implements StatusService{
 
     //연령대별 통계 데이터 조회
     @Override
-    public String[][] selectUserByAgeCnt(GenderStatResponse response) {
-        String[][] userGender = new String[2][2];
-        userGender[0][0] = "남성";
-        userGender[0][1] = userRepository.countUserByGender(response.getMale());
-        return null;
+    public List<AgeStatResponse> selectUserByAgeCnt() {
+        List<AgeStatResponse> ageStats = new ArrayList<>();
+        List<String> ageRanges = Arrays.asList("20대", "30대", "40대", "50대", "60대 이상"); // 원하는 연령대를 추가
+
+        for (String ageRange : ageRanges) {
+            Long ageRangeCnt = userRepository.countUserByAgeRange(ageRange);
+
+            if (ageRangeCnt != null) {
+                AgeStatResponse ageStatResponse = new AgeStatResponse(ageRange, ageRangeCnt);
+                ageStats.add(ageStatResponse);
+            }
+        }
+        return ageStats;
     }
+
 
     //성별 통계 데이터 조회
     @Override
-    public Long selectUserByGenderCnt(GenderStatResponse response) {
-        Long userGender = userRepository.countUserByGender();
+    public Optional<GenderStatResponse> selectUserByGenderCnt(String gender) {
+//        Long userGender = userRepository.countUserByGender();
         return null;
     }
 

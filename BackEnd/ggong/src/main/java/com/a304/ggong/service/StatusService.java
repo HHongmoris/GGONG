@@ -1,10 +1,8 @@
 package com.a304.ggong.service;
 
-import com.a304.ggong.dto.response.AllUserResponse;
-import com.a304.ggong.dto.response.GenderStatResponse;
-import com.a304.ggong.dto.response.MachineStatResponse;
-import com.a304.ggong.dto.response.TodayUserResponse;
+import com.a304.ggong.dto.response.*;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.OptionalLong;
 
@@ -19,10 +17,10 @@ public interface StatusService {
     Long selectLastUserCnt(AllUserResponse response);
 
     //연령대별 통계 데이터 조회
-    String[][] selectUserByAgeCnt(GenderStatResponse response);
+    List<AgeStatResponse> selectUserByAgeCnt();
 
     //성별 통계 데이터 조회
-    Long selectUserByGenderCnt(GenderStatResponse response);
+    Optional<GenderStatResponse> selectUserByGenderCnt(String gender);
 
     //기기별 통계 조회
     Long selectUserByMachine(MachineStatResponse response);
