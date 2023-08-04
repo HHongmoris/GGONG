@@ -11,22 +11,23 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class AllAnswerResponse {
+public class AnswerDetailResponse {
 
-	private Long questionID;
+	// 분류별 이름
 	private String content;
 	private String optionA;
 	private String optionB;
-	// Service에서 넣어주기
-	// 투표 수
+
+	// service
+	private String dataLabel; // 지역명 or 대학명 or 기업명 or 연령
+	// repo에 쿼리 박아놓고...
+	// service에서 처리 후에 넣어주기
 	private Long answerA;
 	private Long answerB;
-	// 비율
 	private double rateA;
 	private double rateB;
 
-	public AllAnswerResponse(Question entity) {
-		this.questionID = entity.getQuestionID();
+	public AnswerDetailResponse(Question entity) {
 		this.content = entity.getContent();
 		this.optionA = entity.getOptionA();
 		this.optionB = entity.getOptionB();
