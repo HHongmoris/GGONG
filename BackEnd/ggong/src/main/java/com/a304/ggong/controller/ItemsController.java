@@ -40,6 +40,7 @@ public class ItemsController {
 
     //상품구매(GET)
     //이거 대대적으로 손볼 필요가 있음
+    //BuyResponse에서 item 정보까지 같이 넘겨야 pathvariable 설정 가능할듯
     @GetMapping("/{items}")
     public ResponseEntity<Boolean> bought(BuyResponse response){
         Boolean boughtItem = itemsService.buyItem(response);
