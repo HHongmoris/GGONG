@@ -20,7 +20,7 @@ public interface StatusService {
     List<AgeStatResponse> selectUserByAgeCnt();
 
     //성별 통계 데이터 조회
-    Optional<GenderStatResponse> selectUserByGenderCnt(String gender);
+    List<GenderStatResponse> selectUserByGenderCnt();
 
     //기기별 통계 조회
     Long selectUserByMachine(MachineStatResponse response);

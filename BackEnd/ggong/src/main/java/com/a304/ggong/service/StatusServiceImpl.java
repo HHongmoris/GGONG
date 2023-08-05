@@ -65,9 +65,19 @@ public class StatusServiceImpl implements StatusService{
 
     //성별 통계 데이터 조회
     @Override
-    public Optional<GenderStatResponse> selectUserByGenderCnt(String gender) {
-//        Long userGender = userRepository.countUserByGender();
-        return null;
+    public List<GenderStatResponse> selectUserByGenderCnt() {
+        List<GenderStatResponse> genderStats = new ArrayList<>();
+        List<String> genders = Arrays.asList("남성", "여성");
+
+        for(String gender : genders){
+            Long genderCnt = userRepository.countUserByGender(gender);
+
+            if(genderCnt != null){
+                GenderStatResponse genderStatResponse = new GenderStatResponse(gender, genderCnt);
+                genderStats.add(genderStatResponse);
+            }
+        }
+        return genderStats;
     }
 
     //기기별 통계 조회
