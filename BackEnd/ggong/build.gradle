@@ -35,6 +35,8 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
 	implementation 'com.google.code.gson:gson:2.9.0'
+	implementation 'com.auth0:java-jwt:4.2.1'
+
 }
 
 tasks.named('test') {
