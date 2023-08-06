@@ -69,9 +69,12 @@ public class StatusServiceImpl implements StatusService{
     //연령대별 통계 데이터 조회
     @Override
     public List<AgeStatResponse> selectUserByAgeCnt() {
+        //AgeStatResponse 리스트 만들기
         List<AgeStatResponse> ageStats = new ArrayList<>();
+        //리스트에 연령대 입력
         List<String> ageRanges = Arrays.asList("20대", "30대", "40대", "50대", "60대 이상"); // 원하는 연령대를 추가
 
+        //연령대별 사용자 수 입력
         for (String ageRange : ageRanges) {
             Long ageRangeCnt = userRepository.countUserByAgeRange(ageRange);
 
@@ -87,9 +90,12 @@ public class StatusServiceImpl implements StatusService{
     //성별 통계 데이터 조회
     @Override
     public List<GenderStatResponse> selectUserByGenderCnt() {
+        //GenderStatResponse 리스트 만들기
         List<GenderStatResponse> genderStats = new ArrayList<>();
+        //리스트에 성별 값 입력
         List<String> genders = Arrays.asList("남성", "여성");
-
+        
+        //성별에 따른 사용자 수 입력
         for(String gender : genders){
             Long genderCnt = userRepository.countUserByGender(gender);
 
