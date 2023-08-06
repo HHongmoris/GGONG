@@ -2,6 +2,7 @@ package com.a304.ggong.repository;
 
 import java.util.Optional;
 
+import com.a304.ggong.entity.SocialType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -27,5 +28,9 @@ public interface UserRepository extends JpaRepository<User, Long> {
 	//성별 통계
 	Long countUserByGender(String gender);
 
+
+	Optional<User> findByRefreshToken(String refreshToken);
+
+	Optional<User> findBySocialTypeAndSocialId(SocialType socialType, String socialId);
 
 }
