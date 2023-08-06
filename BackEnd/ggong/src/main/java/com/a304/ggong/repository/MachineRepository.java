@@ -16,8 +16,5 @@ public interface MachineRepository extends JpaRepository<Machine, Long> {
 
 	Optional<Machine> findByName(String name);
 
-	// areaGu로 machine name 찾아서
-	// dataLabel은 service에서 추출해서 dto에 넣어주기
-	@Query("SELECT m.name FROM Machine m WHERE m.areaGu")
-	List<String> findByAreaGu();
+	List<String> findNameBy();
 }
