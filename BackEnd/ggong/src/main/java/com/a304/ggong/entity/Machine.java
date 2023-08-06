@@ -1,15 +1,11 @@
 package com.a304.ggong.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "machine")
@@ -38,4 +34,8 @@ public class Machine {
 
 	@Column(name = "area_gu")
 	private String areaGu;
+
+	@OneToMany(mappedBy = "machine")
+	@Builder.Default
+	private List<Vote> votes = new ArrayList<>();
 }
