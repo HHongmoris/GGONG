@@ -47,7 +47,7 @@ public class ItemsController {
     @GetMapping("/{items}")
     public ResponseEntity<BuyResponse> bought(BuyRequest request){
         BuyResponse boughtItem = itemsService.buyItem(request);
-        return ResponseEntity.sta   tus(HttpStatus.OK).body(boughtItem);
+        return ResponseEntity.status(HttpStatus.OK).body(boughtItem);
     }
 
     //구매내역 조회(GET)
