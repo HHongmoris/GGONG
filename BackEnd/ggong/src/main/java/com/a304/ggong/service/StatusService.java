@@ -11,7 +11,7 @@ public interface StatusService {
     TodayUserResponse selectUserCnt();
 
     //사용자 통계 데이터 조회
-    AllUserResponse selectLastUserCnt();
+    AllUserResponse selectAllUserCnt();
 
     //연령대별 통계 데이터 조회
     List<AgeStatResponse> selectUserByAgeCnt();

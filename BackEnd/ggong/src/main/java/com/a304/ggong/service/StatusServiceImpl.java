@@ -48,7 +48,7 @@ public class StatusServiceImpl implements StatusService{
     //사용자 통계 데이터 조회
     //여기에 총 회원수, 지난달 사용자 수 들어감
     @Override
-    public AllUserResponse selectLastUserCnt() {
+    public AllUserResponse selectAllUserCnt() {
         //현재 시간 입력
         LocalDateTime now = LocalDateTime.now();
         // 지난달의 시작일
