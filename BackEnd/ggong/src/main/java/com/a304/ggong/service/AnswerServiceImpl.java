@@ -61,7 +61,7 @@ public class AnswerServiceImpl implements AnswerService{
     // 질문 상세 페이지
     // 대학
     @Override
-    public List<AnswerDetailResponse>[] getDetailAnswer(int questionGroup, String machineLocation) {
+    public List<AnswerDetailResponse>[] selectDetailAnswer(int questionGroup, String machineLocation) {
         // findAllWithMachineAndQuestionFetchJoin 사용
         // for문도 돌리고... if문도 돌리고...
         // 먼저 Vote들을 리스트로 받아오기
@@ -225,7 +225,7 @@ public class AnswerServiceImpl implements AnswerService{
 
     // 공통 질문 응답 데이터 조회
     @Override
-    public List<AllAnswerResponse> getAnswersGroupByCommon(int questionGroup) {
+    public List<AllAnswerResponse> selectAnswersGroupByCommon(int questionGroup) {
         // countByAnswer 사용해서 AllAnswerResponse에 넣어주기
         // findByQuestionGroupAndType 사용
 
@@ -247,7 +247,7 @@ public class AnswerServiceImpl implements AnswerService{
 
     // 대학 질문 응답 데이터 조회
     @Override
-    public List<AllAnswerResponse> getAnswersGroupByUnis(int questionGroup) {
+    public List<AllAnswerResponse> selectAnswersGroupByUnis(int questionGroup) {
         // countByAnswer 사용해서 AllAnswerResponse에 넣어주기
         // findByQuestionGroupAndType 사용
 
@@ -269,7 +269,7 @@ public class AnswerServiceImpl implements AnswerService{
 
     // 기업 질문 응답 데이터 조회
     @Override
-    public List<AllAnswerResponse> getAnswersGroupByCompanies(int questionGroup) {
+    public List<AllAnswerResponse> selectAnswersGroupByCompanies(int questionGroup) {
         // countByAnswer 사용해서 AllAnswerResponse에 넣어주기
         // findByQuestionGroupAndType 사용
 
