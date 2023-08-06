@@ -1,7 +1,6 @@
 package com.a304.ggong.controller;
 
-import com.a304.ggong.dto.response.AgeStatResponse;
-import com.a304.ggong.dto.response.GenderStatResponse;
+import com.a304.ggong.dto.response.*;
 import com.a304.ggong.service.StatusService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -19,11 +18,19 @@ public class StatusController {
     private final StatusService statusService;
 
     //당일 수거함 사용자 조회
-    public ResponseEntity<Long> todayUser(){
-        return null;
+    @GetMapping("/today")
+    public ResponseEntity<TodayUserResponse> todayUser(){
+        TodayUserResponse todayUserResponse = statusService.selectUserCnt();
+        return ResponseEntity.status(HttpStatus.OK).body(todayUserResponse);
     }
 
     //사용자 통계 데이터 조회
+    @GetMapping("/user")
+    public ResponseEntity<AllUserResponse> allUser(){
+        AllUserResponse allUserResponse = statusService.selectAllUserCnt();
+        return ResponseEntity.status(HttpStatus.OK).body(allUserResponse);
+    }
+
 
     //연령대별 통계 데이터 조회
     @GetMapping("/age")
@@ -40,4 +47,9 @@ public class StatusController {
     }
 
     //기기별 통계 데이터 조회
+    @GetMapping("/machine")
+    public ResponseEntity<List<MachineStatResponse>> machineStatus(){
+        List<MachineStatResponse> machineStat = statusService.selectUserByMachine();
+        return ResponseEntity.status(HttpStatus.OK).body(machineStat);
+    }
 }
