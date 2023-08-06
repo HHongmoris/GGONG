@@ -9,7 +9,10 @@ import com.a304.ggong.repository.VoteRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.temporal.TemporalAdjusters;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -82,7 +85,24 @@ public class StatusServiceImpl implements StatusService{
 
     //기기별 통계 조회
     @Override
-    public Long selectUserByMachine(MachineStatResponse response) {
-        return null;
+    public List<MachineStatResponse> selectUserByMachine() {
+        List<MachineStatResponse> machineUserStats = new ArrayList<>();
+        //기기명 전부 불러오기
+        List<String> machines = machineRepository.findNameBy();
+        //현재 날짜 설정
+        LocalDateTime now = LocalDateTime.now();
+        //지난주 날짜 설정
+        LocalDateTime startOfLastWeek = now.with(TemporalAdjusters.previous(DayOfWeek.SUNDAY)).minusDays(6);
+        LocalDateTime endOfLastWeek = now.with(TemporalAdjusters.previous(DayOfWeek.SUNDAY));
+        //기기명에 따른 사용자 수 입력
+        for(String machine : machines){
+            //기기별 지난 사용자 수 계산
+            Long machineUserCnt = voteRepository.countByMachine(machine, startOfLastWeek, endOfLastWeek);
+            //response에 기기명, 사용자 수 담기
+            MachineStatResponse machineStatResponse = new MachineStatResponse(machine, machineUserCnt);
+            machineUserStats.add(machineStatResponse);
+            
+        }
+        return machineUserStats;
     }
 }

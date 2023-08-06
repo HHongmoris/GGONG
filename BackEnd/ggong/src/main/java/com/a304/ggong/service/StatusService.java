@@ -23,5 +23,5 @@ public interface StatusService {
     List<GenderStatResponse> selectUserByGenderCnt();
 
     //기기별 통계 조회
-    Long selectUserByMachine(MachineStatResponse response);
+    List<MachineStatResponse> selectUserByMachine();
 }
