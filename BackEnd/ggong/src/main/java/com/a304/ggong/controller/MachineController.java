@@ -8,6 +8,7 @@ import com.a304.ggong.dto.response.LikeResponse;
 import com.a304.ggong.dto.response.MachineDetailResponse;
 import com.a304.ggong.service.MachineService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -20,6 +21,8 @@ import java.util.List;
 @RequestMapping("/api/machines")
 
 public class MachineController {
+
+    @Autowired
     private final MachineService machineService;
 
     // 모든 기기 조회
