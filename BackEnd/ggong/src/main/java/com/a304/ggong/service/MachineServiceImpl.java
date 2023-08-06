@@ -39,7 +39,7 @@ public class MachineServiceImpl implements MachineService {
 
 	// 모든 기기 조회
 	@Override
-	public List<AllMachinesResponse> getAllMachines() {
+	public List<AllMachinesResponse> selectAllMachines() {
 		List<AllMachinesResponse> list = machineRepository.findAll().stream().map(AllMachinesResponse::new).collect(
 			Collectors.toList());
 		return list;
@@ -47,7 +47,7 @@ public class MachineServiceImpl implements MachineService {
 
 	// 회원 이메일에 따라 관심 기기 리스트 조회
 	@Override
-	public List<LikeResponse> getAllFavoriteMachines(String email) {
+	public List<LikeResponse> selectAllFavoriteMachines(String email) {
 		try {
 			// 먼저, Email을 이용해 유저 객체 가져와야함.
 			User user = userRepository.findByEmail(email).orElseThrow();
@@ -66,7 +66,7 @@ public class MachineServiceImpl implements MachineService {
 
 	// 기기 상세 정보
 	@Override
-	public MachineDetailResponse getMachineDetail(Long machineId) {
+	public MachineDetailResponse selectMachineDetail(Long machineId) {
 		// MachineDetailResponse 생성자에는 machine, question 객체가 필요해
 		// question 객체를 받으려면 vote객체를 타야해
 
@@ -84,7 +84,7 @@ public class MachineServiceImpl implements MachineService {
 
 	// 관심 기기 등록
 	@Override
-	public LikeResponse addFavoriteMachine(String email, LikeRegistRequest entity) {
+	public void insertFavoriteMachine(String email, LikeRegistRequest entity) {
 		// FavoriteMachine entity에 값을 넣으려면 user, machine 객체가 필요
 		// machine
 		Machine machine = machineRepository.findById(entity.getMachineNo()).orElseThrow();
@@ -97,18 +97,16 @@ public class MachineServiceImpl implements MachineService {
 
 		favoriteMachineRepository.save(favoriteMachine);
 
-		return new LikeResponse(favoriteMachine);
 	}
 
 	// 관심 기기 삭제
 	@Override
-	public LikeResponse deleteFavoriteMachine(LikeDeleteRequest entity) {
+	public void deleteFavoriteMachine(LikeDeleteRequest entity) {
 		// FavoriteMachine 객체 받아오기
 		FavoriteMachine favoriteMachine = favoriteMachineRepository.findByMachineNo(entity.getMachineNo())
 			.orElseThrow();
 
 		favoriteMachineRepository.delete(favoriteMachine);
 
-		return new LikeResponse(favoriteMachine);
 	}
 }
