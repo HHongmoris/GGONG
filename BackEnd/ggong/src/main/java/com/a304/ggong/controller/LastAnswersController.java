@@ -1,6 +1,7 @@
 package com.a304.ggong.controller;
 
 import com.a304.ggong.dto.response.AllAnswerResponse;
+import com.a304.ggong.dto.response.AnswerDetailResponse;
 import com.a304.ggong.service.AnswerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,5 +48,37 @@ public class LastAnswersController {
     }
 
     // 질문 응답 상세페이지
+    // 대학Path
+    @GetMapping("/uni")
+    public ResponseEntity<List<AnswerDetailResponse>[]> getUniAnswersDetail(){
+        List<AnswerDetailResponse>[] result = new List[3];
+
+        for(int idx = 0; idx < 3; idx++){
+            result[idx] = new ArrayList<>();
+        }
+
+        // 숫자 바뀌는 것 구현
+        int questionGroup = 1;
+
+        result = answerService.selectDetailAnswer(questionGroup, "대학");
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    // 질문 응답 상세페이지
+    // 기업Path
+    @GetMapping("/com")
+    public ResponseEntity<List<AnswerDetailResponse>[]> getComAnswersDetail(){
+        List<AnswerDetailResponse>[] result = new List[3];
+
+        for(int idx = 0; idx < 3; idx++){
+            result[idx] = new ArrayList<>();
+        }
+
+        // 숫자 바뀌는 것 구현
+        int questionGroup = 1;
+
+        result = answerService.selectDetailAnswer(questionGroup, "기업");
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
 
 }
