@@ -8,6 +8,7 @@ import com.a304.ggong.entity.Product;
 import com.a304.ggong.service.ItemsService;
 import lombok.RequiredArgsConstructor;
 import lombok.Value;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -22,6 +23,8 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/api/items")
 public class ItemsController {
+
+    @Autowired
     private final ItemsService itemsService;
 
     //모든 상품 조회(GET)
@@ -42,9 +45,9 @@ public class ItemsController {
     //이거 대대적으로 손볼 필요가 있음
     //BuyResponse에서 item 정보까지 같이 넘겨야 pathvariable 설정 가능할듯
     @GetMapping("/{items}")
-    public ResponseEntity<Boolean> bought(BuyResponse response){
-        Boolean boughtItem = itemsService.buyItem(response);
-        return ResponseEntity.status(HttpStatus.OK).body(boughtItem);
+    public ResponseEntity<BuyResponse> bought(BuyRequest request){
+        BuyResponse boughtItem = itemsService.buyItem(request);
+        return ResponseEntity.sta   tus(HttpStatus.OK).body(boughtItem);
     }
 
     //구매내역 조회(GET)

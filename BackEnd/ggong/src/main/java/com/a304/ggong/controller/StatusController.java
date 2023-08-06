@@ -3,6 +3,7 @@ package com.a304.ggong.controller;
 import com.a304.ggong.dto.response.*;
 import com.a304.ggong.service.StatusService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -15,6 +16,8 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/api/stat")
 public class StatusController {
+
+    @Autowired
     private final StatusService statusService;
 
     //당일 수거함 사용자 조회

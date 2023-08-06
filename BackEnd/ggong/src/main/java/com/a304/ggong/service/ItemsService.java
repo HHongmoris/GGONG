@@ -14,7 +14,7 @@ public interface ItemsService {
     //상품 구매 - 원하는 상품 선택
     Long selectItemById(BuyRequest request);
     //상품 구매 - 구매
-    Boolean buyItem(BuyResponse response);
+    BuyResponse buyItem(BuyRequest request);
 
     //구매 내역 조회
     List<BuyListResponse> selectAllBuyList();
