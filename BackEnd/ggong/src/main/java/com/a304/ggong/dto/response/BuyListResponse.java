@@ -13,7 +13,7 @@ public class BuyListResponse {
     private String pin;
 
     public BuyListResponse(Buy entity){
-        this.price = entity.getProductNo().getPrice();
-        this.pin = entity.getProductNo().getPin();
+        this.price = entity.getProduct().getPrice();
+        this.pin = entity.getProduct().getPin();
     }
 }
