@@ -39,7 +39,7 @@ public class Question {
 	@Enumerated(EnumType.STRING)
 	private QuestionType type;
 
-//	@OneToMany(mappedBy = "questionId")
-//	@Builder.Default
-//	private List<Vote> votes = new ArrayList<>();
+	// @OneToMany(mappedBy = "questionId")
+	// @Builder.Default
+	// private List<Vote> votes = new ArrayList<>();
 }

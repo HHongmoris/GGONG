@@ -12,5 +12,5 @@ public interface FavoriteMachineRepository extends JpaRepository<FavoriteMachine
 
 	Optional<FavoriteMachine> findByMachineNo(Long machineNo);
 
-	Optional<FavoriteMachine> findByUserNo(Long userNo);
+	Optional<FavoriteMachine> findByEmail(String email);
 }
