@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
 import MainPage from './MainPage';
 
@@ -14,7 +15,13 @@ const MainContainer = () => {
   const [options, setOptions] = useState([]);
   const [selected, setSelected] = useState(0);
 
+  // location 객체 생성 (현재 URL 정보 가져오기)
+  const location = useLocation();
+
+  // console.log(location);
+
   // 컨테이너 렌더링 시 api 호출하여 데이터 불러오기
+  // location 객체를 통해 URL을 불러올 때마다 재렌더링
   useEffect(() => {
     useApi('/users/1', 'GET').then(res => {
       setUser(res.data[0]);
@@ -28,7 +35,7 @@ const MainContainer = () => {
     useApi('/users/like', 'GET').then(res => {
       setLikes(res.data);
     });
-  }, []);
+  }, [location]);
 
   // 관심 기기목록에 변동이 생기면 Select 태그로 선택가능한 옵션의 목록과 선택 default 값을 반환합니다.
   useEffect(() => {
