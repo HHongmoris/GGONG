@@ -17,7 +17,7 @@ public interface PointRepository extends JpaRepository<Point, Long> {
 	List<Point> findByEventTimeBetween(@Param("startDate") String startDate, @Param("endDate") String endDate);
 
 	// UserEmail에 따라 포인트 조회
-	@Query("SELECT p FROM Point p WHERE p.userNo.email = :userEmail")
+	@Query("SELECT p FROM Point p WHERE p.user.email = :userEmail")
 	List<Point> findAllByUserEmail(@Param("userEmail") String userEmail);
 
     

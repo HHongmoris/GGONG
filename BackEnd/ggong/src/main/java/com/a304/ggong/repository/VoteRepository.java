@@ -16,11 +16,11 @@ import com.a304.ggong.entity.Vote;
 public interface VoteRepository extends JpaRepository<Vote, Long> {
 
 	// return값이 Vote이므로 service에서 entity -> dto로 넘겨주는 로직 필요!
-	Optional<Vote> findByUserNo(Long userNo);
+//	Optional<Vote> findByUserNo(Long userNo);
 
-	Optional<Vote> findByMachineNo(Long machineNo);
+	Optional<Vote> findByMachine_MachineNo(Long machineNo);
 
-	Optional<Vote> findAllByQuestionId(Long questionId);
+//	Optional<Vote> findAllByQuestionId(Long questionId);
 
 	// Vote + Machine + User Fetch Join
 	@Query("SELECT v.answer, v.voteDate, m.areaGu, m.name, u.ageRange FROM Vote v LEFT JOIN Machine m ON v.machine.machineNo = m.machineNo LEFT JOIN User u ON v.user.userNo = u.userNo WHERE v.question.group = :questionGroup")

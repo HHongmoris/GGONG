@@ -52,7 +52,7 @@ public class MachineServiceImpl implements MachineService {
 			// // 먼저, Email을 이용해 유저 객체 가져와야함.
 			// User user = userRepository.findByEmail(email).orElseThrow();
 
-			List<LikeResponse> list = favoriteMachineRepository.findByEmail(email)
+			List<LikeResponse> list = favoriteMachineRepository.findByUserEmail(email)
 				.stream()
 				.map(LikeResponse::new)
 				.collect(
@@ -71,7 +71,7 @@ public class MachineServiceImpl implements MachineService {
 		Machine machine = machineRepository.findById(machineId).orElseThrow();
 
 		// 그리고 machineID로 vote를 찾아
-		Vote vote = voteRepository.findByMachineNo(machineId).orElseThrow();
+		Vote vote = voteRepository.findByMachine_MachineNo(machineId).orElseThrow();
 
 		// 찾은 vote객체로 question 객체를 찾아
 		Question question = questionRepository.findById(vote.getQuestion().getQuestionID()).orElseThrow();
@@ -100,7 +100,7 @@ public class MachineServiceImpl implements MachineService {
 	@Override
 	public void deleteFavoriteMachine(LikeDeleteRequest entity) {
 		// FavoriteMachine 객체 받아오기
-		FavoriteMachine favoriteMachine = favoriteMachineRepository.findByMachineNo(entity.getMachineNo())
+		FavoriteMachine favoriteMachine = favoriteMachineRepository.findByMachine_MachineNo(entity.getMachineNo())
 			.orElseThrow();
 
 		favoriteMachineRepository.delete(favoriteMachine);
