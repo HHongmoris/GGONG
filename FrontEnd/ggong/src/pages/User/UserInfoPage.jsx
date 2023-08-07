@@ -1,14 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { changeCigar } from '../../global/store';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import ProfileCard from '../../components/Card/ProfileCard';
 
 import { Text } from '../../global/colors';
-import IconButton from '../../components/Button/IconButton';
-import icons from '../../global/icons';
 import Button from '../../components/Button/Button';
-import Select from '../../components/Select/Select';
-import useApi from '../../hooks/useApi';
 
 // 회원 정보 페이지
 const UserInfoPage = () => {
@@ -57,7 +52,6 @@ const UserInfoPage = () => {
           <IconButton icon={icons.PEN} />
         </div> */}
         <div className="flex justify-end py-8 space-x-1">
-          <Button value="이전" />
           <Button value="회원탈퇴" />
         </div>
       </div>
