@@ -16,22 +16,22 @@ import com.a304.ggong.entity.Vote;
 public interface VoteRepository extends JpaRepository<Vote, Long> {
 
 	// return값이 Vote이므로 service에서 entity -> dto로 넘겨주는 로직 필요!
-	Optional<Vote> findByUserId(Long userId);
+	Optional<Vote> findByUserNo(Long userNo);
 
-	Optional<Vote> findByMachineId(Long machineId);
+	Optional<Vote> findByMachineNo(Long machineNo);
 
 	Optional<Vote> findAllByQuestionId(Long questionId);
 
 	// Vote + Machine + User Fetch Join
-	@Query("SELECT v.answer, v.voteDate, m.areaGu, m.name, u.ageRange FROM Vote v LEFT JOIN Machine m ON v.machine.machineNo = m.machineNo LEFT JOIN User u ON v.user.userNo = u.userNo WHERE v.question.group = :questionGroup")
+	@Query("SELECT v.answer, v.voteDate, m.areaGu, m.name, u.ageRange FROM Vote v LEFT JOIN Machine m ON v.machineNo.machineNo = m.machineNo LEFT JOIN User u ON v.userNo.userNo = u.userNo WHERE v.questionId.group = :questionGroup")
 	List<Vote> findAllWithMachineAndQuestionFetchJoin(@Param("questionGroup") int questionGroup);
 
 	// group과 type에 따라 전체 answer count하기
-	@Query("SELECT COUNT(v) FROM Vote v WHERE v.question.type = :questionType GROUP BY v.question.group HAVING v.question.group = :questionGroup")
+	@Query("SELECT COUNT(v) FROM Vote v WHERE v.questionId.type = :questionType GROUP BY v.questionId.group HAVING v.questionId.group = :questionGroup")
 	Long countByQuestionGroupAndQuestionType(@Param("questionGroup") int questionGroup, @Param("questionType") String questionType);
 
 	// group별(지난주 or 이번주) type(공통 or 특화)에 따라 A or B(answer)판단해서 count 해주기
-	@Query("SELECT COUNT(v) FROM Vote v WHERE v.question.type = :questionType AND v.answer = :answerType GROUP BY v.question.group HAVING v.question.group = :questionGroup")
+	@Query("SELECT COUNT(v) FROM Vote v WHERE v.questionId.type = :questionType AND v.answer = :answerType GROUP BY v.questionId.group HAVING v.questionId.group = :questionGroup")
 	Long countByQuestionGroupAndAnswerTypeAndQuestionType(@Param("questionGroup") int questionGroup, @Param("answerType") int answerType,
 		@Param("questionType") String questionType);
 
@@ -40,7 +40,7 @@ public interface VoteRepository extends JpaRepository<Vote, Long> {
 	Long countByVoteDate(@Param("startDate") Timestamp startDate, @Param("endDate") Timestamp endDate);
 
 	//기기별 사용자 수(지난주) 추출 메서드
-	@Query("SELECT COUNT(v.machine) FROM Vote v WHERE v.voteDate >= :startDate AND v.voteDate < :endDate AND v.machine = :machine")
+	@Query("SELECT COUNT(v.machineNo) FROM Vote v WHERE v.voteDate >= :startDate AND v.voteDate < :endDate AND v.machineNo = :machine")
 	Long countByMachine(@Param("machine") String machine, @Param("startDate") Timestamp startDate,
 		@Param("endDate") Timestamp endDate);
 }

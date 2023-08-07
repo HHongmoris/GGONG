@@ -1,6 +1,6 @@
 package com.a304.ggong.global.oauth2;
 
-import com.example.kakaologin.model.Role;
+import com.a304.ggong.entity.Role;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User;

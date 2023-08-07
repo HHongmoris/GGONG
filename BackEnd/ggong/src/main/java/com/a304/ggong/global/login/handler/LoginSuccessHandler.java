@@ -1,7 +1,7 @@
 package com.a304.ggong.global.login.handler;
 
-import com.example.kakaologin.global.jwt.service.JwtService;
-import com.example.kakaologin.repository.UserRepository;
+import com.a304.ggong.global.jwt.service.JwtService;
+import com.a304.ggong.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;

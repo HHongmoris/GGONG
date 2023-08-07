@@ -71,10 +71,10 @@ public class MachineServiceImpl implements MachineService {
 		Machine machine = machineRepository.findById(machineId).orElseThrow();
 
 		// 그리고 machineID로 vote를 찾아
-		Vote vote = voteRepository.findByMachineId(machineId).orElseThrow();
+		Vote vote = voteRepository.findByMachineNo(machineId).orElseThrow();
 
 		// 찾은 vote객체로 question 객체를 찾아
-		Question question = questionRepository.findById(vote.getQuestion().getQuestionID()).orElseThrow();
+		Question question = questionRepository.findById(vote.getQuestionId().getQuestionID()).orElseThrow();
 
 		return new MachineDetailResponse(machine, question);
 	}

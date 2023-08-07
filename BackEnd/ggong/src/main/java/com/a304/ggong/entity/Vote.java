@@ -32,17 +32,17 @@ public class Vote {
 	// user_no
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_no")
-	private User user;
+	private User userNo;
 
 	// machine_no
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "machine_no")
-	private Machine machine;
+	private Machine machineNo;
 
 	// question_ID
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "question_ID")
-	private Question question;
+	private Question questionId;
 
 	@Column(name = "vote_date")
 	private Timestamp voteDate;
