@@ -1,10 +1,10 @@
 package com.a304.ggong.global.oauth2;
 
-import com.example.kakaologin.global.oauth2.userinfo.KakaoOAuth2UserInfo;
-import com.example.kakaologin.global.oauth2.userinfo.OAuth2UserInfo;
-import com.example.kakaologin.model.Role;
-import com.example.kakaologin.model.SocialType;
-import com.example.kakaologin.model.User;
+import com.a304.ggong.entity.Role;
+import com.a304.ggong.entity.SocialType;
+import com.a304.ggong.entity.User;
+import com.a304.ggong.global.oauth2.userinfo.KakaoOAuth2UserInfo;
+import com.a304.ggong.global.oauth2.userinfo.OAuth2UserInfo;
 import lombok.Builder;
 import lombok.Getter;
 

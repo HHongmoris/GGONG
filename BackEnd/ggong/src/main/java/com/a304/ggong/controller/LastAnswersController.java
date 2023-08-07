@@ -24,7 +24,7 @@ public class LastAnswersController {
     @Autowired
     private AnswerService answerService;
 
-    QuestionGroup questionGroup;
+    QuestionGroup questionGroup = new QuestionGroup();
     int questionGroupNum = questionGroup.getLastWeekGroupNum();
 
     // 모든 질문 응답 데이터 조회

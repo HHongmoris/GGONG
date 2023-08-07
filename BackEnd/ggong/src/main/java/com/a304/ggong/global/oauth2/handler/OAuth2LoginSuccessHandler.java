@@ -1,9 +1,10 @@
 package com.a304.ggong.global.oauth2.handler;
 
-import com.example.kakaologin.global.jwt.service.JwtService;
-import com.example.kakaologin.global.oauth2.CustomOAuth2User;
-import com.example.kakaologin.model.Role;
-import com.example.kakaologin.repository.UserRepository;
+
+import com.a304.ggong.entity.Role;
+import com.a304.ggong.global.jwt.service.JwtService;
+import com.a304.ggong.global.oauth2.CustomOAuth2User;
+import com.a304.ggong.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;

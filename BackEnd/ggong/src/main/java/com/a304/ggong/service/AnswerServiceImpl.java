@@ -92,7 +92,7 @@ public class AnswerServiceImpl implements AnswerService{
             AnswerDetailResponse tmp = new AnswerDetailResponse();
 
             // 지역
-            String areaGu = tmpVote.getMachine().getAreaGu();
+            String areaGu = tmpVote.getMachineNo().getAreaGu();
             if(!areaMap.containsKey(areaGu)){
 
                 // 지역구 넣어주고
@@ -115,7 +115,7 @@ public class AnswerServiceImpl implements AnswerService{
             }
 
             // 연령
-            String age = tmpVote.getUser().getAgeRange();
+            String age = tmpVote.getUserNo().getAgeRange();
             if(!ageMap.containsKey(age)){
 
                 // 지역구 넣어주고
@@ -139,7 +139,7 @@ public class AnswerServiceImpl implements AnswerService{
 
             // 대학
             if(machineLocation.equals("대학")){
-                String uni = tmpVote.getMachine().getName();
+                String uni = tmpVote.getMachineNo().getName();
 
                 // 대학인지 기업인지 구분
                 if (!uni.contains("대학교")) {
@@ -167,7 +167,7 @@ public class AnswerServiceImpl implements AnswerService{
                     }
                 }
             }else { // 기업
-                String com = tmpVote.getMachine().getName();
+                String com = tmpVote.getMachineNo().getName();
 
                 // 대학인지 기업인지 구분
                 if (com.contains("대학교")) {
