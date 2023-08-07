@@ -36,7 +36,7 @@ public class Machine {
 	@Column(name = "area_gu")
 	private String areaGu;
 
-	@OneToMany(mappedBy = "machine")
-	@Builder.Default
-	private List<Vote> votes = new ArrayList<>();
+//	@OneToMany(mappedBy = "machineNo")
+//	@Builder.Default
+//	private List<Vote> votes = new ArrayList<>();
 }
