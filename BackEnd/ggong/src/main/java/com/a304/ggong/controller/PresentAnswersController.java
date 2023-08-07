@@ -28,7 +28,7 @@ public class PresentAnswersController {
 
 //    private SseEmitter sseEmitter;
 
-    QuestionGroup questionGroup;
+    QuestionGroup questionGroup = new QuestionGroup();
     int questionGroupNum = questionGroup.getThisWeekGroupNum();
 
 //    public void SseController(SseEmitter sseEmitters){
