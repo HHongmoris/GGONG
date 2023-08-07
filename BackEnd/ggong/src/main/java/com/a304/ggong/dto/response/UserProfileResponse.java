@@ -32,5 +32,6 @@ public class UserProfileResponse {
 		this.gender = entityU.getGender();
 		this.favoriteCigarette = entityU.getFavoriteCigarette();
 		this.QR = entityU.getQR();
+		this.points = entityP.getBalancePoint();
 	}
 }
