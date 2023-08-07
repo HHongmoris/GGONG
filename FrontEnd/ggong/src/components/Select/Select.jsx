@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { SelectItem } from './SelectItem';
+import React from 'react';
+import SelectItem from './SelectItem';
 
 // 전달받은 option 목록으로 select 컴포넌트를 만들어 반환합니다.
 const Select = ({ selected, setSelected, options = [] }) => {
