@@ -3,7 +3,7 @@ import ProfileCard from '../../components/Card/ProfileCard';
 import { Outlet } from 'react-router-dom';
 import useApi from '../../hooks/useApi';
 import { useSelector, useDispatch } from 'react-redux';
-import { login } from '../../global/store'; // import 로그인 액션
+import { changePoint } from '../../global/store'; // import 로그인 액션
 
 // 포인트 관련 페이지에 공통으로 적용되는 레이아웃
 const PointPageLayout = () => {
@@ -18,11 +18,9 @@ const PointPageLayout = () => {
         // newPoints값 받아오기
         const newPoints = res.data[0].points;
         // nickname, userRating도 받아오기
-        const nickname = res.data[0].nickname;
-        const userRating = res.data[0].userRating;
 
         // Redux 스토어의 points 값을 업데이트, 나머지는 그대로 적용
-        dispatch(login({ nickname, userRating, points: newPoints }));
+        dispatch(changePoint({ points: newPoints }));
       })
       .catch(error => {
         console.error('API 호출 오류:', error);
