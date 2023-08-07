@@ -2,6 +2,7 @@ package com.a304.ggong.controller;
 
 import com.a304.ggong.dto.response.AllAnswerResponse;
 import com.a304.ggong.dto.response.AnswerDetailResponse;
+import com.a304.ggong.global.resource.QuestionGroup;
 import com.a304.ggong.service.AnswerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,17 +24,17 @@ public class LastAnswersController {
     @Autowired
     private AnswerService answerService;
 
+    QuestionGroup questionGroup;
+    int questionGroupNum = questionGroup.getLastWeekGroupNum();
+
     // 모든 질문 응답 데이터 조회
     @GetMapping
     public ResponseEntity<List<AllAnswerResponse>[]> getAllAnswers (){
         List<AllAnswerResponse>[] result = new List[3];
 
-        // 여기는 숫자 바뀌는 것 구현해야함. (따로 메소드화 할 것!)
-        int questionGroup = 1;
-
-        List<AllAnswerResponse> commonAnswers = answerService.selectAnswersGroupByCommon(questionGroup);
-        List<AllAnswerResponse> uniAnswers = answerService.selectAnswersGroupByUnis(questionGroup);
-        List<AllAnswerResponse> comAnswers = answerService.selectAnswersGroupByCompanies(questionGroup);
+        List<AllAnswerResponse> commonAnswers = answerService.selectAnswersGroupByCommon(questionGroupNum);
+        List<AllAnswerResponse> uniAnswers = answerService.selectAnswersGroupByUnis(questionGroupNum);
+        List<AllAnswerResponse> comAnswers = answerService.selectAnswersGroupByCompanies(questionGroupNum);
 
         for(int idx = 0; idx < 3; idx++){
             result[idx] = new ArrayList<>();
@@ -57,10 +58,7 @@ public class LastAnswersController {
             result[idx] = new ArrayList<>();
         }
 
-        // 숫자 바뀌는 것 구현
-        int questionGroup = 1;
-
-        result = answerService.selectDetailAnswer(questionGroup, "대학");
+        result = answerService.selectDetailAnswer(questionGroupNum, "대학");
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
@@ -74,10 +72,7 @@ public class LastAnswersController {
             result[idx] = new ArrayList<>();
         }
 
-        // 숫자 바뀌는 것 구현
-        int questionGroup = 1;
-
-        result = answerService.selectDetailAnswer(questionGroup, "기업");
+        result = answerService.selectDetailAnswer(questionGroupNum, "기업");
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
