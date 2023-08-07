@@ -2,7 +2,6 @@ import React from 'react';
 
 import { Text } from '../../global/colors';
 import Coupon from './Coupon';
-import Button from '../Button/Button';
 import BuyModal from '../Modal/BuyModal';
 
 /**
