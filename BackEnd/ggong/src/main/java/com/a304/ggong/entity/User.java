@@ -64,8 +64,8 @@ public class User {
 		this.refreshToken = updateRefreshToken;
 	}
 
-	@OneToMany(mappedBy = "user")
-	@Builder.Default
-	private List<User> users = new ArrayList<>();
+//	@OneToMany(mappedBy = "user")
+//	@Builder.Default
+//	private List<User> users = new ArrayList<>();
 
 }

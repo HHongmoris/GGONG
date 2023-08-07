@@ -1,7 +1,7 @@
 package com.a304.ggong.global.login.service;
 
-import com.example.kakaologin.model.User;
-import com.example.kakaologin.repository.UserRepository;
+import com.a304.ggong.entity.User;
+import com.a304.ggong.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

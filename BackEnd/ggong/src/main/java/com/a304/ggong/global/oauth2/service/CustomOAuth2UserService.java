@@ -1,10 +1,10 @@
 package com.a304.ggong.global.oauth2.service;
 
-import com.example.kakaologin.global.oauth2.CustomOAuth2User;
-import com.example.kakaologin.global.oauth2.OAuthAttributes;
-import com.example.kakaologin.model.SocialType;
-import com.example.kakaologin.model.User;
-import com.example.kakaologin.repository.UserRepository;
+import com.a304.ggong.entity.SocialType;
+import com.a304.ggong.entity.User;
+import com.a304.ggong.global.oauth2.CustomOAuth2User;
+import com.a304.ggong.global.oauth2.OAuthAttributes;
+import com.a304.ggong.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

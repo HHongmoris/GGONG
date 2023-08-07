@@ -1,15 +1,15 @@
 package com.a304.ggong.global.config;
 
-import com.example.kakaologin.global.jwt.filter.JwtAuthenticationProcessingFilter;
-import com.example.kakaologin.global.jwt.service.JwtService;
-import com.example.kakaologin.global.login.filter.CustomJsonUsernamePasswordAuthenticationFilter;
-import com.example.kakaologin.global.login.handler.LoginFailureHandler;
-import com.example.kakaologin.global.login.handler.LoginSuccessHandler;
-import com.example.kakaologin.global.login.service.LoginService;
-import com.example.kakaologin.global.oauth2.handler.OAuth2LoginFailureHandler;
-import com.example.kakaologin.global.oauth2.handler.OAuth2LoginSuccessHandler;
-import com.example.kakaologin.global.oauth2.service.CustomOAuth2UserService;
-import com.example.kakaologin.repository.UserRepository;
+import com.a304.ggong.global.jwt.filter.JwtAuthenticationProcessingFilter;
+import com.a304.ggong.global.jwt.service.JwtService;
+import com.a304.ggong.global.login.filter.CustomJsonUsernamePasswordAuthenticationFilter;
+import com.a304.ggong.global.login.handler.LoginFailureHandler;
+import com.a304.ggong.global.login.handler.LoginSuccessHandler;
+import com.a304.ggong.global.login.service.LoginService;
+import com.a304.ggong.global.oauth2.handler.OAuth2LoginFailureHandler;
+import com.a304.ggong.global.oauth2.handler.OAuth2LoginSuccessHandler;
+import com.a304.ggong.global.oauth2.service.CustomOAuth2UserService;
+import com.a304.ggong.repository.UserRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
