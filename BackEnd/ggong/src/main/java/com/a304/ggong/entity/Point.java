@@ -32,15 +32,15 @@ public class Point {
     //투표 번호(vote 테이블)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "vote_no")
-    private Vote voteNo;
+    private Vote vote;
 
     //사용자 번호(user 테이블)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_no")
-    private User userNo;
+    private User user;
 
     //구매 번호(buy 테이블)
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "buy_no")
-    private Buy buyNo;
+    private Buy buy;
 }
