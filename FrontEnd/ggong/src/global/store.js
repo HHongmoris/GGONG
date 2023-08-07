@@ -14,7 +14,7 @@ let user = createSlice({
     QR: '',
     points: 0,
   },
-  // login과 changeCigar를 통해 user 객체의 데이터를 변경할 수 있습니다.
+  // login과 changeCigar, chnagePoint를 통해 user 객체의 데이터를 변경할 수 있습니다.
   reducers: {
     login(state, action) {
       state.userNo = action.payload.userNo;
@@ -30,10 +30,13 @@ let user = createSlice({
     changeCigar(state, action) {
       state.favoriteCigarette = action.payload.favoriteCigarette;
     },
+    changePoint(state, action) {
+      state.points = action.payload.points;
+    },
   },
 });
 
-export let { login, changeCigar } = user.actions;
+export let { login, changeCigar, changePoint } = user.actions;
 
 export default configureStore({
   reducer: {
