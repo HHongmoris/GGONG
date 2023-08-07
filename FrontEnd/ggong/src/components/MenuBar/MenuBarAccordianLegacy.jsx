@@ -1,5 +1,5 @@
 import React from 'react';
-import MenuBarItem from './MenuBarItem';
+import MenuBarItem from './MenuBarItemLegacy';
 
 // 아코디언이 들어간 메뉴아이템들을 만드는 컴포넌트
 // 메뉴 이름과 하위 메뉴이름, 하위메뉴에 연결된 링크, 아코디언을 열고 닫는 기능을 관리할 변수들
@@ -20,10 +20,8 @@ const MenuBarAccordian = ({
   return (
     // MenuBarItem 컴포넌트를 이용해서 하위 메뉴들 구현해줌. 토글에는 열고 닫는 것을 관리할 값들 할당
     <div className="collapse collapse-arrow bg-base-200">
-      <input type="radio" name="my-accordion-2" checked={isOpen} onChange={toggleAccordian} />
-      <div className="collapse-title text-xl font-medium" onClick={toggleAccordian}>
-        {title}
-      </div>
+      <input type="radio" name={title} checked={isOpen} onChange={toggleAccordian} />
+      <div className="collapse-title text-xl font-medium">{title}</div>
       <div className="collapse-content">
         <MenuBarItem menuName={`${accordianMenu1}`} link={link1} />
         <MenuBarItem menuName={`${accordianMenu2}`} link={link2} />
