@@ -62,7 +62,6 @@
       "name": "스타벅스 어딘가점"
     }
   ],
-
   "items": [
     {
       "itemNo": 1,
@@ -85,7 +84,6 @@
       "pin": "HIJK-1234-HIJK-1234"
     }
   ],
-
   "points": [
     {
       "eventTime": "2023-05-31(Mon) 15:35",
@@ -112,7 +110,6 @@
       "detail": "역삼 멀티캠퍼스"
     }
   ],
-
   "machineCnts": [
     {
       "machineName": "역삼 멀티캠퍼스",
@@ -123,7 +120,6 @@
       "userCnt": 304
     }
   ],
-
   "gender": [
     {
       "label": "남성",
@@ -134,7 +130,6 @@
       "value": 201
     }
   ],
-
   "ages": [
     {
       "label": "20대",
@@ -157,12 +152,10 @@
       "value": 21
     }
   ],
-
   "totalData": {
     "totalUser": 2701,
     "lastMonthUser": 1204
   },
-
   "todayData": {
     "todayUser": 304
   }
