@@ -49,10 +49,10 @@ public class MachineServiceImpl implements MachineService {
 	@Override
 	public List<LikeResponse> selectAllFavoriteMachines(String email) {
 
-			// 먼저, Email을 이용해 유저 객체 가져와야함.
-			User user = userRepository.findByEmail(email).orElseThrow();
+			// // 먼저, Email을 이용해 유저 객체 가져와야함.
+			// User user = userRepository.findByEmail(email).orElseThrow();
 
-			List<LikeResponse> list = favoriteMachineRepository.findByUserNo(user.getUserNo())
+			List<LikeResponse> list = favoriteMachineRepository.findByEmail(email)
 				.stream()
 				.map(LikeResponse::new)
 				.collect(
@@ -74,7 +74,7 @@ public class MachineServiceImpl implements MachineService {
 		Vote vote = voteRepository.findByMachineNo(machineId).orElseThrow();
 
 		// 찾은 vote객체로 question 객체를 찾아
-		Question question = questionRepository.findById(vote.getQuestionId().getQuestionID()).orElseThrow();
+		Question question = questionRepository.findById(vote.getQuestion().getQuestionID()).orElseThrow();
 
 		return new MachineDetailResponse(machine, question);
 	}

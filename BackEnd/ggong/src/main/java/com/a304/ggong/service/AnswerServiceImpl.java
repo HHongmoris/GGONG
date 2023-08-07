@@ -92,7 +92,7 @@ public class AnswerServiceImpl implements AnswerService{
             AnswerDetailResponse tmp = new AnswerDetailResponse();
 
             // 지역
-            String areaGu = tmpVote.getMachineNo().getAreaGu();
+            String areaGu = tmpVote.getMachine().getAreaGu();
             if(!areaMap.containsKey(areaGu)){
 
                 // 지역구 넣어주고
@@ -115,7 +115,7 @@ public class AnswerServiceImpl implements AnswerService{
             }
 
             // 연령
-            String age = tmpVote.getUserNo().getAgeRange();
+            String age = tmpVote.getUser().getAgeRange();
             if(!ageMap.containsKey(age)){
 
                 // 지역구 넣어주고
@@ -139,7 +139,7 @@ public class AnswerServiceImpl implements AnswerService{
 
             // 대학
             if(machineLocation.equals("대학")){
-                String uni = tmpVote.getMachineNo().getName();
+                String uni = tmpVote.getMachine().getName();
 
                 // 대학인지 기업인지 구분
                 if (!uni.contains("대학교")) {
@@ -167,7 +167,7 @@ public class AnswerServiceImpl implements AnswerService{
                     }
                 }
             }else { // 기업
-                String com = tmpVote.getMachineNo().getName();
+                String com = tmpVote.getMachine().getName();
 
                 // 대학인지 기업인지 구분
                 if (com.contains("대학교")) {
@@ -230,7 +230,7 @@ public class AnswerServiceImpl implements AnswerService{
         // findByQuestionGroupAndType 사용
 
         // 먼저, 그룹별, 타입별 질문을 몽땅 가져오자
-        questions = questionRepository.findAllByQuestionGroupAndType(questionGroup,"공통");
+        questions = questionRepository.findAllByGroupAndType(questionGroup,"공통");
 
         // 먼저 list 만들어서
         list = new ArrayList<>();
@@ -252,7 +252,7 @@ public class AnswerServiceImpl implements AnswerService{
         // findByQuestionGroupAndType 사용
 
         // 먼저, 그룹별, 타입별 질문을 몽땅 가져오자
-        questions = questionRepository.findAllByQuestionGroupAndType(questionGroup,"대학");
+        questions = questionRepository.findAllByGroupAndType(questionGroup,"대학");
 
         // 먼저 list 만들어서
         list = new ArrayList<>();
@@ -274,7 +274,7 @@ public class AnswerServiceImpl implements AnswerService{
         // findByQuestionGroupAndType 사용
 
         // 먼저, 그룹별, 타입별 질문을 몽땅 가져오자
-        questions = questionRepository.findAllByQuestionGroupAndType(questionGroup,"기업");
+        questions = questionRepository.findAllByGroupAndType(questionGroup,"기업");
 
         // 먼저 list 만들어서
         list = new ArrayList<>();
