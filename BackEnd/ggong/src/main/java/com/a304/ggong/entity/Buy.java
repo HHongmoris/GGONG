@@ -24,10 +24,10 @@ public class Buy {
     //구매한 사용자 번호(user 테이블)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_no")
-    private User userNo;
+    private User user;
 
     //구매한 상품 번호(product 테이블)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_no")
-    private Product productNo;
+    private Product product;
 }
