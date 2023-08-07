@@ -20,7 +20,7 @@ const DataCard = ({ title = '제목', data = '데이터' }) => {
         style={{ '--padding-card': '1rem' }}
       >
         {/* <Subtitle content={title} /> */}
-        <span className="text-xl">{title}</span>
+        <span className="text-xl text-center">{title}</span>
       </div>
       <div
         className={`card-body md: h-1/5 items-center ${borderColor} border rounded-b-xl`}

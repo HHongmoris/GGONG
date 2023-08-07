@@ -25,7 +25,7 @@ export default {
   PEN: <LiaPenSolid size={20} />, // 수정 아이콘
   SEARCH: <LiaSearchSolid />, // 검색 아이콘
 
-  MENU: <LiaBarsSolid />, // 메뉴바 아이콘
+  MENU: <LiaBarsSolid color="#ffffff" size={24} />, // 메뉴바 아이콘
   USER: <LiaUserSolid />, // 회원 아이콘
   MAP: <LiaMap />, // 지도 아이콘
   CIGAR: <LiaSmokingSolid />, // 담배 아이콘

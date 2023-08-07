@@ -56,7 +56,7 @@ const AnswerPage = ({ num = 0 }) => {
 
   return (
     <div>
-      <Title content="진행 중인 투표" />
+      <Title content="진행 중인 투표" spacing={true} />
       {/* category, activeTab, onClick 이벤트 */}
       <Tab category={category[num]} activeTab={activeTab} onClick={handleTabClick} />
       {activeTab === 0 && (
