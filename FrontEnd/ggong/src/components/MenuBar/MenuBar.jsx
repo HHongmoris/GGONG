@@ -1,87 +1,71 @@
-import React, { useState } from 'react';
-import MenuBarItem from './MenuBarItem';
-import MenuBarAccordian from './MenuBarAccordian';
-import { Subtitle } from '../Heading';
-
-import icons from '../../global/icons';
+import { Menu } from 'react-daisyui';
 import { Link } from 'react-router-dom';
+import { Subtitle } from '../Heading';
+import { useSelector } from 'react-redux';
+import icons from '../../global/icons';
 
-// 메뉴바를 구현한 컴포넌트 (닉네임과 이메일을 값으로 받아준다.)
-const MenuBar = ({ nickname = '닉네임', email = '이메일' }) => {
-  // 각각의 아코디언에 대한 상태와 상태 변경 함수를 useState를 통해 정의
-  const [isAccordianOpen1, setIsAccordianOpen1] = useState(false);
-  const [isAccordianOpen2, setIsAccordianOpen2] = useState(false);
-
-  // 토글 상태 변경해줄 함수
-  const toggleAccordian1 = () => {
-    setIsAccordianOpen1(prevState => !prevState);
-  };
-
-  const toggleAccordian2 = () => {
-    setIsAccordianOpen2(prevState => !prevState);
-  };
+// 햄버거 버튼을 누르면 표시되는 드로워 영역
+const MenuBar = ({ handleClick }) => {
+  const { nickname, email } = useSelector(state => state.user);
 
   return (
-    <div className="w-full bg-yellow-400 mb-8 flex justify-between items-center">
-      {/* 로고 */}
-      <Link to="/">
-        <div className="text-2xl ml-4">{icons.CIGAR}</div>
-      </Link>
-
-      <div className="drawer drawer-end z-50 w-8 mr-4">
-        <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
-        <div className="drawer-content">
-          <label htmlFor="my-drawer-4" className="drawer-button btn bg-yellow-400 border-none">
-            {/* 햄버거 모양 아이콘 */}
-            {icons.MENU}
-          </label>
-        </div>
-        <div className="drawer-side">
-          <label htmlFor="my-drawer-4" className="drawer-overlay"></label>
-          <ul className="menu p-4 w-80 h-full bg-base-200 text-base-content">
-            {/* Sidebar content here */}
-            <li className="bg-yellow-400">
-              <Subtitle content={`${nickname}님, 환영합니다.`} />
-              <Subtitle content={`${email}`} />
-            </li>
-            {/* 아이콘하고 링크만 바꿔서 사용하면 될 듯 합니다. */}
-            <li>
-              <MenuBarItem icon={<i className="icon-hamburger"></i>} menuName="마이페이지" link="/mypage" />
-            </li>
-            <li>
-              <MenuBarItem icon={<i className="icon-hamburger"></i>} menuName="꽁꽁 지도" link="/map" />
-            </li>
-            <li>
-              {/* 아이콘하고 링크만 바꿔서 사용하면 될 듯 합니다. */}
-              <MenuBarAccordian
-                title="포인트"
-                accordianMenu1="포인트샵"
-                link1="point/shop"
-                accordianMenu2="상품 보관함"
-                link2="point/inventory"
-                accordianMenu3={'포인트 내역'}
-                link3="point/history"
-                isOpen={isAccordianOpen1}
-                toggleAccordian={toggleAccordian1}
-              />
-            </li>
-            <li>
-              <MenuBarAccordian
-                title="꽁꽁 투표"
-                accordianMenu1="진행 중인 투표"
-                link1="/vote/current"
-                accordianMenu2="지난 투표"
-                link2="/vote/past"
-                isOpen={isAccordianOpen2}
-                toggleAccordian={toggleAccordian2}
-              />
-            </li>
-            <li>
-              <MenuBarItem icon={<i className="icon-hamburger"></i>} menuName="꽁꽁 통계" link="/stat" />
-            </li>
-          </ul>
-        </div>
+    <div className="w-80 h-full bg-base-200 text-base-content">
+      {/* 상단 사용자 정보 영역 */}
+      <div className="bg-yellow-400 p-5">
+        <Subtitle content={`${nickname}님, 환영합니다.`} />
+        {email}
       </div>
+      {/* 선택한 항목들을 볼 수 있는 메뉴바, 링크를 클릭하면 드로워가 자동으로 닫힘 */}
+      <Menu>
+        <div className="p-4 text-lg">
+          <Menu.Item onClick={handleClick}>
+            <Link to="/mypage">{icons.USER} 마이페이지</Link>
+          </Menu.Item>
+          <Menu.Item onClick={handleClick}>
+            <Link to="/map">{icons.MAP} 꽁꽁 지도</Link>
+          </Menu.Item>
+          <Menu.Item>
+            <Menu.Details
+              open={false}
+              label={
+                <div className="flex items-center">
+                  <span className="mr-2">{icons.POINT}</span> 포인트
+                </div>
+              }
+            >
+              <Menu.Item onClick={handleClick}>
+                <Link to="point/shop">포인트샵</Link>
+              </Menu.Item>
+              <Menu.Item onClick={handleClick}>
+                <Link to="point/inventory">상품 보관함</Link>
+              </Menu.Item>
+              <Menu.Item onClick={handleClick}>
+                <Link to="point/history">포인트 내역</Link>
+              </Menu.Item>
+            </Menu.Details>
+          </Menu.Item>
+          <Menu.Item>
+            <Menu.Details
+              open={false}
+              label={
+                <div className="flex items-center">
+                  <span className="mr-2">{icons.VOTE}</span> 꽁꽁 투표
+                </div>
+              }
+            >
+              <Menu.Item onClick={handleClick}>
+                <Link to="vote/current">진행 중인 투표</Link>
+              </Menu.Item>
+              <Menu.Item onClick={handleClick}>
+                <Link to="vote/past">지난 투표</Link>
+              </Menu.Item>
+            </Menu.Details>
+          </Menu.Item>
+          <Menu.Item onClick={handleClick}>
+            <Link to="/stat">{icons.STAT} 꽁꽁 통계</Link>
+          </Menu.Item>
+        </div>
+      </Menu>
     </div>
   );
 };

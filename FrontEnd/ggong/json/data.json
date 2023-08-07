@@ -62,25 +62,28 @@
       "name": "스타벅스 어딘가점"
     }
   ],
-  "boughtItems": [
+  "items": [
     {
+      "itemNo": 1,
       "price": 5000,
       "pin": "ABCD-1234-ABCD-1234"
     },
     {
+      "itemNo": 2,
       "price": 10000,
       "pin": "EFGH-5678-EFGH-5678"
     },
     {
+      "itemNo": 3,
       "price": 5000,
       "pin": "ABCD-5678-ABCD-5678"
     },
     {
+      "itemNo": 4,
       "price": 50000,
       "pin": "HIJK-1234-HIJK-1234"
     }
   ],
-
   "points": [
     {
       "eventTime": "2023-05-31(Mon) 15:35",
@@ -107,7 +110,6 @@
       "detail": "역삼 멀티캠퍼스"
     }
   ],
-
   "machineCnts": [
     {
       "machineName": "역삼 멀티캠퍼스",
@@ -118,7 +120,6 @@
       "userCnt": 304
     }
   ],
-
   "gender": [
     {
       "label": "남성",
@@ -129,7 +130,6 @@
       "value": 201
     }
   ],
-
   "ages": [
     {
       "label": "20대",
@@ -152,12 +152,10 @@
       "value": 21
     }
   ],
-
   "totalData": {
     "totalUser": 2701,
     "lastMonthUser": 1204
   },
-
   "todayData": {
     "todayUser": 304
   }

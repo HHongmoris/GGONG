@@ -12,6 +12,7 @@ import React, { useState } from 'react';
 const IconButton = ({
   icon,
   onClick = () => {
+    // onClick을 다르게 주면 되겠다!
     console.log('버튼 클릭함');
   },
   toggle = false,
@@ -28,7 +29,10 @@ const IconButton = ({
 
   return (
     // 토글 버튼이면서 클릭됐으면 toggleIcon을 출력, 그 외에는 icon을 출력
-    <button className={`btn btn-circle ${size && 'btn-sm'} bg-yellow-400 text-zinc-600 `} onClick={handleClick}>
+    <button
+      className={`btn btn-circle ${size && 'btn-sm'} bg-yellow-400 text-zinc-600 border-none`}
+      onClick={handleClick}
+    >
       {toggle && clicked ? toggleIcon : icon}
     </button>
   );
