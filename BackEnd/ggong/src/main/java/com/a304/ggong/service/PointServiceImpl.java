@@ -16,8 +16,11 @@ public class PointServiceImpl implements PointService{
     @Override
     public List<PointListResponse> selectPointList(String start, String end) {
         // 기간 설정
+
         // 사용 정보에 따른 machineName/price 표기
+
         // 잔여 포인트 계산
+
         return null;
     }
 }
