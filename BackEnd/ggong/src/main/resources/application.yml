@@ -43,4 +43,4 @@ spring:
         show_sql: true
 
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
