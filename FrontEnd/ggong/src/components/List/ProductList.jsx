@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { Text } from '../../global/colors';
 import { Title } from '../Heading';
 import ProductListItem from './ProductListItem';
 
