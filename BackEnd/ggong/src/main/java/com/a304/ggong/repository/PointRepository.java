@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @Repository
@@ -13,4 +14,8 @@ public interface PointRepository extends JpaRepository<Point, Long> {
     //선택 기간에 따른 포인트 내역 조회
     @Query("SELECT p FROM Point p WHERE p.eventTime >= :startDate AND p.eventTime <= :endDate")
     List<Point> findByEventTimeBetween(@Param("startDate") String startDate, @Param("endDate") String endDate);
+
+    //잔여 포인트 계산
+    @Query("SELECT SUM(p.point) FROM Point p WHERE p.eventTime <= :theDate")
+    int selectBalancePoint(@Param("theDate") Timestamp theDate);
 }
