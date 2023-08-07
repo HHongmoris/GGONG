@@ -1,6 +1,7 @@
 package com.a304.ggong.repository;
 
 import java.util.List;
+import java.sql.Timestamp;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -18,4 +19,9 @@ public interface PointRepository extends JpaRepository<Point, Long> {
 	// UserEmail에 따라 포인트 조회
 	@Query("SELECT p FROM Point p WHERE p.userNo.email = :userEmail")
 	List<Point> findAllByUserEmail(@Param("userEmail") String userEmail);
+
+    
+    //잔여 포인트 계산
+    @Query("SELECT SUM(p.point) FROM Point p WHERE p.eventTime <= :theDate")
+    int selectBalancePoint(@Param("theDate") Timestamp theDate);
 }
