@@ -2,7 +2,7 @@ import './App.css';
 import { Routes, Route } from 'react-router-dom';
 
 import React from 'react';
-import MenuBar from './components/MenuBar/MenuBar';
+import NavBar from './components/MenuBar/NavBar';
 
 import LoginPage from './pages/Login/LoginPage';
 
@@ -29,7 +29,7 @@ function App() {
         <LoginPage />
       ) : (
         <div>
-          <MenuBar />
+          <NavBar />
           <div className="mx-5">
             <Routes>
               <Route path="/" element={<MainContainer />}></Route>
