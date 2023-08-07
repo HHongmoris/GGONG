@@ -40,8 +40,9 @@ public class ItemsServiceImpl implements ItemsService{
 
     //상품 구매 - 구매
     @Override
-    public Boolean buyItem(BuyResponse response) {
-        return null;
+    public BuyResponse buyItem(BuyRequest request) {
+        BuyResponse buyResponse = new BuyResponse(true, request.getProductNo());
+        return buyResponse;
     }
 
     //구매내역 조회
