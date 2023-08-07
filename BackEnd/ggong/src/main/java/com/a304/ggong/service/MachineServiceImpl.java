@@ -48,7 +48,7 @@ public class MachineServiceImpl implements MachineService {
 	// 회원 이메일에 따라 관심 기기 리스트 조회
 	@Override
 	public List<LikeResponse> selectAllFavoriteMachines(String email) {
-		try {
+
 			// 먼저, Email을 이용해 유저 객체 가져와야함.
 			User user = userRepository.findByEmail(email).orElseThrow();
 
@@ -58,10 +58,7 @@ public class MachineServiceImpl implements MachineService {
 				.collect(
 					Collectors.toList());
 			return list; // return문을 여기에 쓰는 게 맞나..?
-		} catch (Exception e) {
-			new FavoriteMachineNotFoundException();
-		}
-		return null;
+
 	}
 
 	// 기기 상세 정보
