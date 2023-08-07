@@ -1,8 +1,8 @@
 package com.a304.ggong.global.jwt.service;
 
+import com.a304.ggong.repository.UserRepository;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
-import com.example.kakaologin.repository.UserRepository;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
