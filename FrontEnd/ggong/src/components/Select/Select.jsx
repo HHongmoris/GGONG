@@ -10,7 +10,6 @@ const Select = ({ selected, setSelected, options = [] }) => {
   return (
     <div className="component-preview p-4 gap-2">
       <select value={selected} onChange={event => setSelected(event.target.value)}>
-        <SelectItem sendValue={'default'} optionName="관심기기를 선택해주세요." canSelect={false} />
         {options.map((option, idx) => {
           const { sendValue, optionName } = option;
           return <SelectItem key={idx} sendValue={sendValue} optionName={optionName} />;
