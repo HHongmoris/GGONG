@@ -8,6 +8,7 @@ import com.a304.ggong.dto.response.SmokeCountResponse;
 import com.a304.ggong.dto.response.UserCigarResponse;
 import com.a304.ggong.global.jwt.service.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -39,6 +40,13 @@ public class UserController {
 	public String jwtTest() {
 		return "jwtTest 요청 성공";
 	}
+
+	// // 로그아웃
+	// @PostMapping("/logout")
+	// public ResponseEntity<Boolean> signOut(@RequestHeader String token){
+	//
+	// 	return new ResponseEntity<Boolean>(true,HttpStatus.OK);
+	// }
 
 	// 최근 포인트 조회는 list로 받은 포인트 객체에서 인덱스로 조정
 
