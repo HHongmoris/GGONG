@@ -44,6 +44,10 @@ public interface VoteRepository extends JpaRepository<Vote, Long> {
 	Long countByMachine(@Param("machine") String machine, @Param("startDate") Timestamp startDate,
 		@Param("endDate") Timestamp endDate);
 
+	// 지난달 데이터 삭제
+	@Query("DELETE FROM Vote v WHERE v.voteDate = :deleteDate")
+	void deleteByDate(@Param("deleteDate") Timestamp deleteDate);
+
 	// 오늘, 어제 수거함 사용자 수
 //	@Query("SELECT COUNT(v) FROM Vote v WHERE v.voteDate = :date")
 //	Long countByDate(@Param("Date") Timestamp date);
