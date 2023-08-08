@@ -3,6 +3,7 @@ package com.a304.ggong.controller;
 import com.a304.ggong.dto.response.AllAnswerResponse;
 import com.a304.ggong.dto.response.AnswerDetailResponse;
 import com.a304.ggong.global.resource.QuestionGroup;
+import com.a304.ggong.global.sseemitter.SseEmitters;
 import com.a304.ggong.service.AnswerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,12 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/api/answers/sse")
 public class PresentAnswersController {
+    private final SseEmitters sseEmitters;
+
+    @GetMapping("")
+    public String index(){
+        return "index";
+    }
 
     @Autowired
     private AnswerService answerService;
@@ -37,9 +44,9 @@ public class PresentAnswersController {
 
     // 모든 질문 응답 데이터 조회
     // 이부분 path를 다르게 줘야하나...?
-    @GetMapping(produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    @GetMapping(path = "", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public ResponseEntity<java.util.List<AllAnswerResponse>[]> getAllAnswers (){
-//        SseEmitter emitter = new SseEmitter();
+       SseEmitter emitter = new SseEmitter();
 //        sseEmitter.add(emitter);
 
         List<AllAnswerResponse>[] result = new java.util.List[3];
