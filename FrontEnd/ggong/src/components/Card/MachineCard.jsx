@@ -7,6 +7,7 @@ import IconButton from '../Button/IconButton';
 import LineChart from '../Chart/LineChart';
 import BarChart from '../Chart/BarChart';
 import useApi from '../../hooks/useApi';
+import { Background, Border } from '../../global/colors';
 
 const MachineCard = ({ selected, setSelected, machines = [], options = [] }) => {
   const [toggle, setToggle] = useState(true);
@@ -25,8 +26,11 @@ const MachineCard = ({ selected, setSelected, machines = [], options = [] }) => 
     }
   };
 
+  const borderColor = Border['MAIN'];
+  const bgColor = Background['WHITE'];
+
   return (
-    <div className="card border border-black bg-white">
+    <div className={`card border ${bgColor} ${borderColor}`}>
       <div className="card-body">
         <div className="flex justify-between">
           <Select options={options} selected={selected} setSelected={setSelected} />
@@ -42,13 +46,18 @@ const MachineCard = ({ selected, setSelected, machines = [], options = [] }) => 
         </div>
         {/* 기기의 정보를 통해 차트를 그립니다. 선택된 기기번호와 같은 기기의 카드만 화면에 보입니다. */}
         {machines.map((machine, idx) => {
-          const { machineName, machineNo, userCount } = machine;
+          const { machineName, machineNo, userCount, optionA, answerA, optionB, answerB, rateA, rateB } = machine;
+          const votes = [
+            { label: optionA, value: answerA, ratio: rateA },
+            { label: optionB, value: answerB, ratio: rateB },
+          ];
+          console.log(machine, votes);
           return (
             machineNo == selected && (
               <div key={idx}>
                 <LineChart machineName={machineName} userCount={userCount} />
                 <div className="divider"></div>
-                {/* <BarChart title="현재 진행중인 투표" /> */}
+                <BarChart title="현재 진행중인 투표" data={votes} />
               </div>
             )
           );
