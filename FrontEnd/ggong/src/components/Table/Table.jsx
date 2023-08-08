@@ -8,19 +8,23 @@ import { Background, Border, Text } from '../../global/colors';
 // tbody는 받아온 data를 map함수를 이용해서 순회해서 각 datum에 있는 기기번호, 기기이름, 사용자 수를 받아서
 // TableItem 컴포넌트에 넣어서 적용
 const Table = ({ data = TableData }) => {
+  const bgHeader = Background['MAIN'];
+  const bgContent = Background['WHITE'];
+
+  const borderColor = Border['MAIN'];
+  const textColor = Text['MAIN'];
+
   return (
     <div className="overflow-x-auto h-56">
-      <table className={`border-2 border-solid ${Border.MAIN} table table-pin-rows`}>
+      <table className={`border-2 border-solid ${borderColor} table table-pin-rows`}>
         <thead>
           <tr>
-            <th className={`border-2 border-solid ${Border.MAIN} ${Background.MAIN} ${Text.MAIN} font-bold`}></th>
-            <th className={`border-2 border-solid ${Border.MAIN} ${Background.MAIN} ${Text.MAIN} font-bold`}>기기명</th>
-            <th className={`border-2 border-solid ${Border.MAIN} ${Background.MAIN} ${Text.MAIN} font-bold`}>
-              사용자 수
-            </th>
+            <th className={`border-2 border-solid ${borderColor} ${bgHeader} ${textColor} font-bold`}></th>
+            <th className={`border-2 border-solid ${borderColor} ${bgHeader} ${textColor} font-bold`}>기기명</th>
+            <th className={`border-2 border-solid ${borderColor} ${bgHeader} ${textColor} font-bold`}>사용자 수</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody className="bg-white">
           {data.map(datum => {
             const { machineNum, machineName, userCnt } = datum;
             return <TableItem machineNum={machineNum} machineName={machineName} userCnt={userCnt} />;
