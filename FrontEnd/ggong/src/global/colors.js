@@ -3,6 +3,7 @@ const Background = {
   WHITE: 'bg-white',
   GRAY: 'bg-zinc-200',
   DARK: 'bg-zinc-300',
+  GLOBAL: 'bg-gray-50',
 };
 
 const Border = {
