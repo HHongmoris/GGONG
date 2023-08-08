@@ -4,6 +4,7 @@
   "/users/like": "/user-like",
   "/users/:userNo": "/users?userNo=:userNo",
   "/machines/like": "/machine-like",
+  "/items/buy": "/buyitems",
   "/items/:itemNo": "/items?itemNo=:itemNo",
   "/points": "/points",
   "/stat/today": "/todayData",
