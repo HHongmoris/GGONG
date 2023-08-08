@@ -70,6 +70,14 @@ public class SseEmitters {
 		this.emitters.removeAll(failedEmitters);
 	}
 
+	public void removeEmitter(SseEmitter emitter) {
+		emitters.remove(emitter);
+	}
+
+	public List<SseEmitter> getEmitters() {
+		return emitters;
+	}
+
 	@FunctionalInterface
 	private interface SseEmitterConsumer<T>{
 		void accept(T t) throws IOException;

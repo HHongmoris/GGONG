@@ -23,7 +23,6 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/api/answers/sse")
 public class PresentAnswersController {
-    private final SseEmitters sseEmitters;
 
     @GetMapping("")
     public String index(){
@@ -33,10 +32,6 @@ public class PresentAnswersController {
     @Autowired
     private AnswerService answerService;
 
-    private SseEmitter sseEmitter = new SseEmitter(Long.MAX_VALUE);
-
-    QuestionGroup questionGroup = new QuestionGroup();
-    int questionGroupNum = questionGroup.getThisWeekGroupNum();
 
 //    public void SseController(SseEmitter sseEmitters){
 //        this.sseEmitter = sseEmitters;
@@ -47,7 +42,10 @@ public class PresentAnswersController {
     @GetMapping(path = "", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public ResponseEntity<java.util.List<AllAnswerResponse>[]> getAllAnswers (){
        SseEmitter emitter = new SseEmitter();
-//        sseEmitter.add(emitter);
+
+
+        QuestionGroup questionGroup = new QuestionGroup();
+        int questionGroupNum = questionGroup.getThisWeekGroupNum();
 
         List<AllAnswerResponse>[] result = new java.util.List[3];
 
@@ -72,6 +70,9 @@ public class PresentAnswersController {
     public ResponseEntity<List<AnswerDetailResponse>[]> getUniAnswersDetail(){
         List<AnswerDetailResponse>[] result = new List[3];
 
+        QuestionGroup questionGroup = new QuestionGroup();
+        int questionGroupNum = questionGroup.getThisWeekGroupNum();
+
         for(int idx = 0; idx < 3; idx++){
             result[idx] = new ArrayList<>();
         }
@@ -85,6 +86,10 @@ public class PresentAnswersController {
     @GetMapping("/com")
     public ResponseEntity<List<AnswerDetailResponse>[]> getComAnswersDetail(){
         List<AnswerDetailResponse>[] result = new List[3];
+
+
+        QuestionGroup questionGroup = new QuestionGroup();
+        int questionGroupNum = questionGroup.getThisWeekGroupNum();
 
         for(int idx = 0; idx < 3; idx++){
             result[idx] = new ArrayList<>();
