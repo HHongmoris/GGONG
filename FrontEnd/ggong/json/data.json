@@ -20,7 +20,15 @@
     {
       "machineNo": 1,
       "machineName": "멀티캠퍼스 역삼",
-      "userCount": [20, 30, 40, 50, 20, 15, 34],
+      "userCount": [
+        20,
+        30,
+        40,
+        50,
+        20,
+        15,
+        34
+      ],
       "question": "저녁메뉴 추천",
       "optionA": "소주",
       "optionB": "맥주",
@@ -30,7 +38,15 @@
     {
       "machineNo": 2,
       "machineName": "스타벅스 어딘가점",
-      "userCount": [20, 30, 40, 20, 20, 15, 34],
+      "userCount": [
+        20,
+        30,
+        40,
+        20,
+        20,
+        15,
+        34
+      ],
       "question": "담배 추천",
       "optionA": "에쎄",
       "optionB": "멘솔",
