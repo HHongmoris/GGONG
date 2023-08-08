@@ -84,6 +84,18 @@
       "pin": "HIJK-1234-HIJK-1234"
     }
   ],
+  "buyitems": [
+    {
+      "itemNo": 1,
+      "price": 5000,
+      "pin": "ABCD-1234-ABCD-1234"
+    },
+    {
+      "itemNo": 4,
+      "price": 50000,
+      "pin": "HIJK-1234-HIJK-1234"
+    }
+  ],
   "points": [
     {
       "eventTime": "2023-05-31(Mon) 15:35",
