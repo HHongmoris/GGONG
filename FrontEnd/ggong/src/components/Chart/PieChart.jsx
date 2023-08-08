@@ -27,10 +27,11 @@ const PieChart = ({ title, data = [], showNarrowLabel = false }) => {
 
   // 파이 차트
   return (
-    <div className="w-1/3 text-center">
+    <div className="w-2/5 text-center">
       {/* 차트 제목 */}
       <Subtitle content={title} />
-      <div className={`border border-2 ${Border.MAIN} flex justify-center items-center`}>
+      {/* <div className={`border border-2 ${Border.MAIN} flex justify-center items-center`}> */}
+      <div className={'flex justify-center items-center'}>
         {/* 파이 차트 */}
         <Pie
           data={data}
@@ -52,7 +53,7 @@ const PieChart = ({ title, data = [], showNarrowLabel = false }) => {
                 style={{
                   fill: '#fff',
                   pointerEvents: 'none',
-                  fontSize: '0.5rem',
+                  fontSize: title === '연령별' ? '0.45rem' : '0.55rem',
                 }}
               >
                 {/* 데이터 라벨 제목, 차지하는 비율을 표시 */}
@@ -63,7 +64,7 @@ const PieChart = ({ title, data = [], showNarrowLabel = false }) => {
               </text>
             )
           }
-          labelPosition={55}
+          labelPosition={title === '연령별' ? 65 : 55}
           startAngle={-90}
           className="m-1"
         />
