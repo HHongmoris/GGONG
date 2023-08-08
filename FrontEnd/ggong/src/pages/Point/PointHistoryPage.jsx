@@ -82,10 +82,10 @@ import PointList from '../../components/List/PointList';
 // ];
 
 // 포인트 내역 페이지
-const PointHistoryPage = ({ data = [] }) => {
+const PointHistoryPage = ({ data = [], search }) => {
   return (
     <div>
-      <PointList data={data} />
+      <PointList data={data} search={search} />
     </div>
   );
 };
