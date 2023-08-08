@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Background } from '../../global/colors';
+import { Background, Text } from '../../global/colors';
 
 /**
  * 값들을 전달받아 버튼 컴포넌트를 반환하는 함수
@@ -13,12 +13,10 @@ import { Background } from '../../global/colors';
  */
 const Button = ({ value = '버튼', icon, handleClick = () => {}, leftIcon = false, color = 'MAIN', size }) => {
   const bgColor = Background[color];
+  const textColor = Text['MAIN'];
 
   return (
-    <button
-      className={`btn ${bgColor} text-zinc-600 ${size === 'small' && 'btn-sm'} border-none`}
-      onClick={handleClick}
-    >
+    <button className={`btn ${bgColor} ${textColor} ${size === 'small' && 'btn-sm'} border-none`} onClick={handleClick}>
       {/* icon이 있으면 type에 따라 icon을 표시한다 */}
       {icon && leftIcon && <span>{icon}</span>}
       <span>{value}</span>

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Background, Text } from '../../global/colors';
 
 /**
  * 값들을 전달받아 아이콘 버튼 컴포넌트를 반환하는 함수
@@ -27,12 +28,12 @@ const IconButton = ({
     onClick();
   };
 
+  const bgColor = Background['MAIN'];
+  const textColor = Text['MAIN'];
+
   return (
     // 토글 버튼이면서 클릭됐으면 toggleIcon을 출력, 그 외에는 icon을 출력
-    <button
-      className={`btn btn-circle ${size && 'btn-sm'} bg-yellow-400 text-zinc-600 border-none`}
-      onClick={handleClick}
-    >
+    <button className={`btn btn-circle ${size && 'btn-sm'} ${bgColor} ${textColor} border-none`} onClick={handleClick}>
       {toggle && clicked ? toggleIcon : icon}
     </button>
   );

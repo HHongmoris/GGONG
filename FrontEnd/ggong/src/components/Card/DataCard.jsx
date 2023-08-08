@@ -14,20 +14,17 @@ const DataCard = ({ title = '제목', data = '데이터' }) => {
     // DOM
     // card라는 클래스에 너비-32 bg-base-100 등의 속성 넣어줌. card-body에서 아이템들 가운데 정렬 및 배경색 노란색으로 변경
     // style에서는 padding-card 속성을 1rem으로 바꿔서 설정 (기본값이 2rem이었음)
-    <div className={'card md: w-36 shadow-xl rounded-md'}>
+    <div className={'card md: w-36 rounded-md'}>
       <div
         className={`card-body items-center md: h-1/5 ${bgTitle} border ${borderColor} rounded-t-xl`}
         style={{ '--padding-card': '1rem' }}
       >
-        {/* <Subtitle content={title} /> */}
         <span className="text-xl text-center">{title}</span>
       </div>
       <div
-        className={`card-body md: h-1/5 items-center ${borderColor} border rounded-b-xl`}
+        className={`card-body md: h-1/5 items-center ${bgContent} ${borderColor} border rounded-b-xl`}
         style={{ '--padding-card': '1rem' }}
       >
-        {/* <p>{data}</p> */}
-        {/* <p className="font-bold">{data}</p> */}
         <Subtitle content={data} />
       </div>
     </div>
