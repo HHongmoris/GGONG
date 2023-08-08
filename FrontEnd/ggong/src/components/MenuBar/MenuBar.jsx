@@ -3,21 +3,26 @@ import { Link } from 'react-router-dom';
 import { Subtitle } from '../Heading';
 import { useSelector } from 'react-redux';
 import icons from '../../global/icons';
+import { Background, Text } from '../../global/colors';
 
 // 햄버거 버튼을 누르면 표시되는 드로워 영역
 const MenuBar = ({ handleClick }) => {
   const { nickname, email } = useSelector(state => state.user);
 
+  const bgProfile = Background['MAIN'];
+  const bgColor = Background['WHITE'];
+  const textColor = Text['MAIN'];
+
   return (
-    <div className="w-80 h-full bg-base-200 text-base-content">
+    <div className={`w-72 h-full ${bgColor} ${textColor}`}>
       {/* 상단 사용자 정보 영역 */}
-      <div className="bg-yellow-400 p-5">
+      <div className={`${bgProfile} p-5`}>
         <Subtitle content={`${nickname}님, 환영합니다.`} />
         {email}
       </div>
       {/* 선택한 항목들을 볼 수 있는 메뉴바, 링크를 클릭하면 드로워가 자동으로 닫힘 */}
       <Menu>
-        <div className="p-4 text-lg">
+        <div className="py-4 text-lg">
           <Menu.Item onClick={handleClick}>
             <Link to="/mypage">{icons.USER} 마이페이지</Link>
           </Menu.Item>
