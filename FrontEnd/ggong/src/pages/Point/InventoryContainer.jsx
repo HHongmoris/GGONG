@@ -17,7 +17,7 @@ const InventoryContainer = () => {
   // 컨테이너가 렌더링되면 api를 호출해 구매내역을 불러옵니다.
   // location 객체를 통해 URL을 불러올 때마다 재렌더링
   useEffect(() => {
-    useApi('/items/buy', 'GET').then(res => {
+    useApi('/buyitems', 'GET').then(res => {
       setBougth(res.data);
     });
   }, [location]);
