@@ -2,8 +2,8 @@ import React from 'react';
 
 import icons from '../../global/icons';
 
-// 프로필 카드 컴포넌트 : 등급 이미지, 닉네임, 현재 포인트, 큐알 정보를 항목으로 갖는다.
-const ProfileCard = ({ grade = '등급', nickname = '닉네임', point = '현재 포인트', qr = 'qr' }) => {
+// 프로필 카드 컴포넌트 : 등급 이미지, 닉네임, 현재 포인트, 큐알 정보, 큐알을 노출시킬지 여부를 항목으로 갖는다.
+const ProfileCard = ({ grade = '등급', nickname = '닉네임', point = '현재 포인트', qr = 'qr', isVisible = false }) => {
   return (
     <div className="card bg-white border border-zinc-400">
       <div className="flex justify-between">
@@ -20,7 +20,7 @@ const ProfileCard = ({ grade = '등급', nickname = '닉네임', point = '현재
             <p>{point} p</p>
           </div>
         </div>
-        <div className="flex justify-center items-center mr-6">
+        <div className={`flex justify-center items-center mr-6 ${isVisible ? '' : 'invisible'}`}>
           <a
             href={`https://chart.apis.google.com/chart?cht=qr&chs=150x150&chl=${qr}`}
             className="btn btn-square bg-yellow-400" // 큐알 api 주소 이용해서 적용시켜 놓음. qr을 원하는 값으로 바꾸면 될 듯
