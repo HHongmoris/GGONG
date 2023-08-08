@@ -58,11 +58,13 @@ const TableData = [
 // TableItem 컴포넌트 -> 테이블 한 행을 구성, 기기 번호와 기기이름 사용자 수를 파라미터로 받고,
 // 스타일을 꾸며줬습니다.
 const TableItem = ({ machineNum = '기기 번호', machineName = '기기 이름', userCnt = '몇 명' }) => {
+  const borderColor = Border['MAIN'];
+
   return (
-    <tr className={`border-2 border-solid ${Border.MAIN}`}>
-      <th className={`border-2 border-solid ${Border.MAIN}`}>{machineNum}</th>
-      <td className={`border-2 border-solid ${Border.MAIN}`}>{machineName}</td>
-      <td className={`border-2 border-solid ${Border.MAIN}`}>{userCnt}</td>
+    <tr className={`border-1 border-solid ${borderColor}`}>
+      <th className={`border-1 border-solid ${borderColor}`}>{machineNum}</th>
+      <td className={`border-1 border-solid ${borderColor}`}>{machineName}</td>
+      <td className={`border-1 border-solid ${borderColor}`}>{userCnt}</td>
     </tr>
   );
 };
