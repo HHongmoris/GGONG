@@ -38,7 +38,7 @@ const LineChart = ({ userCount = [] }) => {
 
   return (
     <div className="contentWrap">
-      <Subtitle content="예상 혼잡도" />
+      <Subtitle content="예상 혼잡도" spacing={true} />
       <div className="contentInner">
         <Line options={options} data={data} />
       </div>
