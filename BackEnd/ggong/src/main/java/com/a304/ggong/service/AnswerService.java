@@ -20,4 +20,7 @@ public interface AnswerService {
 
 	// 기업 질문 응답 데이터 조회
 	public List<AllAnswerResponse> selectAnswersGroupByCompanies(int questionGroup);
+
+	// 지난 vote 초기화
+	public void iniAnswers();
 }

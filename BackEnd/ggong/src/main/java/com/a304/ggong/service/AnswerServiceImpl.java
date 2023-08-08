@@ -10,6 +10,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -287,5 +291,17 @@ public class AnswerServiceImpl implements AnswerService{
         }
 
         return list;
+    }
+
+    // 지난 vote 초기화
+    public void iniAnswers(){
+        LocalDateTime now = LocalDateTime.now();
+
+        LocalDateTime startOfToday = now.with(LocalTime.MIN).minusDays(32);
+
+        Timestamp deleteDate = Timestamp.valueOf(startOfToday);
+
+        // 이부분 다시 보기!
+        voteRepository.deleteByDate(deleteDate);
     }
 }
