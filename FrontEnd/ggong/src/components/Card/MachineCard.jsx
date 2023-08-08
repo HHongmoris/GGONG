@@ -32,18 +32,9 @@ const MachineCard = ({ selected, setSelected, machines = [], options = [] }) => 
   return (
     <div className={`card border ${bgColor} ${borderColor}`}>
       <div className="card-body">
-        <div className="flex justify-between">
+        {/* <div className="flex justify-start">
           <Select options={options} selected={selected} setSelected={setSelected} />
-          <IconButton
-            icon={icons.HEART}
-            toggle={true}
-            toggleIcon={icons.HEART_FILL}
-            onClick={() => {
-              setToggle(!toggle); // 클릭 상태를 반전시키고
-              likeFunction(!toggle); // 반전된 상태를 likeFunction에 전달
-            }}
-          />
-        </div>
+        </div> */}
         {/* 기기의 정보를 통해 차트를 그립니다. 선택된 기기번호와 같은 기기의 카드만 화면에 보입니다. */}
         {machines.map((machine, idx) => {
           const { machineName, machineNo, userCount, optionA, answerA, optionB, answerB, rateA, rateB } = machine;
@@ -51,10 +42,22 @@ const MachineCard = ({ selected, setSelected, machines = [], options = [] }) => 
             { label: optionA, value: answerA, ratio: rateA },
             { label: optionB, value: answerB, ratio: rateB },
           ];
-          console.log(machine, votes);
+          // console.log(machine, votes);
           return (
             machineNo == selected && (
               <div key={idx}>
+                <div className="flex justify-between">
+                  <Select options={options} selected={selected} setSelected={setSelected} />
+                  <IconButton
+                    icon={icons.HEART}
+                    toggle={true}
+                    toggleIcon={icons.HEART_FILL}
+                    onClick={() => {
+                      setToggle(!toggle); // 클릭 상태를 반전시키고
+                      likeFunction(!toggle); // 반전된 상태를 likeFunction에 전달
+                    }}
+                  />
+                </div>
                 <LineChart machineName={machineName} userCount={userCount} />
                 <div className="divider"></div>
                 <BarChart title="현재 진행중인 투표" data={votes} />

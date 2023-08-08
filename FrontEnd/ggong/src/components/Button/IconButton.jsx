@@ -20,8 +20,8 @@ const IconButton = ({
   toggleIcon,
   size = false,
 }) => {
-  // 토글 여부를 저장하는 변수, 기본은 false
-  const [clicked, setClicked] = useState(false);
+  // 토글 여부를 저장하는 변수, 기본은 true
+  const [clicked, setClicked] = useState(true);
   // 클릭할 때마다 상태가 토글됨
   const handleClick = () => {
     setClicked(!clicked);
