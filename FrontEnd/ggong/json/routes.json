@@ -7,6 +7,8 @@
   "/items/buy": "/buyitems",
   "/items/:itemNo": "/items?itemNo=:itemNo",
   "/points": "/points",
+  "/vote/current": "/currentData",
+  "/vote/past": "/pastData",
   "/stat/today": "/todayData",
   "/stat/user": "/totalData",
   "/stat/age": "/ages",
