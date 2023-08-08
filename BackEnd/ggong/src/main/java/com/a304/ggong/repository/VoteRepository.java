@@ -16,11 +16,11 @@ import com.a304.ggong.entity.Vote;
 public interface VoteRepository extends JpaRepository<Vote, Long> {
 
 	// return값이 Vote이므로 service에서 entity -> dto로 넘겨주는 로직 필요!
-//	Optional<Vote> findByUserNo(Long userNo);
+	Optional<Vote> findByUser_UserNo(Long userNo);
 
 	Optional<Vote> findByMachine_MachineNo(Long machineNo);
 
-//	Optional<Vote> findAllByQuestionId(Long questionId);
+	Optional<Vote> findAllByQuestion_QuestionID(Long questionId);
 
 	// Vote + Machine + User Fetch Join
 	@Query("SELECT v.answer, v.voteDate, m.areaGu, m.name, u.ageRange FROM Vote v LEFT JOIN Machine m ON v.machine.machineNo = m.machineNo LEFT JOIN User u ON v.user.userNo = u.userNo WHERE v.question.group = :questionGroup")
@@ -43,4 +43,9 @@ public interface VoteRepository extends JpaRepository<Vote, Long> {
 	@Query("SELECT COUNT(v.machine) FROM Vote v WHERE v.voteDate >= :startDate AND v.voteDate < :endDate AND v.machine = :machine")
 	Long countByMachine(@Param("machine") String machine, @Param("startDate") Timestamp startDate,
 		@Param("endDate") Timestamp endDate);
+
+	// 오늘, 어제 수거함 사용자 수
+//	@Query("SELECT COUNT(v) FROM Vote v WHERE v.voteDate = :date")
+//	Long countByDate(@Param("Date") Timestamp date);
+
 }

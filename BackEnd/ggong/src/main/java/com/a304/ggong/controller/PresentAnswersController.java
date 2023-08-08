@@ -26,7 +26,7 @@ public class PresentAnswersController {
     @Autowired
     private AnswerService answerService;
 
-//    private SseEmitter sseEmitter;
+    private SseEmitter sseEmitter = new SseEmitter(Long.MAX_VALUE);
 
     QuestionGroup questionGroup = new QuestionGroup();
     int questionGroupNum = questionGroup.getThisWeekGroupNum();

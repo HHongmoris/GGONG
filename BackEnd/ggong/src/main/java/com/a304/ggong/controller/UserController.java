@@ -1,15 +1,24 @@
 package com.a304.ggong.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.a304.ggong.dto.request.LikeRegistRequest;
+import com.a304.ggong.dto.request.UserCigarRequest;
+import com.a304.ggong.dto.response.LikeResponse;
+import com.a304.ggong.dto.response.MachineDetailResponse;
+import com.a304.ggong.dto.response.SmokeCountResponse;
+import com.a304.ggong.dto.response.UserCigarResponse;
+import com.a304.ggong.global.jwt.service.JwtService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import com.a304.ggong.dto.UserSignUpDto;
 import com.a304.ggong.service.UserService;
 
 import lombok.RequiredArgsConstructor;
+
+import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -17,6 +26,9 @@ import lombok.RequiredArgsConstructor;
 public class UserController {
 
 	private final UserService userService;
+
+	@Autowired
+	private final JwtService jwtService;
 
 	@PostMapping("/sign-up")
 	public String signUp(@RequestBody UserSignUpDto userSignUpDto) throws Exception {
@@ -29,6 +41,46 @@ public class UserController {
 		return "jwtTest 요청 성공";
 	}
 
+	// // 로그아웃
+	// @PostMapping("/logout")
+	// public ResponseEntity<Boolean> signOut(@RequestHeader String token){
+	//
+	// 	return new ResponseEntity<Boolean>(true,HttpStatus.OK);
+	// }
+
 	// 최근 포인트 조회는 list로 받은 포인트 객체에서 인덱스로 조정
-	
+
+	// 오늘, 어제 넣은 꽁초 개수 조회
+	@GetMapping("/smoke")
+	public ResponseEntity<SmokeCountResponse> getCiga(@RequestHeader String token){
+		// token에서 이메일 추출
+		Optional<String> opEmail = jwtService.extractEmail(token);
+		SmokeCountResponse tmp = userService.selectVote(opEmail.toString());
+		return new ResponseEntity<>(tmp, HttpStatus.OK);
+	}
+
+	// 회원 관심 기기 데이터 조회
+	@GetMapping("/like")
+	public ResponseEntity<MachineDetailResponse> getLikeMachine(@RequestHeader String token){
+		Optional<String> opEmail = jwtService.extractEmail(token);
+		MachineDetailResponse tmp = userService.selectLikeMachine(opEmail.toString());
+		return  new ResponseEntity<>(tmp,HttpStatus.OK);
+	}
+
+	// 사용 담배 수정
+	@PutMapping("/cigar")
+	public ResponseEntity<UserCigarResponse> changeUserCiga (@RequestHeader String token,
+															 UserCigarRequest request){
+		Optional<String> opEmail = jwtService.extractEmail(token);
+		UserCigarResponse tmp = userService.updateCiga(opEmail.get(), request);
+		return new ResponseEntity<>(tmp, HttpStatus.OK);
+	}
+
+	// 회원 탈퇴
+	@DeleteMapping("/Deprecated")
+	public ResponseEntity<?> deprecatedUser(@RequestHeader String token){
+		Optional<String> opEmail = jwtService.extractEmail(token);
+		userService.deleteUser(opEmail.get());
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
 }
