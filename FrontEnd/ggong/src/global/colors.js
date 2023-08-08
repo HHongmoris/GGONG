@@ -9,10 +9,15 @@ const Border = {
   MAIN: 'border-zinc-400',
 };
 
+const Color = {
+  RED: 'red-400',
+  BLUE: 'blue-400',
+};
+
 const Text = {
   MAIN: 'text-zinc-600',
   WHITE: 'text-white',
   GRAY: 'text-zinc-400',
 };
 
-export { Background, Border, Text };
+export { Background, Border, Color, Text };
