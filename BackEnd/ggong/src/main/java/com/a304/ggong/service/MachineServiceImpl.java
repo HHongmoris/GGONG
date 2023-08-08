@@ -1,5 +1,9 @@
 package com.a304.ggong.service;
 
+import java.sql.Timestamp;
+import java.time.DayOfWeek;
+import java.time.LocalDateTime;
+import java.time.temporal.TemporalAdjusters;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -76,7 +80,47 @@ public class MachineServiceImpl implements MachineService {
 		// 찾은 vote객체로 question 객체를 찾아
 		Question question = questionRepository.findById(vote.getQuestion().getQuestionID()).orElseThrow();
 
-		return new MachineDetailResponse(machine, question);
+		MachineDetailResponse tmp = new MachineDetailResponse(machine, question);
+
+		// 혼잡도 계산해주기
+
+		//현재 날짜 설정
+		LocalDateTime now = LocalDateTime.now();
+
+		//지난주 날짜 설정
+		LocalDateTime startOfLastWeek = now.with(TemporalAdjusters.previous(DayOfWeek.SUNDAY)).minusDays(6);
+		LocalDateTime endOfLastWeek = now.with(TemporalAdjusters.previous(DayOfWeek.SUNDAY));
+
+		// plusMinutes(숫자) method -> 15분씩 더해줌
+		// 그래서 내 생각은...
+		// 배열 인덱스만큼 for문 돌려서 countByVoteDate 메소드 실행시켜서 배열에 넣어주자
+
+		// 먼저 MachineDetailResponse의 배열 생성
+		tmp.setUserCount();
+		long[] tmpArr = new long[96];
+
+		for(int idx = 0; idx < 96; idx++) {
+
+			//Timestamp로 변환
+			Timestamp startDate = Timestamp.valueOf(startOfLastWeek);
+			Timestamp endDate = Timestamp.valueOf(endOfLastWeek.plusMinutes(15)); // 15분씩 더하기
+
+			tmpArr[idx] = voteRepository.countByVoteDate(startDate, endDate); // 배열에 넣어주고
+
+			// startOfLastWeek endOfLastWeek로 갱신
+			startOfLastWeek = endOfLastWeek;
+
+		}
+		tmp.setUserCount(tmpArr);
+
+		// answerA, answerB
+		Long answerA = voteRepository.countByQuestionGroupAndAnswerTypeAndQuestionType(question.getGroup(), 0, question.getType().toString());
+		Long answerB = voteRepository.countByQuestionGroupAndAnswerTypeAndQuestionType(question.getGroup(), 1, question.getType().toString());
+
+		tmp.setAnswerA(answerA);
+		tmp.setAnswerB(answerB);
+
+		return tmp;
 	}
 
 	// 관심 기기 등록
