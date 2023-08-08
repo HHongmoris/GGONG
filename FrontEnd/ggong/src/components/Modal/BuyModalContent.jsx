@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Subtitle } from '../Heading';
 import Button from '../Button/Button';
 import useApi from '../../hooks/useApi';
+import { Background } from '../../global/colors';
 
 /**
  * 모달창의 내용 컴포넌트를 반환하는 함수
@@ -36,13 +37,16 @@ const ModalContent = ({ open, toggleVisible }) => {
     }
   };
 
+  const shadow = Background['DARK'];
+  const bgColor = Background['WHITE'];
+
   return (
     <div>
       {open && (
         <div className="absolute left-0 top-0 w-full h-full flex justify-center items-center">
-          <div className="absolute left-0 top-0 w-full h-full opacity-50 bg-gray-400 z-20"></div>
+          <div className={`absolute left-0 top-0 w-full h-full opacity-50 ${shadow} z-40`}></div>
           {/* 구매 안내문 영역 */}
-          <div className="card w-80 bg-white z-20">
+          <div className={`card w-80 ${bgColor} z-40`}>
             <div className="card-body">
               {/* 안내문 */}
               <Subtitle content="상품권 구매" />
