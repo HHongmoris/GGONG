@@ -20,15 +20,7 @@
     {
       "machineNo": 1,
       "machineName": "멀티캠퍼스 역삼",
-      "userCount": [
-        20,
-        30,
-        40,
-        50,
-        20,
-        15,
-        34
-      ],
+      "userCount": [20, 30, 40, 50, 20, 15, 34],
       "question": "저녁메뉴 추천",
       "optionA": "소주",
       "optionB": "맥주",
@@ -38,15 +30,7 @@
     {
       "machineNo": 2,
       "machineName": "스타벅스 어딘가점",
-      "userCount": [
-        20,
-        30,
-        40,
-        20,
-        20,
-        15,
-        34
-      ],
+      "userCount": [20, 30, 40, 20, 20, 15, 34],
       "question": "담배 추천",
       "optionA": "에쎄",
       "optionB": "멘솔",
@@ -186,5 +170,130 @@
   },
   "todayData": {
     "todayUser": 304
-  }
+  },
+  "currentData": [
+    [
+      {
+        "title": "당신이 좋아하는 술은?",
+        "labelA": "소주",
+        "valueA": 30,
+        "ratioA": 30,
+        "labelB": "맥주",
+        "valueB": 70,
+        "ratioB": 70
+      },
+      {
+        "title": "당신의 성향은?",
+        "labelA": "민초",
+        "valueA": 40,
+        "ratioA": 40,
+        "labelB": "반민초",
+        "valueB": 60,
+        "ratioB": 60
+      }
+    ],
+    [
+      {
+        "title": "축제 때 더 기대되는 것은?",
+        "labelA": "공연",
+        "valueA": 90,
+        "ratioA": 90,
+        "labelB": "주점",
+        "valueB": 10,
+        "ratioB": 10
+      },
+      {
+        "title": "더 싫은 것은?",
+        "labelA": "우주공강",
+        "valueA": 40,
+        "ratioA": 40,
+        "labelB": "평일 내내 1교시",
+        "valueB": 60,
+        "ratioB": 60
+      }
+    ],
+    [
+      {
+        "title": "더 싫은 것은?",
+        "labelA": "야근",
+        "valueA": 20,
+        "ratioA": 20,
+        "labelB": "주말 출근",
+        "valueB": 80,
+        "ratioB": 80
+      },
+      {
+        "title": "더 원하는 것은?",
+        "labelA": "보너스 50만원",
+        "valueA": 40,
+        "ratioA": 40,
+        "labelB": "유급휴가 3일",
+        "valueB": 60,
+        "ratioB": 60
+      }
+    ]
+  ],
+  "pastData": [
+    [
+      {
+        "title": "당신이 좋아하는 술은?",
+        "labelA": "소주",
+        "valueA": 45,
+        "ratioA": 45,
+        "labelB": "맥주",
+        "valueB": 55,
+        "ratioB": 55
+      },
+      {
+        "title": "당신의 성향은?",
+        "labelA": "민초",
+        "valueA": 85,
+        "ratioA": 85,
+        "labelB": "반민초",
+        "valueB": 15,
+        "ratioB": 15
+      }
+    ],
+    [
+      {
+        "title": "축제 때 더 기대되는 것은?",
+        "labelA": "공연",
+        "valueA": 23,
+        "ratioA": 23,
+        "labelB": "주점",
+        "valueB": 77,
+        "ratioB": 77
+      },
+      {
+        "title": "더 싫은 것은?",
+        "labelA": "우주공강",
+        "valueA": 52,
+        "ratioA": 52,
+        "labelB": "평일 내내 1교시",
+        "valueB": 48,
+        "ratioB": 48
+      }
+    ],
+    [
+      {
+        "title": "더 싫은 것은?",
+        "labelA": "야근",
+        "valueA": 83,
+        "ratioA": 83,
+        "labelB": "주말 출근",
+        "valueB": 17,
+        "ratioB": 17
+      },
+      {
+        "title": "더 원하는 것은?",
+        "labelA": "보너스 50만원",
+        "valueA": 50,
+        "ratioA": 50,
+        "labelB": "유급휴가 3일",
+        "valueB": 50,
+        "ratioB": 50
+      }
+    ]
+  ]
 }
+
