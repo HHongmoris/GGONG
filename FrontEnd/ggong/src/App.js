@@ -20,6 +20,7 @@ import PointHistoryContainer from './pages/Point/PointHistoryContainer';
 import UserInfoPage from './pages/User/UserInfoPage';
 import AnswerPage from './pages/Answer/AnswerPage';
 import { useSelector } from 'react-redux';
+import AuthPage from './pages/Login/AuthPage';
 
 function App() {
   let user = useSelector(state => state.user);
@@ -28,7 +29,12 @@ function App() {
   return (
     <div className={`App min-h-screen ${bgColor}`}>
       {user.userNo === -1 ? (
-        <LoginPage />
+        <div>
+          <LoginPage />
+          <Routes>
+            <Route path="/auth" element={<AuthPage />}></Route>
+          </Routes>
+        </div>
       ) : (
         <div>
           <NavBar />
