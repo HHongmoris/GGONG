@@ -53,17 +53,31 @@ public class UserController {
 	// 오늘, 어제 넣은 꽁초 개수 조회
 	@GetMapping("/smoke")
 	public ResponseEntity<SmokeCountResponse> getCiga(@RequestHeader String token){
-		// token에서 이메일 추출
-		Optional<String> opEmail = jwtService.extractEmail(token);
-		SmokeCountResponse tmp = userService.selectVote(opEmail.toString());
+		//성민
+		String email = jwtService.extractEmailTest(token);
+		if(email.equals("")) {
+			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+		}
+		SmokeCountResponse tmp = userService.selectVote(email);
+
+//		// token에서 이메일 추출
+//		Optional<String> opEmail = jwtService.extractEmail(token);
+//		SmokeCountResponse tmp = userService.selectVote(opEmail.toString());
 		return new ResponseEntity<>(tmp, HttpStatus.OK);
 	}
 
 	// 회원 관심 기기 데이터 조회
 	@GetMapping("/like")
 	public ResponseEntity<MachineDetailResponse> getLikeMachine(@RequestHeader String token){
-		Optional<String> opEmail = jwtService.extractEmail(token);
-		MachineDetailResponse tmp = userService.selectLikeMachine(opEmail.toString());
+		//성민
+		String email = jwtService.extractEmailTest(token);
+		if(email.equals("")) {
+			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+		}
+		MachineDetailResponse tmp = userService.selectLikeMachine(email);
+
+//		Optional<String> opEmail = jwtService.extractEmail(token);
+//		MachineDetailResponse tmp = userService.selectLikeMachine(opEmail.toString());
 		return  new ResponseEntity<>(tmp,HttpStatus.OK);
 	}
 
@@ -71,16 +85,30 @@ public class UserController {
 	@PutMapping("/cigar")
 	public ResponseEntity<UserCigarResponse> changeUserCiga (@RequestHeader String token,
 															 UserCigarRequest request){
-		Optional<String> opEmail = jwtService.extractEmail(token);
-		UserCigarResponse tmp = userService.updateCiga(opEmail.get(), request);
+		//성민
+		String email = jwtService.extractEmailTest(token);
+		if(email.equals("")) {
+			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+		}
+		UserCigarResponse tmp = userService.updateCiga(email, request);
+
+//		Optional<String> opEmail = jwtService.extractEmail(token);
+//		UserCigarResponse tmp = userService.updateCiga(opEmail.get(), request);
 		return new ResponseEntity<>(tmp, HttpStatus.OK);
 	}
 
 	// 회원 탈퇴
 	@DeleteMapping("/Deprecated")
 	public ResponseEntity<?> deprecatedUser(@RequestHeader String token){
-		Optional<String> opEmail = jwtService.extractEmail(token);
-		userService.deleteUser(opEmail.get());
+		//성민
+		String email = jwtService.extractEmailTest(token);
+		if(email.equals("")) {
+			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+		}
+		userService.deleteUser(email);
+
+//		Optional<String> opEmail = jwtService.extractEmail(token);
+//		userService.deleteUser(opEmail.get());
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 }
