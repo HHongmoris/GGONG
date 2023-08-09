@@ -6,6 +6,7 @@ import com.a304.ggong.dto.response.LikeResponse;
 import com.a304.ggong.dto.response.MachineDetailResponse;
 import com.a304.ggong.dto.response.SmokeCountResponse;
 import com.a304.ggong.dto.response.UserCigarResponse;
+import com.a304.ggong.entity.User;
 import com.a304.ggong.global.jwt.service.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -68,13 +69,14 @@ public class UserController {
 
 	// 회원 관심 기기 데이터 조회
 	@GetMapping("/like")
-	public ResponseEntity<MachineDetailResponse> getLikeMachine(@RequestHeader String token){
+	public ResponseEntity<MachineDetailResponse[]> getLikeMachine(@RequestHeader String token){
 		//성민
 		String email = jwtService.extractEmailTest(token);
 		if(email.equals("")) {
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		}
-		MachineDetailResponse tmp = userService.selectLikeMachine(email);
+
+		MachineDetailResponse[] tmp = userService.selectLikeMachine(email);
 
 //		Optional<String> opEmail = jwtService.extractEmail(token);
 //		MachineDetailResponse tmp = userService.selectLikeMachine(opEmail.toString());
