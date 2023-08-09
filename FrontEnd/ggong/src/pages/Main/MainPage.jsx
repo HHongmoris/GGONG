@@ -11,7 +11,7 @@ const MainPage = ({ user = {}, today = 0, yesterday = 0, machines = [], options 
   return (
     <div>
       <ProfileCard grade={userRating} nickname={nickname} point={points} qr={QR} isVisible={true} />
-      <div className="flex justify-between my-20">
+      <div className="flex justify-between my-10">
         {/* 오늘 담배 수 */}
         <DataCard title="오늘 투표수" data={today} />
         {/* 어제 담배 수 */}
