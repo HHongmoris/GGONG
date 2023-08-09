@@ -53,10 +53,11 @@ public class UserController {
 
 	// 오늘, 어제 넣은 꽁초 개수 조회
 	@GetMapping("/smoke")
-	public ResponseEntity<SmokeCountResponse> getCiga(@RequestHeader String token){
+	public ResponseEntity<SmokeCountResponse> getCiga(@RequestHeader(required = true, name = "Authorization") String token){
 		//성민
 		String email = jwtService.extractEmailTest(token);
-		if(email.equals("")) {
+
+		if(email==null) {
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		}
 		SmokeCountResponse tmp = userService.selectVote(email);
@@ -69,7 +70,7 @@ public class UserController {
 
 	// 회원 관심 기기 데이터 조회
 	@GetMapping("/like")
-	public ResponseEntity<MachineDetailResponse[]> getLikeMachine(@RequestHeader String token){
+	public ResponseEntity<MachineDetailResponse[]> getLikeMachine(@RequestHeader(required = true, name = "Authorization") String token){
 		//성민
 		String email = jwtService.extractEmailTest(token);
 		if(email.equals("")) {
@@ -85,7 +86,7 @@ public class UserController {
 
 	// 사용 담배 수정
 	@PutMapping("/cigar")
-	public ResponseEntity<UserCigarResponse> changeUserCiga (@RequestHeader String token,
+	public ResponseEntity<UserCigarResponse> changeUserCiga (@RequestHeader(required = true, name = "Authorization") String token,
 															 UserCigarRequest request){
 		//성민
 		String email = jwtService.extractEmailTest(token);
@@ -101,7 +102,7 @@ public class UserController {
 
 	// 회원 탈퇴
 	@DeleteMapping("/Deprecated")
-	public ResponseEntity<?> deprecatedUser(@RequestHeader String token){
+	public ResponseEntity<?> deprecatedUser(@RequestHeader(required = true, name = "Authorization") String token){
 		//성민
 		String email = jwtService.extractEmailTest(token);
 		if(email.equals("")) {

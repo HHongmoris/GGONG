@@ -3,12 +3,10 @@ package com.a304.ggong.service;
 import javax.transaction.Transactional;
 
 import com.a304.ggong.dto.request.UserCigarRequest;
-import com.a304.ggong.dto.response.LikeResponse;
 import com.a304.ggong.dto.response.MachineDetailResponse;
 import com.a304.ggong.dto.response.SmokeCountResponse;
 import com.a304.ggong.dto.response.UserCigarResponse;
 import com.a304.ggong.entity.FavoriteMachine;
-import com.a304.ggong.entity.Vote;
 import com.a304.ggong.repository.FavoriteMachineRepository;
 import com.a304.ggong.repository.VoteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,14 +20,9 @@ import com.a304.ggong.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
 
-import java.sql.Time;
-import java.sql.Timestamp;
-import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.temporal.TemporalAdjusters;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Transactional
@@ -69,10 +62,10 @@ public class UserService {
 	// 오늘, 어제 넣은 꽁초 개수 조회
 	public SmokeCountResponse selectVote(String email){
 		// 먼저, 유저email로 유저객체 찾기
-		Optional<User> user = userRepository.findByEmail(email);
+		User user = userRepository.findByEmail(email).get();
 
-		// 유저 객체에서 userNo 찾고 Vote 객체 찾기
-		Optional<Vote> vote = voteRepository.findByUser_UserNo(user.get().getUserNo());
+		// UserNo뽑기
+		Long userNo = user.getUserNo();
 
 		// 오늘
 		LocalDateTime now = LocalDateTime.now();
@@ -80,17 +73,24 @@ public class UserService {
 		// 어제
 		LocalDateTime yesterday = now.minusDays(1);
 
+		LocalDate nowDate = now.toLocalDate();
+
 		// Timestamp로 변환
-		Timestamp nowDate = Timestamp.valueOf(now);
-		Timestamp yesDate = Timestamp.valueOf(yesterday);
+//		Timestamp nowDate = Timestamp.valueOf(now);
+//		Timestamp yesDate = Timestamp.valueOf(yesterday);
+
+		System.out.println("이것은 서비스의 nowDate입니다. "+nowDate);
+		System.out.println("이것은 서비스의 yesDate입니다. "+yesDate);
 
 		SmokeCountResponse tmp = new SmokeCountResponse();
 
 		// 오늘
-		tmp.setCurrentCount(voteRepository.countByVoteDate(nowDate,nowDate));
+		tmp.setCurrentCount(voteRepository.countByVoteDateAndUserId(nowDate,nowDate,userNo));
 
 		// 어제
-		tmp.setPastCount(voteRepository.countByVoteDate(yesDate,yesDate));
+		tmp.setPastCount(voteRepository.countByVoteDateAndUserId(yesDate,yesDate,userNo));
+
+		System.out.println("이것은 service의 tmp now: "+tmp.getCurrentCount());
 
 		return tmp;
 

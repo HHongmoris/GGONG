@@ -90,9 +90,9 @@ public class MachineController {
 	}
 
 	// 특정 기기의 상세 정보 조회
-	@GetMapping("/{machineId}")
-	public ResponseEntity<MachineDetailResponse> getMachineDetailInfo(@PathVariable Long machineId) {
-		MachineDetailResponse machineDetailResponse = machineService.selectMachineDetail(machineId);
+	@GetMapping("/{machineNo}")
+	public ResponseEntity<MachineDetailResponse> getMachineDetailInfo(@PathVariable("machineNo") Long machineNo) {
+		MachineDetailResponse machineDetailResponse = machineService.selectMachineDetail(machineNo);
 		return new ResponseEntity<MachineDetailResponse>(machineDetailResponse, HttpStatus.OK);
 	}
 
