@@ -3,9 +3,12 @@ package com.a304.ggong.controller;
 import java.util.List;
 import java.util.Optional;
 
+import com.a304.ggong.entity.User;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,6 +28,7 @@ import com.a304.ggong.service.MachineService;
 
 import lombok.RequiredArgsConstructor;
 
+@Slf4j
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/api/machines")
@@ -46,17 +50,22 @@ public class MachineController {
 
 	// 관심 기기 목록
 	@GetMapping("/like")
-	public ResponseEntity<Object> likeMachineList(@RequestHeader(required = true) String token) {
+	public ResponseEntity<Object> likeMachineList(@AuthenticationPrincipal String email) {
+//	public ResponseEntity<Object> likeMachineList(@RequestHeader(required = true, name = "Authorization") String token) {
+//		System.out.println(token);
+//		// token에서 email 빼오기
+//		Optional<String> opEmail = jwtService.extractEmail(token);
+//
+//		if (opEmail.isEmpty()) { // optional Email이 null이라면 토큰이 유효하지 않다는 소리
+//			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+//		}
+//
+//		String email = opEmail.get();
+//		System.out.println("이메일"+email);
 
-		// token에서 email 빼오기
-		Optional<String> opEmail = jwtService.extractEmail(token);
 
-		if (opEmail.isEmpty()) { // optional Email이 null이라면 토큰이 유효하지 않다는 소리
-			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-		}
-
-		String email = opEmail.get();
-
+//		String email = user.getEmail();
+		System.out.println(email);
 		List<LikeResponse> likeList = machineService.selectAllFavoriteMachines(email);
 
 		if (likeList == null) {
