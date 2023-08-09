@@ -3,6 +3,7 @@ package com.a304.ggong.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 
 @Entity
 @Table(name = "point")
@@ -19,7 +20,7 @@ public class Point {
 
     //포인트 적립/사용 시간
     @Column(name = "event_time")
-    private String eventTime;
+    private Timestamp eventTime;
 
     //적립/사용 포인트(적립은 +, 사용은 -)
     @Column(name = "point")

@@ -3,6 +3,7 @@ package com.a304.ggong.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 
 @Entity
 @Table(name = "buy")
@@ -19,7 +20,7 @@ public class Buy {
 
     //상품 구매시간
     @Column(name = "buy_time")
-    private String buyTime;
+    private Timestamp buyTime;
 
     //구매한 사용자 번호(user 테이블)
     @ManyToOne(fetch = FetchType.LAZY)
