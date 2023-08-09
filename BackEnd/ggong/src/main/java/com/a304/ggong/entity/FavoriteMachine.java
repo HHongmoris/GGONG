@@ -28,7 +28,7 @@ public class FavoriteMachine {
 
 	// user_no
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "email")
+	@JoinColumn(name = "user_no")
 	private User user;
 
 	// machine_no

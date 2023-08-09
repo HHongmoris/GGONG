@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.temporal.TemporalAdjusters;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -53,15 +54,23 @@ public class MachineServiceImpl implements MachineService {
 	@Override
 	public List<LikeResponse> selectAllFavoriteMachines(String email) {
 
-			// // 먼저, Email을 이용해 유저 객체 가져와야함.
-			// User user = userRepository.findByEmail(email).orElseThrow();
+			// 먼저, Email을 이용해 유저 객체 가져와야함.
+			User user = userRepository.findByEmail(email).get();
 
-			List<LikeResponse> list = favoriteMachineRepository.findByUserEmail(email)
-				.stream()
-				.map(LikeResponse::new)
-				.collect(
-					Collectors.toList());
-			return list; // return문을 여기에 쓰는 게 맞나..?
+			// List<FavoriteMachine> favoriteMachine = favoriteMachineRepository.findByUser_UserNo(user.getUserNo());
+			List<FavoriteMachine> favoriteMachine = favoriteMachineRepository.findByUser_UserNo(user.getUserNo());
+
+			if(favoriteMachine.size()==0){
+				return null;
+			}
+
+			List<LikeResponse> result = new ArrayList<>();
+
+			for(int idx = 0; idx < favoriteMachine.size(); idx++){
+				result.add(new LikeResponse(favoriteMachine.get(idx)));
+			}
+
+			return result; // return문을 여기에 쓰는 게 맞나..?
 
 	}
 

@@ -61,9 +61,9 @@ public class UserController {
 
 	// 회원 관심 기기 데이터 조회
 	@GetMapping("/like")
-	public ResponseEntity<MachineDetailResponse> getLikeMachine(@RequestHeader String token){
+	public ResponseEntity<MachineDetailResponse[]> getLikeMachine(@RequestHeader String token){
 		Optional<String> opEmail = jwtService.extractEmail(token);
-		MachineDetailResponse tmp = userService.selectLikeMachine(opEmail.toString());
+		MachineDetailResponse[] tmp = userService.selectLikeMachine(opEmail.toString());
 		return  new ResponseEntity<>(tmp,HttpStatus.OK);
 	}
 

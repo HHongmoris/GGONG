@@ -28,6 +28,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.TemporalAdjusters;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -96,10 +97,19 @@ public class UserService {
 	}
 
 	// 회원 관심 기기 데이터 조회
-	public MachineDetailResponse selectLikeMachine(String email){
-		Optional<FavoriteMachine> favoriteMachine = favoriteMachineRepository.findByUserEmail(email);
-		MachineDetailResponse machineDetailResponse = machineService.selectMachineDetail(favoriteMachine.get().getMachine().getMachineNo());
-		return machineDetailResponse;
+	public MachineDetailResponse[] selectLikeMachine(String email){
+		// 먼저, Email을 이용해 유저 객체 가져와야함.
+		User user = userRepository.findByEmail(email).orElseThrow();
+
+		List<FavoriteMachine> favoriteMachine = favoriteMachineRepository.findByUser_UserNo(user.getUserNo());
+
+		MachineDetailResponse[] arr = new MachineDetailResponse[favoriteMachine.size()];
+
+		for(int idx = 0; idx < favoriteMachine.size(); idx++){
+			arr[idx] = machineService.selectMachineDetail(favoriteMachine.get(idx).getMachine().getMachineNo());
+		}
+
+		return arr;
 	}
 
 	// 사용 담배 수정
