@@ -18,6 +18,9 @@ import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 @Controller
 @RequiredArgsConstructor
@@ -32,6 +35,8 @@ public class PresentAnswersController {
     @Autowired
     private AnswerService answerService;
 
+    private ExecutorService nonBlockingService = Executors.newCachedThreadPool();
+
 
 //    public void SseController(SseEmitter sseEmitters){
 //        this.sseEmitter = sseEmitters;
@@ -40,8 +45,8 @@ public class PresentAnswersController {
     // 모든 질문 응답 데이터 조회
     // 이부분 path를 다르게 줘야하나...?
     @GetMapping(path = "", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-    public ResponseEntity<java.util.List<AllAnswerResponse>[]> getAllAnswers (){
-       SseEmitter emitter = new SseEmitter();
+    public SseEmitter getAllAnswers (){
+        SseEmitter emitter = new SseEmitter(86400000L);
 
 
         QuestionGroup questionGroup = new QuestionGroup();
@@ -61,7 +66,22 @@ public class PresentAnswersController {
         result[0] = commonAnswers;
         result[1] = uniAnswers;
         result[2] = comAnswers;
-        return new ResponseEntity<>(result, HttpStatus.OK);
+
+        nonBlockingService.execute(()->{
+            try{
+                emitter.send(SseEmitter.event().name("allAnswers").data(result));
+                emitter.complete();
+            } catch (Exception e) {
+                emitter.completeWithError(e);
+                e.printStackTrace();
+            }
+        });
+
+        // 유저별로 sse줘야하는 경우 -> 포인트...?
+        // sseEmitter.onCompletion(() -> NotificationController.'Map이름'.remove(userId));
+        // sseEmitter.onTimeout(() -> NotificationController.'Map이름'.remove(userId));
+        // sseEmitter.onError((e) -> NotificationController.'Map이름'.remove(userId));
+        return emitter;
     }
 
     // 질문 응답 상세페이지
@@ -83,7 +103,7 @@ public class PresentAnswersController {
 
     // 질문 응답 상세페이지
     // 기업Path
-    @GetMapping("/com")
+    @GetMapping(value ="/com", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public ResponseEntity<List<AnswerDetailResponse>[]> getComAnswersDetail(){
         List<AnswerDetailResponse>[] result = new List[3];
 

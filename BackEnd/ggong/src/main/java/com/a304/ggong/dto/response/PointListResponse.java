@@ -1,5 +1,7 @@
 package com.a304.ggong.dto.response;
 
+import java.sql.Timestamp;
+
 import com.a304.ggong.entity.Point;
 import com.a304.ggong.entity.Product;
 import lombok.AllArgsConstructor;
@@ -12,7 +14,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PointListResponse {
-    private String eventTime;
+    private Timestamp eventTime;
     private int balancePoint;
     private int point;
     private String machineName;
