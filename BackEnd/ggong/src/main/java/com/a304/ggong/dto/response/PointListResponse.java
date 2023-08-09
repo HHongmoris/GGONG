@@ -7,12 +7,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.sql.Timestamp;
+
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class PointListResponse {
-    private String eventTime;
+    private Timestamp eventTime;
     private int balancePoint;
     private int point;
     private String machineName;
