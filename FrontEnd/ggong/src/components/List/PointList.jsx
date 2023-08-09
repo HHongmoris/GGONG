@@ -16,7 +16,7 @@ import icons from '../../global/icons';
  */
 const PointList = ({ data = [] }) => {
   return (
-    <div className="mt-12">
+    <div>
       <Title content="포인트 내역" spacing={true} />
       <div className="divider"></div>
       <span>기간 설정</span>
