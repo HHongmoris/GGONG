@@ -29,7 +29,9 @@ const PointPageLayout = () => {
 
   return (
     <div>
-      <ProfileCard grade={userRating} nickname={nickname} point={points} />
+      <div className="mb-8">
+        <ProfileCard grade={userRating} nickname={nickname} point={points} />
+      </div>
       <Outlet />
     </div>
   );

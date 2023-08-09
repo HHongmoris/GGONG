@@ -15,7 +15,7 @@ const Table = ({ data = TableData }) => {
   const textColor = Text['MAIN'];
 
   return (
-    <div className="overflow-x-auto h-56">
+    <div className="overflow-x-auto">
       <table className={`border-2 border-solid ${borderColor} table table-pin-rows`}>
         <thead>
           <tr>
