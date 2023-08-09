@@ -26,15 +26,21 @@ public class PointController {
     //포인트 내역 조회
     @GetMapping
     public ResponseEntity<List<PointListResponse>> pointList(@RequestHeader(required = true) String token, @RequestParam String start, @RequestParam String end){
-        // token에서 email 빼오기
-        Optional<String> opEmail = jwtService.extractEmail(token);
-
-        if (opEmail.isEmpty()) { // optional Email이 null이라면 토큰이 유효하지 않다는 소리
+        //성민
+        String email = jwtService.extractEmailTest(token);
+        if(email.equals("")) {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
 
-        // 토큰이 유효하다면? email 추출
-        String email = opEmail.get();
+//        // token에서 email 빼오기
+//        Optional<String> opEmail = jwtService.extractEmail(token);
+//
+//        if (opEmail.isEmpty()) { // optional Email이 null이라면 토큰이 유효하지 않다는 소리
+//            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+//        }
+//
+//        // 토큰이 유효하다면? email 추출
+//        String email = opEmail.get();
 
         List<PointListResponse> points = pointService.selectPointListByUserEmail(email);
         return ResponseEntity.status(HttpStatus.OK).body(points);

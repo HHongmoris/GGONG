@@ -75,7 +75,11 @@ public class MachineController {
 	//성민 시도 - 안되면 이 블럭 삭제
 	@GetMapping("/like")
 	public ResponseEntity<Object> likeMachineList(@RequestHeader(required = true, name = "Authorization") String token) {
+<<<<<<< HEAD
 
+=======
+//		System.out.println(token);
+>>>>>>> 15a7c94ac636c1f3c4337146565ca94253b08d5d
 		String email = jwtService.extractEmailTest(token);
 		if(email.equals("")) {
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
@@ -101,15 +105,21 @@ public class MachineController {
 	@PostMapping
 	public ResponseEntity<List<LikeResponse>> registLikeMachine(@RequestHeader String token,
 		LikeRegistRequest request) {
-		// token에서 email 빼오기
-		Optional<String> opEmail = jwtService.extractEmail(token);
-
-		if (opEmail.isEmpty()) { // optional Email이 null이라면 토큰이 유효하지 않다는 소리
+		//성민
+		String email = jwtService.extractEmailTest(token);
+		if(email.equals("")) {
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		}
 
-		// 토큰이 유효하다면? email 추출
-		String email = opEmail.get();
+//		// token에서 email 빼오기
+//		Optional<String> opEmail = jwtService.extractEmail(token);
+//
+//		if (opEmail.isEmpty()) { // optional Email이 null이라면 토큰이 유효하지 않다는 소리
+//			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+//		}
+//
+//		// 토큰이 유효하다면? email 추출
+//		String email = opEmail.get();
 		machineService.insertFavoriteMachine(email, request);
 
 		// 관심 기기 새로 업데이트 해서 프론트에 주기
@@ -123,13 +133,19 @@ public class MachineController {
 		LikeDeleteRequest request) {
 		machineService.deleteFavoriteMachine(request);
 
-		Optional<String> opEmail = jwtService.extractEmail(token);
-		if (opEmail.isEmpty()) {
+		//성민
+		String email = jwtService.extractEmailTest(token);
+		if(email.equals("")) {
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		}
 
-		// token에서 email 빼오기
-		String email = opEmail.get();
+//		Optional<String> opEmail = jwtService.extractEmail(token);
+//		if (opEmail.isEmpty()) {
+//			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+//		}
+//
+//		// token에서 email 빼오기
+//		String email = opEmail.get();
 		// 관심 기기 새로 업데이트 해서 프론트에 주기
 		List<LikeResponse> likes = machineService.selectAllFavoriteMachines(email);
 		return new ResponseEntity<>(likes, HttpStatus.OK);

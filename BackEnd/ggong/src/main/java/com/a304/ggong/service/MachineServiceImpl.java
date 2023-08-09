@@ -57,7 +57,7 @@ public class MachineServiceImpl implements MachineService {
 			// User user = userRepository.findByEmail(email).orElseThrow();
 
 			FavoriteMachine tmp = favoriteMachineRepository.findByUserEmail(email).get();
-			return list; // return문을 여기에 쓰는 게 맞나..?
+			return null; // return문을 여기에 쓰는 게 맞나..?
 
 	}
 
