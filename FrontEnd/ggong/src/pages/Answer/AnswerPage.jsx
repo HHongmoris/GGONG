@@ -42,27 +42,11 @@ const AnswerPage = ({ num = 0, titleContent, voteData }) => {
 
         return (
           <div key={idx}>
-            {activeTab === 0 && (
-              <div className={`card border ${Border.MAIN} mt-4`}>
-                <div className="p-4">
-                  <BarChart title={title} data={votes} />
-                </div>
+            <div className={`card border ${Border.MAIN} mt-4`}>
+              <div className="p-4">
+                <BarChart title={title} data={votes} />
               </div>
-            )}
-            {activeTab === 1 && (
-              <div className={`card border ${Border.MAIN} mt-4`}>
-                <div className="p-4">
-                  <BarChart title={title} data={votes} />
-                </div>
-              </div>
-            )}
-            {activeTab === 2 && (
-              <div className={`card border ${Border.MAIN} mt-4`}>
-                <div className="p-4">
-                  <BarChart title={title} data={votes} />
-                </div>
-              </div>
-            )}
+            </div>
           </div>
         );
       })}
