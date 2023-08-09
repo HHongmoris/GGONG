@@ -5,7 +5,7 @@ create database IF NOT EXISTS ggong;
 use ggong;
 
 CREATE TABLE `user` (
-	`user_no` long NOT NULL AUTO_INCREMENT,
+	`user_no` BIGINT NOT NULL AUTO_INCREMENT,
 	`nickname` VARCHAR(45) NOT NULL,
 	`age_range` VARCHAR(45) NOT NULL,
 	`gender` VARCHAR(45) NOT NULL,
@@ -25,7 +25,7 @@ VALUES
 
 
 CREATE TABLE `machine` (
-	`machine_no` Long NOT NULL AUTO_INCREMENT,
+	`machine_no` BIGINT NOT NULL AUTO_INCREMENT,
 	`latitude` double NOT NULL,
 	`longitude`	double NOT NULL,
 	`name` VARCHAR(45) NOT NULL,
@@ -43,9 +43,9 @@ VALUES
 (33.222, 12.1122, '삼성SDS', 'sds', '송파구');
 
 CREATE TABLE `favoritemachine` (
-	`favoritemachine_no` long NOT NULL AUTO_INCREMENT,
-	`user_no` long NOT NULL,
-	`machine_no` long NOT NULL,
+	`favoritemachine_no` BIGINT NOT NULL AUTO_INCREMENT,
+	`user_no` BIGINT NOT NULL,
+	`machine_no` BIGINT NOT NULL,
     PRIMARY KEY (`favoritemachine_no`),
     FOREIGN KEY (`user_no`) REFERENCES `user` (`user_no`),
     FOREIGN KEY (`machine_no`) REFERENCES `machine` (`machine_no`)
@@ -56,8 +56,12 @@ VALUES
 (1, 2),
 (1, 3);
 
+INSERT INTO favoritemachine(user_no, machine_no)
+VALUE 
+(5, 1);
+
 CREATE TABLE `question` (
-	`question_ID` long NOT NULL AUTO_INCREMENT,
+	`question_ID` BIGINT NOT NULL AUTO_INCREMENT,
 	`content` VARCHAR(45) NOT NULL,
 	`group` INT NOT NULL,
 	`category` VARCHAR(45) NOT NULL,
@@ -76,10 +80,10 @@ VALUES
 ('야근 vs 부장잔소리', 1, '회사생활', '야근', '부장잔소리', '기업');
 
 CREATE TABLE `vote` (
-    `vote_no` long NOT NULL AUTO_INCREMENT,
-    `user_no` long,
-    `machine_no` long NOT NULL,
-    `question_ID` long NOT NULL,
+    `vote_no` BIGINT NOT NULL AUTO_INCREMENT,
+    `user_no` BIGINT,
+    `machine_no` BIGINT NOT NULL,
+    `question_ID` BIGINT NOT NULL,
     `vote_date` TIMESTAMP NOT NULL,
     `answer` INT NOT NULL,
     PRIMARY KEY(`vote_no`),
@@ -95,7 +99,7 @@ VALUES
 (1, 1, 2, '2023-08-08 12:34:56', 1);
 
 CREATE TABLE `product` (
-    `product_no` long NOT NULL AUTO_INCREMENT,
+    `product_no` BIGINT NOT NULL AUTO_INCREMENT,
     `pin` VARCHAR(60) NOT NULL,
     `price` INT NOT NULL,
     PRIMARY KEY(`product_no`)
@@ -110,10 +114,10 @@ VALUES
 
 
 CREATE TABLE `buy` (
-    `buy_no` long NOT NULL AUTO_INCREMENT,
+    `buy_no` BIGINT NOT NULL AUTO_INCREMENT,
     `buy_time` TIMESTAMP NOT NULL,
-    `user_no` long NOT NULL,
-    `product_no` long NOT NULL,
+    `user_no` BIGINT NOT NULL,
+    `product_no` BIGINT NOT NULL,
     PRIMARY KEY(`buy_no`),
     FOREIGN KEY (`user_no`) REFERENCES `user` (`user_no`),
     FOREIGN KEY (`product_no`) REFERENCES `product` (`product_no`)
@@ -125,13 +129,13 @@ VALUES
 ('2023-08-04 12:31:56', 2, 2);
 
 CREATE TABLE `point` (
-    `point_no` long NOT NULL AUTO_INCREMENT,
+    `point_no` BIGINT NOT NULL AUTO_INCREMENT,
     `event_time` TIMESTAMP NOT NULL,
     `point` INT NOT NULL,
     `balance_point` INT NOT NULL,
-    `vote_no` long,
-    `user_no` long NOT NULL,
-    `buy_no` long,
+    `vote_no` BIGINT,
+    `user_no` BIGINT NOT NULL,
+    `buy_no` BIGINT,
     PRIMARY KEY(`point_no`),
     FOREIGN KEY (`vote_no`) REFERENCES `vote` (`vote_no`),
     FOREIGN KEY (`user_no`) REFERENCES `user` (`user_no`),
