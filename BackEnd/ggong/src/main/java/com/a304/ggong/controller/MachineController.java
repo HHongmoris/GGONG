@@ -63,9 +63,9 @@ public class MachineController {
 //		String email = opEmail.get();
 //		System.out.println("이메일"+email);
 
-
+//		System.out.println(user.toString());
 //		String email = user.getEmail();
-		System.out.println(email);
+		System.out.println("email: " + email);
 		List<LikeResponse> likeList = machineService.selectAllFavoriteMachines(email);
 
 		if (likeList == null) {
