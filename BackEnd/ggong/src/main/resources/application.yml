@@ -44,3 +44,12 @@ spring:
 
     hibernate:
       ddl-auto: update
+
+    logging:
+      file:
+        path: ./logs
+        name: app-prod
+      logback:
+        rollingpolicy:
+          max-file-size: 3GB
+          max-history: 60
