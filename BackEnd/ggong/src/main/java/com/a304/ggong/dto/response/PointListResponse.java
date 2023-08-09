@@ -1,5 +1,7 @@
 package com.a304.ggong.dto.response;
 
+import java.sql.Timestamp;
+
 import com.a304.ggong.entity.Point;
 import com.a304.ggong.entity.Product;
 import lombok.AllArgsConstructor;
