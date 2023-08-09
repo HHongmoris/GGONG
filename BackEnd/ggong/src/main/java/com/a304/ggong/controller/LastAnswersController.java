@@ -24,13 +24,11 @@ public class LastAnswersController {
     @Autowired
     private AnswerService answerService;
 
-    QuestionGroup questionGroup = new QuestionGroup();
-    int questionGroupNum = questionGroup.getLastWeekGroupNum();
-
-
     // 모든 질문 응답 데이터 조회
     @GetMapping
     public ResponseEntity<List<AllAnswerResponse>[]> getAllAnswers (){
+        QuestionGroup questionGroup = new QuestionGroup();
+        int questionGroupNum = questionGroup.getLastWeekGroupNum();
 
         // voteTable 갱신
         answerService.iniAnswers();
@@ -57,6 +55,8 @@ public class LastAnswersController {
     // 대학Path
     @GetMapping("/uni")
     public ResponseEntity<List<AnswerDetailResponse>[]> getUniAnswersDetail(){
+        QuestionGroup questionGroup = new QuestionGroup();
+        int questionGroupNum = questionGroup.getLastWeekGroupNum();
 
         // voteTable 갱신
         answerService.iniAnswers();
@@ -75,6 +75,8 @@ public class LastAnswersController {
     // 기업Path
     @GetMapping("/com")
     public ResponseEntity<List<AnswerDetailResponse>[]> getComAnswersDetail(){
+        QuestionGroup questionGroup = new QuestionGroup();
+        int questionGroupNum = questionGroup.getLastWeekGroupNum();
 
         // voteTable 갱신
         answerService.iniAnswers();

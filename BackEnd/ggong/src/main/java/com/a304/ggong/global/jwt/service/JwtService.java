@@ -98,6 +98,7 @@ public class JwtService {
 				.asString());
 
 		} catch (Exception e) {
+			e.printStackTrace();
 			log.error("액세스 토큰이 유효하지 않습니다.");
 			return Optional.empty();
 		}
