@@ -75,12 +75,15 @@ public class MachineController {
 	//성민 시도 - 안되면 이 블럭 삭제
 	@GetMapping("/like")
 	public ResponseEntity<Object> likeMachineList(@RequestHeader(required = true, name = "Authorization") String token) {
+<<<<<<< HEAD
+
+=======
 //		System.out.println(token);
+>>>>>>> 15a7c94ac636c1f3c4337146565ca94253b08d5d
 		String email = jwtService.extractEmailTest(token);
 		if(email.equals("")) {
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		}
-//		System.out.println("email: " + email);
 		List<LikeResponse> likeList = machineService.selectAllFavoriteMachines(email);
 
 		if (likeList == null) {
