@@ -174,6 +174,7 @@
   "currentData": [
     [
       {
+        "voteNo": 1,
         "title": "당신이 좋아하는 술은?",
         "labelA": "소주",
         "valueA": 30,
@@ -183,6 +184,7 @@
         "ratioB": 70
       },
       {
+        "voteNo": 2,
         "title": "당신의 성향은?",
         "labelA": "민초",
         "valueA": 40,
@@ -194,6 +196,7 @@
     ],
     [
       {
+        "voteNo": 3,
         "title": "축제 때 더 기대되는 것은?",
         "labelA": "공연",
         "valueA": 90,
@@ -203,6 +206,7 @@
         "ratioB": 10
       },
       {
+        "voteNo": 4,
         "title": "더 싫은 것은?",
         "labelA": "우주공강",
         "valueA": 40,
@@ -214,6 +218,7 @@
     ],
     [
       {
+        "voteNo": 5,
         "title": "더 싫은 것은?",
         "labelA": "야근",
         "valueA": 20,
@@ -223,6 +228,7 @@
         "ratioB": 80
       },
       {
+        "voteNo": 6,
         "title": "더 원하는 것은?",
         "labelA": "보너스 50만원",
         "valueA": 40,
@@ -236,6 +242,7 @@
   "pastData": [
     [
       {
+        "voteNo": 7,
         "title": "당신이 좋아하는 술은?",
         "labelA": "소주",
         "valueA": 45,
@@ -245,6 +252,7 @@
         "ratioB": 55
       },
       {
+        "voteNo": 8,
         "title": "당신의 성향은?",
         "labelA": "민초",
         "valueA": 85,
@@ -256,6 +264,7 @@
     ],
     [
       {
+        "voteNo": 9,
         "title": "축제 때 더 기대되는 것은?",
         "labelA": "공연",
         "valueA": 23,
@@ -265,6 +274,7 @@
         "ratioB": 77
       },
       {
+        "voteNo": 10,
         "title": "더 싫은 것은?",
         "labelA": "우주공강",
         "valueA": 52,
@@ -276,6 +286,7 @@
     ],
     [
       {
+        "voteNo": 11,
         "title": "더 싫은 것은?",
         "labelA": "야근",
         "valueA": 83,
@@ -285,6 +296,7 @@
         "ratioB": 17
       },
       {
+        "voteNo": 12,
         "title": "더 원하는 것은?",
         "labelA": "보너스 50만원",
         "valueA": 50,
@@ -294,6 +306,103 @@
         "ratioB": 50
       }
     ]
+  ],
+  "detailData": [
+    [
+      {
+        "voteNo": 1,
+        "title": "강남구",
+        "labelA": "소주",
+        "valueA": 45,
+        "ratioA": 45,
+        "labelB": "맥주",
+        "valueB": 55,
+        "ratioB": 55
+      },
+      {
+        "voteNo": 1,
+        "title": "송파구",
+        "labelA": "소주",
+        "valueA": 45,
+        "ratioA": 45,
+        "labelB": "맥주",
+        "valueB": 55,
+        "ratioB": 55
+      },
+      {
+        "voteNo": 1,
+        "title": "서초구",
+        "labelA": "소주",
+        "valueA": 45,
+        "ratioA": 45,
+        "labelB": "맥주",
+        "valueB": 55,
+        "ratioB": 55
+      }
+    ],
+    [
+      {
+        "voteNo": 1,
+        "title": "20대",
+        "labelA": "소주",
+        "valueA": 45,
+        "ratioA": 45,
+        "labelB": "맥주",
+        "valueB": 55,
+        "ratioB": 55
+      },
+      {
+        "voteNo": 1,
+        "title": "30대",
+        "labelA": "소주",
+        "valueA": 45,
+        "ratioA": 45,
+        "labelB": "맥주",
+        "valueB": 55,
+        "ratioB": 55
+      },
+      {
+        "voteNo": 1,
+        "title": "40대",
+        "labelA": "소주",
+        "valueA": 45,
+        "ratioA": 45,
+        "labelB": "맥주",
+        "valueB": 55,
+        "ratioB": 55
+      }
+    ],
+    [
+      {
+        "voteNo": 1,
+        "title": "서울대",
+        "labelA": "소주",
+        "valueA": 45,
+        "ratioA": 45,
+        "labelB": "맥주",
+        "valueB": 55,
+        "ratioB": 55
+      },
+      {
+        "voteNo": 1,
+        "title": "연세대",
+        "labelA": "소주",
+        "valueA": 45,
+        "ratioA": 45,
+        "labelB": "맥주",
+        "valueB": 55,
+        "ratioB": 55
+      },
+      {
+        "voteNo": 1,
+        "title": "고려대",
+        "labelA": "소주",
+        "valueA": 45,
+        "ratioA": 45,
+        "labelB": "맥주",
+        "valueB": 55,
+        "ratioB": 55
+      }
+    ]
   ]
 }
-
