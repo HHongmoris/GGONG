@@ -49,8 +49,8 @@ public class MachineController {
 	}
 
 	// 관심 기기 목록
-	@GetMapping("/like")
-	public ResponseEntity<Object> likeMachineList(@AuthenticationPrincipal String email) {
+//	@GetMapping("/like")
+//	public ResponseEntity<Object> likeMachineList(@AuthenticationPrincipal String email) {
 //	public ResponseEntity<Object> likeMachineList(@RequestHeader(required = true, name = "Authorization") String token) {
 //		System.out.println(token);
 //		// token에서 email 빼오기
@@ -61,10 +61,25 @@ public class MachineController {
 //		}
 //
 //		String email = opEmail.get();
-//		System.out.println("이메일"+email);
+//		System.out.println("email: " + email);
+//		List<LikeResponse> likeList = machineService.selectAllFavoriteMachines(email);
+//
+//		if (likeList == null) {
+//		FavoriteMachineNotFoundException favoriteMachineNotFoundException = new FavoriteMachineNotFoundException();
+//		return new ResponseEntity<>(favoriteMachineNotFoundException, HttpStatus.INTERNAL_SERVER_ERROR);
+//	}
+//
+//		return new ResponseEntity<Object>(likeList, HttpStatus.OK);
+//}
 
-//		System.out.println(user.toString());
-//		String email = user.getEmail();
+	//성민 시도 - 안되면 이 블럭 삭제
+	@GetMapping("/like")
+	public ResponseEntity<Object> likeMachineList(@RequestHeader(required = true, name = "Authorization") String token) {
+		System.out.println(token);
+		String email = jwtService.extractEmailTest(token);
+		if(email.equals("")) {
+			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+		}
 		System.out.println("email: " + email);
 		List<LikeResponse> likeList = machineService.selectAllFavoriteMachines(email);
 
