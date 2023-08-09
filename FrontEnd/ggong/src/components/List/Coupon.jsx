@@ -12,7 +12,7 @@ const Coupon = ({ price = 0 }) => {
   return (
     <div className="relative w-48 z-0">
       {/* 쿠폰 우측 펀칭 모양을 표현하는 요소 */}
-      <div className={`absolute left-36 top-8 w-8 h-8 rounded-full ${Background.WHITE}`}></div>
+      <div className={`absolute left-36 top-8 w-8 h-8 rounded-full ${Background.GLOBAL}`}></div>
       {/* 쿠폰을 표현하는 요소 */}
       <div className={`content-center w-40 h-24 ${Background.MAIN}`}>
         <div className="flex justify-between pl-5 pr-1 w-36 divide-x-2 divide-dotted divide-zinc-600">
