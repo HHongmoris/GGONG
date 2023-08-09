@@ -1,5 +1,6 @@
 package com.a304.ggong.repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -13,7 +14,8 @@ import com.a304.ggong.entity.FavoriteMachine;
 public interface FavoriteMachineRepository extends JpaRepository<FavoriteMachine, Long> {
 
 	Optional<FavoriteMachine> findByMachine_MachineNo(Long machineNo);
+	List<FavoriteMachine> findByUser_UserNo(Long userNo);
 
-	@Query("SELECT f FROM FavoriteMachine f WHERE f.user.email = :email")
-	Optional<FavoriteMachine> findByUserEmail(@Param("email") String email);
+	// @Query("SELECT f FROM FavoriteMachine f WHERE f.user.email = :email")
+	// List<FavoriteMachine> findByUserEmail(@Param("email") String email);
 }

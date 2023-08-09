@@ -83,7 +83,7 @@ public class MachineController {
 
 		if (likeList == null) {
 			FavoriteMachineNotFoundException favoriteMachineNotFoundException = new FavoriteMachineNotFoundException();
-			return new ResponseEntity<>(favoriteMachineNotFoundException, HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(favoriteMachineNotFoundException, HttpStatus.NO_CONTENT);
 		}
 
 		return new ResponseEntity<Object>(likeList, HttpStatus.OK);
