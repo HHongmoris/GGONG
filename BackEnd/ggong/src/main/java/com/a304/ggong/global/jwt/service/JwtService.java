@@ -3,6 +3,8 @@ package com.a304.ggong.global.jwt.service;
 import com.a304.ggong.repository.UserRepository;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -12,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Base64;
 import java.util.Date;
 import java.util.Optional;
 
@@ -102,6 +105,24 @@ public class JwtService {
 			log.error("액세스 토큰이 유효하지 않습니다.");
 			return Optional.empty();
 		}
+	}
+
+	//성민 테스트 메서드 제작
+	public String extractEmailTest(String accessToken) {
+		String[] parts = accessToken.split("\\.");
+
+		if (parts.length == 3) {
+			try {
+				String payload = new String(Base64.getDecoder().decode(parts[1]));
+				JsonObject payloadJson = new JsonParser().parse(payload).getAsJsonObject();
+				String email = payloadJson.get("email").getAsString();
+				return email;
+			} catch (Exception e) {
+				e.printStackTrace();
+				return null;
+			}
+		}
+		return null;
 	}
 
 	private void setRefreshTokenHeader(HttpServletResponse response, String refreshToken) {
