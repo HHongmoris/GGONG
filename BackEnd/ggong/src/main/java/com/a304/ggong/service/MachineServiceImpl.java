@@ -56,12 +56,8 @@ public class MachineServiceImpl implements MachineService {
 			// // 먼저, Email을 이용해 유저 객체 가져와야함.
 			// User user = userRepository.findByEmail(email).orElseThrow();
 
-			List<LikeResponse> list = favoriteMachineRepository.findByUserEmail(email)
-				.stream()
-				.map(LikeResponse::new)
-				.collect(
-					Collectors.toList());
-			return list; // return문을 여기에 쓰는 게 맞나..?
+			FavoriteMachine tmp = favoriteMachineRepository.findByUserEmail(email).get();
+			return null; // return문을 여기에 쓰는 게 맞나..?
 
 	}
 
