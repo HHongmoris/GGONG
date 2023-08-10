@@ -32,7 +32,7 @@ public class OAuth2LoginSuccessHandler implements AuthenticationSuccessHandler {
             CustomOAuth2User oAuth2User = (CustomOAuth2User) authentication.getPrincipal();
 
             if(oAuth2User.getRole() == Role.GUEST) {
-                String accessToken = "Bearer " + jwtService.createAccessToken(oAuth2User.getEmail());
+                String accessToken = jwtService.createAccessToken(oAuth2User.getEmail());
                 response.sendRedirect("http://localhost:3000/auth?token="+accessToken);
 
                 jwtService.sendAccessAndRefreshToken(response, accessToken, null);
