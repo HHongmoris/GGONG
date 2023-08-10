@@ -61,7 +61,8 @@ public class StatusServiceImpl implements StatusService{
 
         Long ourUserCnt = userRepository.countBy();
         Long lastUserCnt = voteRepository.countByVoteDate(start, end);
-        AllUserResponse allUserResponse = new AllUserResponse(ourUserCnt, lastUserCnt);
+        Double lastUserCntAvg = ((double) Math.round(lastUserCnt.doubleValue()/3))/10;
+        AllUserResponse allUserResponse = new AllUserResponse(ourUserCnt, lastUserCnt, lastUserCntAvg);
         
         return allUserResponse;
     }
@@ -113,6 +114,7 @@ public class StatusServiceImpl implements StatusService{
         List<MachineStatResponse> machineUserStats = new ArrayList<>();
         //기기명 전부 불러오기
         List<String> machines = machineRepository.findNameBy();
+        System.out.println(machines.toString());
         //현재 날짜 설정
         LocalDateTime now = LocalDateTime.now();
 

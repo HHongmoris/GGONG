@@ -13,11 +13,5 @@ import lombok.Setter;
 public class AllUserResponse {
     private Long totalUser; //총 회원 수
     private Long lastMonthUser; //지난달 사용자 수
-
-    //이거 vote 테이블에서 오늘 날짜 사람들 카운트 해서 값 넘겨줘야함
-    //일단은 이렇게 써놓고 수정할 예정
-//    public AllUserResponse(Vote entity){
-//        this.totalUser = entity.getVoteNo();
-//        this.lastMonthUser = entity.getVoteNo();
-//    }
+    private Double lastMonthUserAvg; //지난달 평균 사용자 수
 }
