@@ -13,31 +13,25 @@ const AuthPage = () => {
   useEffect(() => {
     const token = searchParams.get('token');
     setJwt('Bearer ' + token);
-    // Perform any logic using the token here
-
-    // useApi('/api/users/jwt-test', 'GET').then(res => {
-    //   let response = res.data;
-    //   console.log(response);
-    //   // dispatch(login(response));
-
-    //   // useNavigate('/');
-    // });
     console.log(jwt);
-    axios({
-      url: 'http://localhost:8080/api/users/jwt-test',
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': 'http://localhost:3000',
-        Authorization: jwt,
-      },
-    }).then(res => {
-      console.log(res);
-      // dispatch(login(response));
 
-      // useNavigate('/');
-    });
-  }, [searchParams]);
+    jwt &&
+      axios({
+        url: 'http://localhost:8080/api/users/jwt-test',
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: jwt,
+        },
+      })
+        .then(res => {
+          console.log(res);
+          // dispatch(login(response));
+
+          // useNavigate('/');
+        })
+        .catch(err => console.log(err));
+  });
 
   return <div></div>;
 };
