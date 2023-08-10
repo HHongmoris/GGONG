@@ -33,7 +33,11 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
     
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        if(request.getRequestURI().equals(NO_CHECK_URL)){
+        if(request.getMethod().equals("OPTIONS")) {
+            return;
+        }
+
+        if(request.getRequestURI().startsWith(NO_CHECK_URL)){
             filterChain.doFilter(request, response);
             return;
         }
@@ -69,7 +73,7 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
 
     private void checkAccessTokenAndAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         log.info("checkAccessTokenAndAuthentication() 호출");
-        log.trace(request.getHeader("Authorization"));
+
         jwtService.extractAccessToken(request)
                 .filter(jwtService::isTokenValid)
                 .ifPresent(accessToken -> jwtService.extractEmail(accessToken)
