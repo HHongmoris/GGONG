@@ -20,8 +20,10 @@ import com.a304.ggong.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
 
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 @Service
@@ -73,24 +75,27 @@ public class UserService {
 		// 어제
 		LocalDateTime yesterday = now.minusDays(1);
 
-		LocalDate nowDate = now.toLocalDate();
-
 		// Timestamp로 변환
-//		Timestamp nowDate = Timestamp.valueOf(now);
-//		Timestamp yesDate = Timestamp.valueOf(yesterday);
+		Timestamp startNowDate = Timestamp.valueOf(now.with(LocalTime.MIN));
+		Timestamp endNowDate = Timestamp.valueOf(now.with(LocalTime.MAX));
 
-		// System.out.println("이것은 서비스의 nowDate입니다. "+nowDate);
-		// System.out.println("이것은 서비스의 yesDate입니다. "+yesDate);
-		//
-		// SmokeCountResponse tmp = new SmokeCountResponse();
-		//
-		// // 오늘
-		// tmp.setCurrentCount(voteRepository.countByVoteDateAndUserId(nowDate,nowDate,userNo));
-		//
-		// // 어제
-		// tmp.setPastCount(voteRepository.countByVoteDateAndUserId(yesDate,yesDate,userNo));
-		//
-		// System.out.println("이것은 service의 tmp now: "+tmp.getCurrentCount());
+		Timestamp startYesDate = Timestamp.valueOf(yesterday.with(LocalTime.MIN));
+		Timestamp endYesDate = Timestamp.valueOf(yesterday.with(LocalTime.MAX));
+
+		System.out.println("이것은 서비스의 startNowDate입니다. "+startNowDate);
+		System.out.println("이것은 서비스의 endNowDate입니다. "+endNowDate);
+		System.out.println("이것은 서비스의 startYesDate입니다. "+startYesDate);
+		System.out.println("이것은 서비스의 endYesDate입니다. "+endYesDate);
+
+		SmokeCountResponse tmp = new SmokeCountResponse();
+
+		// 오늘
+		tmp.setCurrentCount(voteRepository.countByVoteDateAndUserId(startNowDate,endNowDate,userNo));
+
+		// 어제
+		tmp.setPastCount(voteRepository.countByVoteDateAndUserId(startYesDate,endYesDate,userNo));
+
+		System.out.println("이것은 service의 tmp now: "+tmp.getCurrentCount());
 
 		return null;
 

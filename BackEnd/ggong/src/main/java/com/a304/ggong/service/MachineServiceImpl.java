@@ -108,8 +108,8 @@ public class MachineServiceImpl implements MachineService {
 		LocalDateTime now = LocalDateTime.now();
 
 		//지난주 날짜 설정
-		LocalDateTime startOfLastWeek = now.with(TemporalAdjusters.previous(DayOfWeek.SUNDAY)).minusDays(6);
-		LocalDateTime endOfLastWeek = now.with(TemporalAdjusters.previous(DayOfWeek.SUNDAY));
+		LocalDateTime startOfLastWeek = now.with(TemporalAdjusters.previous(DayOfWeek.SUNDAY)).minusDays(6).with(LocalDateTime.MIN);
+		LocalDateTime endOfLastWeek = now.with(TemporalAdjusters.previous(DayOfWeek.SUNDAY)).with(LocalDateTime.MAX);
 
 		// plusMinutes(숫자) method -> 15분씩 더해줌
 		// 그래서 내 생각은...
