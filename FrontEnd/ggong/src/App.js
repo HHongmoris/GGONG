@@ -46,9 +46,10 @@ function App() {
               <Route path="/vote" element={<AnswerContainer />}>
                 <Route path="current" element={<AnswerPage />} />
                 <Route path="past" element={<AnswerPage />} />
-                <Route path="detail" element={<AnswerDetailPage />} />
+                {/* <Route path="detail" element={<AnswerDetailPage />} /> */}
               </Route>
-              <Route path="/stat" element={<StatContainer />}></Route>
+              <Route path="/vote/detail" element={<AnswerDetailPage />} />
+              <Route path="/stat" element={<StatContainer />} />
             </Routes>
           </div>
         </div>
