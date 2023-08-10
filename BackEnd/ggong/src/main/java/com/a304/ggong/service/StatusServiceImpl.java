@@ -61,7 +61,8 @@ public class StatusServiceImpl implements StatusService{
 
         Long ourUserCnt = userRepository.countBy();
         Long lastUserCnt = voteRepository.countByVoteDate(start, end);
-        AllUserResponse allUserResponse = new AllUserResponse(ourUserCnt, lastUserCnt);
+        Double lastUserCntAvg = ((double) Math.round(lastUserCnt.doubleValue()/3))/10;
+        AllUserResponse allUserResponse = new AllUserResponse(ourUserCnt, lastUserCnt, lastUserCntAvg);
         
         return allUserResponse;
     }
