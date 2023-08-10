@@ -2,10 +2,7 @@ package com.a304.ggong.controller;
 
 import com.a304.ggong.dto.request.LikeRegistRequest;
 import com.a304.ggong.dto.request.UserCigarRequest;
-import com.a304.ggong.dto.response.LikeResponse;
-import com.a304.ggong.dto.response.MachineDetailResponse;
-import com.a304.ggong.dto.response.SmokeCountResponse;
-import com.a304.ggong.dto.response.UserCigarResponse;
+import com.a304.ggong.dto.response.*;
 import com.a304.ggong.entity.User;
 import com.a304.ggong.global.jwt.service.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -114,4 +111,16 @@ public class UserController {
 //		userService.deleteUser(opEmail.get());
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
+
+	@GetMapping
+	public ResponseEntity<?> getUser(@RequestHeader(required = true, name = "Authorization") String token){
+		// 병기
+		String email = jwtService.extractEmailTest(token);
+		if(email.equals("")) {
+			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+		}
+
+		return new ResponseEntity<>(userService.selectUser(email), HttpStatus.OK);
+	}
+
 }

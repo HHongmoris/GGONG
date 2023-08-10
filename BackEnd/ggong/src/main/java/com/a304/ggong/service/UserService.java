@@ -6,8 +6,10 @@ import com.a304.ggong.dto.request.UserCigarRequest;
 import com.a304.ggong.dto.response.MachineDetailResponse;
 import com.a304.ggong.dto.response.SmokeCountResponse;
 import com.a304.ggong.dto.response.UserCigarResponse;
+import com.a304.ggong.dto.response.UserResponse;
 import com.a304.ggong.entity.FavoriteMachine;
 import com.a304.ggong.repository.FavoriteMachineRepository;
+import com.a304.ggong.repository.PointRepository;
 import com.a304.ggong.repository.VoteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -25,6 +27,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 @Transactional
@@ -35,6 +38,7 @@ public class UserService {
 	private final PasswordEncoder passwordEncoder;
 	private final VoteRepository voteRepository;
 	private final FavoriteMachineRepository favoriteMachineRepository;
+	private final PointRepository pointRepository;
 
 	@Autowired
 	private final MachineService machineService;
@@ -97,8 +101,7 @@ public class UserService {
 
 		System.out.println("이것은 service의 tmp now: "+tmp.getCurrentCount());
 
-		return null;
-
+		return tmp;
 	}
 
 	// 회원 관심 기기 데이터 조회
@@ -133,5 +136,18 @@ public class UserService {
 	public void deleteUser(String email){
 		User user = userRepository.findByEmail(email).get();
 		userRepository.delete(user);
+	}
+
+	// 회원 정보 조회
+	public UserResponse selectUser(String email){
+		System.out.println("selectUser");
+		User user = userRepository.findByEmail(email).orElseThrow(NoSuchElementException::new);
+		System.out.println(user);
+		System.out.println(user.getUserNo());
+		Long points = pointRepository.findBalancePointByUser_UserNo(user.getUserNo())
+				.orElse(0L);
+		System.out.println(points);
+
+		return new UserResponse(user, points);
 	}
 }
