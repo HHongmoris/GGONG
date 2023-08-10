@@ -41,7 +41,7 @@ public interface VoteRepository extends JpaRepository<Vote, Long> {
 	Long countByVoteDate(@Param("startDate") Timestamp startDate, @Param("endDate") Timestamp endDate);
 
 	//기기별 사용자 수(지난주) 추출 메서드
-	@Query("SELECT COUNT(v.machine) FROM Vote v WHERE v.voteDate >= :startDate AND v.voteDate < :endDate AND v.machine = :machine")
+	@Query("SELECT COUNT(v.machine) FROM Vote v WHERE v.voteDate >= :startDate AND v.voteDate < :endDate AND v.machine = (SELECT m FROM Machine m WHERE m.name = :machine)")
 	Long countByMachine(@Param("machine") String machine, @Param("startDate") Timestamp startDate,
 		@Param("endDate") Timestamp endDate);
 
