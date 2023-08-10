@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
@@ -22,15 +23,11 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+@CrossOrigin(origins = "http://localhost:8080")
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/api/answers/sse")
 public class PresentAnswersController {
-
-    @GetMapping("")
-    public String index(){
-        return "index";
-    }
 
     @Autowired
     private AnswerService answerService;
@@ -42,33 +39,31 @@ public class PresentAnswersController {
 //        this.sseEmitter = sseEmitters;
 //    }
 
-    // 모든 질문 응답 데이터 조회
-    // 이부분 path를 다르게 줘야하나...?
-    @GetMapping(path = "", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    // 테스트용
+    @GetMapping(produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public SseEmitter getAllAnswers (){
         SseEmitter emitter = new SseEmitter(86400000L);
 
-
-        QuestionGroup questionGroup = new QuestionGroup();
-        int questionGroupNum = questionGroup.getThisWeekGroupNum();
-
-        List<AllAnswerResponse>[] result = new java.util.List[3];
-
-        List<AllAnswerResponse> commonAnswers = answerService.selectAnswersGroupByCommon(questionGroupNum);
-        List<AllAnswerResponse> uniAnswers = answerService.selectAnswersGroupByUnis(questionGroupNum);
-        List<AllAnswerResponse> comAnswers = answerService.selectAnswersGroupByCompanies(questionGroupNum);
-
-        for(int idx = 0; idx < 3; idx++){
-            result[idx] = new ArrayList<>();
-        }
-
-        // 각 value 배열에 넣어주기
-        result[0] = commonAnswers;
-        result[1] = uniAnswers;
-        result[2] = comAnswers;
-
         nonBlockingService.execute(()->{
             try{
+                QuestionGroup questionGroup = new QuestionGroup();
+                int questionGroupNum = questionGroup.getThisWeekGroupNum();
+
+                List<AllAnswerResponse>[] result = new java.util.List[3];
+
+                List<AllAnswerResponse> commonAnswers = answerService.selectAnswersGroupByCommon(questionGroupNum);
+                List<AllAnswerResponse> uniAnswers = answerService.selectAnswersGroupByUnis(questionGroupNum);
+                List<AllAnswerResponse> comAnswers = answerService.selectAnswersGroupByCompanies(questionGroupNum);
+
+                for(int idx = 0; idx < 3; idx++){
+                    result[idx] = new ArrayList<>();
+                }
+
+                // 각 value 배열에 넣어주기
+                result[0] = commonAnswers;
+                result[1] = uniAnswers;
+                result[2] = comAnswers;
+
                 emitter.send(SseEmitter.event().name("allAnswers").data(result));
                 emitter.complete();
             } catch (Exception e) {
@@ -77,12 +72,57 @@ public class PresentAnswersController {
             }
         });
 
+        emitter.onCompletion(emitter::complete);
+        emitter.onTimeout(emitter::complete);
+
         // 유저별로 sse줘야하는 경우 -> 포인트...?
         // sseEmitter.onCompletion(() -> NotificationController.'Map이름'.remove(userId));
         // sseEmitter.onTimeout(() -> NotificationController.'Map이름'.remove(userId));
         // sseEmitter.onError((e) -> NotificationController.'Map이름'.remove(userId));
         return emitter;
     }
+
+    // 모든 질문 응답 데이터 조회
+    // 이부분 path를 다르게 줘야하나...?
+    // @GetMapping(path = "", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    // public SseEmitter getAllAnswers (){
+    //     SseEmitter emitter = new SseEmitter(86400000L);
+    //
+    //
+    //     QuestionGroup questionGroup = new QuestionGroup();
+    //     int questionGroupNum = questionGroup.getThisWeekGroupNum();
+    //
+    //     List<AllAnswerResponse>[] result = new java.util.List[3];
+    //
+    //     List<AllAnswerResponse> commonAnswers = answerService.selectAnswersGroupByCommon(questionGroupNum);
+    //     List<AllAnswerResponse> uniAnswers = answerService.selectAnswersGroupByUnis(questionGroupNum);
+    //     List<AllAnswerResponse> comAnswers = answerService.selectAnswersGroupByCompanies(questionGroupNum);
+    //
+    //     for(int idx = 0; idx < 3; idx++){
+    //         result[idx] = new ArrayList<>();
+    //     }
+    //
+    //     // 각 value 배열에 넣어주기
+    //     result[0] = commonAnswers;
+    //     result[1] = uniAnswers;
+    //     result[2] = comAnswers;
+    //
+    //     nonBlockingService.execute(()->{
+    //         try{
+    //             emitter.send(SseEmitter.event().name("allAnswers").data(result));
+    //             emitter.complete();
+    //         } catch (Exception e) {
+    //             emitter.completeWithError(e);
+    //             e.printStackTrace();
+    //         }
+    //     });
+    //
+    //     // 유저별로 sse줘야하는 경우 -> 포인트...?
+    //     // sseEmitter.onCompletion(() -> NotificationController.'Map이름'.remove(userId));
+    //     // sseEmitter.onTimeout(() -> NotificationController.'Map이름'.remove(userId));
+    //     // sseEmitter.onError((e) -> NotificationController.'Map이름'.remove(userId));
+    //     return emitter;
+    // }
 
     // 질문 응답 상세페이지
     // 대학Path
