@@ -1,16 +1,14 @@
 package com.a304.ggong.dto;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-@Getter
-@Setter
 @NoArgsConstructor
-@AllArgsConstructor
-@ToString
-public class UserDto {
+@Getter
+public class UserSignUpDto {
 
-    private int userNo;
     private String name;
+    private String password;
     private String ageRange;
     private String gender;
     private String email;
