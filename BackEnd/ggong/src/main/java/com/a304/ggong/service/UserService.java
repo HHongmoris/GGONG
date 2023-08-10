@@ -82,10 +82,6 @@ public class UserService {
 		Timestamp startYesDate = Timestamp.valueOf(yesterday.with(LocalTime.MIN));
 		Timestamp endYesDate = Timestamp.valueOf(yesterday.with(LocalTime.MAX));
 
-		System.out.println("이것은 서비스의 startNowDate입니다. "+startNowDate);
-		System.out.println("이것은 서비스의 endNowDate입니다. "+endNowDate);
-		System.out.println("이것은 서비스의 startYesDate입니다. "+startYesDate);
-		System.out.println("이것은 서비스의 endYesDate입니다. "+endYesDate);
 
 		SmokeCountResponse tmp = new SmokeCountResponse();
 
@@ -95,23 +91,27 @@ public class UserService {
 		// 어제
 		tmp.setPastCount(voteRepository.countByVoteDateAndUserId(startYesDate,endYesDate,userNo));
 
-		System.out.println("이것은 service의 tmp now: "+tmp.getCurrentCount());
-
-		return null;
+		return tmp;
 
 	}
 
 	// 회원 관심 기기 데이터 조회
 	public MachineDetailResponse[] selectLikeMachine(String email){
 		// 먼저, Email을 이용해 유저 객체 가져와야함.
-		User user = userRepository.findByEmail(email).orElseThrow();
+		User user = userRepository.findByEmail(email).get();
 
 		List<FavoriteMachine> favoriteMachine = favoriteMachineRepository.findByUser_UserNo(user.getUserNo());
+
+		System.out.println("이것은 서비스의 favoriteMachine.size()"+favoriteMachine.size());
 
 		MachineDetailResponse[] arr = new MachineDetailResponse[favoriteMachine.size()];
 
 		for(int idx = 0; idx < favoriteMachine.size(); idx++){
 			arr[idx] = machineService.selectMachineDetail(favoriteMachine.get(idx).getMachine().getMachineNo());
+		}
+
+		for(MachineDetailResponse m : arr){
+			System.out.println("이것은 arr의 machinedetailresponse입니다. "+m.getName());
 		}
 
 		return arr;

@@ -24,6 +24,6 @@ public interface MachineService {
 	void insertFavoriteMachine(String email, LikeRegistRequest entity);
 
 	// 관심 기기 삭제
-	void deleteFavoriteMachine(LikeDeleteRequest entity);
+	void deleteFavoriteMachine(String email, LikeDeleteRequest entity);
 
 }
