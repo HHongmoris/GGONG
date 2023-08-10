@@ -117,8 +117,8 @@ public class StatusServiceImpl implements StatusService{
         LocalDateTime now = LocalDateTime.now();
 
         //지난주 날짜 설정
-        LocalDateTime startOfLastWeek = now.with(TemporalAdjusters.previous(DayOfWeek.SUNDAY)).minusDays(6);
-        LocalDateTime endOfLastWeek = now.with(TemporalAdjusters.previous(DayOfWeek.SUNDAY));
+        LocalDateTime startOfLastWeek = now.with(TemporalAdjusters.previous(DayOfWeek.SUNDAY)).minusDays(6).with(LocalTime.MIN);
+        LocalDateTime endOfLastWeek = now.with(TemporalAdjusters.previous(DayOfWeek.SUNDAY)).with(LocalTime.MAX);
         //Timestamp로 변환
         Timestamp startDate = Timestamp.valueOf(startOfLastWeek);
         Timestamp endDate = Timestamp.valueOf(endOfLastWeek);
