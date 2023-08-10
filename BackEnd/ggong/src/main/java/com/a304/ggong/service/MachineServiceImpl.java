@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.zaxxer.hikari.util.ClockSource;
 import org.springframework.stereotype.Service;
 
 import com.a304.ggong.dto.request.LikeDeleteRequest;
@@ -76,20 +77,30 @@ public class MachineServiceImpl implements MachineService {
 
 	// 기기 상세 정보
 	@Override
-	public MachineDetailResponse selectMachineDetail(Long machineId) {
+	public MachineDetailResponse selectMachineDetail(Long machineNo) {
 		// MachineDetailResponse 생성자에는 machine, question 객체가 필요해
 		// question 객체를 받으려면 vote객체를 타야해
 
 		// 먼저 machineID로 machine 객체를 찾아
-		Machine machine = machineRepository.findById(machineId).orElseThrow();
+		Machine machine = machineRepository.findById(machineNo).get();
 
-		// 그리고 machineID로 vote를 찾아
-		Vote vote = voteRepository.findByMachine_MachineNo(machineId).orElseThrow();
+		System.out.println("machineName: "+machine.getName());
+		System.out.println(machineNo.getClass().getName());
 
-		// 찾은 vote객체로 question 객체를 찾아
-		Question question = questionRepository.findById(vote.getQuestion().getQuestionID()).orElseThrow();
+		// 그리고 machineNo로 vote를 찾아
+		List<Vote> vote = voteRepository.findByMachine_MachineNo(machineNo);
 
-		MachineDetailResponse tmp = new MachineDetailResponse(machine, question);
+//		System.out.println("voteNo: " + vote.getVoteNo());
+//
+//		// 찾은 vote객체로 question 객체를 찾아
+//		Question question = questionRepository.findById(vote.getQuestion().getQuestionID()).get();
+
+//		System.out.println("questionNo: " + question.getQuestionID());
+
+		// 이렇게 찾으면 안되고...
+		//
+
+//		MachineDetailResponse tmp = new MachineDetailResponse(machine, question);
 
 		// 혼잡도 계산해주기
 
@@ -105,7 +116,7 @@ public class MachineServiceImpl implements MachineService {
 		// 배열 인덱스만큼 for문 돌려서 countByVoteDate 메소드 실행시켜서 배열에 넣어주자
 
 		// 먼저 MachineDetailResponse의 배열 생성
-		tmp.setUserCount();
+//		tmp.setUserCount();
 		long[] tmpArr = new long[96];
 
 		for(int idx = 0; idx < 96; idx++) {
@@ -120,16 +131,16 @@ public class MachineServiceImpl implements MachineService {
 			startOfLastWeek = endOfLastWeek;
 
 		}
-		tmp.setUserCount(tmpArr);
+//		tmp.setUserCount(tmpArr);
 
 		// answerA, answerB
-		Long answerA = voteRepository.countByQuestionGroupAndAnswerTypeAndQuestionType(question.getGroup(), 0, question.getType().toString());
-		Long answerB = voteRepository.countByQuestionGroupAndAnswerTypeAndQuestionType(question.getGroup(), 1, question.getType().toString());
+//		Long answerA = voteRepository.countByQuestionGroupAndAnswerTypeAndQuestionType(question.getGroup(), 0, question.getType().toString());
+//		Long answerB = voteRepository.countByQuestionGroupAndAnswerTypeAndQuestionType(question.getGroup(), 1, question.getType().toString());
+//
+//		tmp.setAnswerA(answerA);
+//		tmp.setAnswerB(answerB);
 
-		tmp.setAnswerA(answerA);
-		tmp.setAnswerB(answerB);
-
-		return tmp;
+		return null;
 	}
 
 	// 관심 기기 등록
