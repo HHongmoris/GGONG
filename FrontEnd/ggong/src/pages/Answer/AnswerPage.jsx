@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Title } from '../../components/Heading';
 import { Border } from '../../global/colors';
 import { Tab, category } from '../../components/Tab';
@@ -18,7 +19,7 @@ const AnswerPage = ({ num = 0, titleContent, voteData }) => {
   // 탭 활성화 관리 (처음 상태 활성화 탭은 첫번째 탭)
   const [activeTab, setActiveTab] = useState(0);
 
-  console.log(voteData);
+  // console.log(voteData);
 
   // 클릭했을 때 tabIndex에 해당하는 탭이 활성화
   const handleTabClick = tabIndex => {
@@ -42,11 +43,13 @@ const AnswerPage = ({ num = 0, titleContent, voteData }) => {
 
         return (
           <div key={idx}>
-            <div className={`card border ${Border.MAIN} mt-4`}>
-              <div className="p-4">
-                <BarChart title={title} data={votes} />
+            <Link to="/vote/detail">
+              <div className={`card border ${Border.MAIN} mt-4`}>
+                <div className="p-4">
+                  <BarChart title={title} data={votes} />
+                </div>
               </div>
-            </div>
+            </Link>
           </div>
         );
       })}
