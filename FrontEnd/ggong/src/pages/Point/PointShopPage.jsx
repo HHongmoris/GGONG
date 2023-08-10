@@ -18,7 +18,7 @@ const products = [
 // 상품 리스트 불러오기
 const PointShopPage = () => {
   return (
-    <div className="mt-12">
+    <div>
       <ProductList products={products} />
     </div>
   );

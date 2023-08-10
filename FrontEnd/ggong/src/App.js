@@ -1,5 +1,6 @@
 import './App.css';
 import { Routes, Route } from 'react-router-dom';
+import { Background } from './global/colors';
 
 import React from 'react';
 import NavBar from './components/MenuBar/NavBar';
@@ -24,16 +25,16 @@ import { useSelector } from 'react-redux';
 
 function App() {
   let user = useSelector(state => state.user);
-  const voteNo = 1;
+  const bgColor = Background['GLOBAL'];
 
   return (
-    <div>
+    <div className={`App min-h-screen ${bgColor}`}>
       {user.userNo === -1 ? (
         <LoginPage />
       ) : (
         <div>
           <NavBar />
-          <div className="mx-5">
+          <div className="mx-5 pb-5">
             <Routes>
               <Route path="/" element={<MainContainer />}></Route>
               <Route path="/mypage" element={<UserInfoPage />}></Route>
