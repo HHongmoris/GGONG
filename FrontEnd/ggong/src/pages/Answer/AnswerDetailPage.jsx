@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 
 import { Border } from '../../global/colors';
 import BarChart from '../../components/Chart/BarChart';
@@ -43,9 +44,9 @@ const AnswerDetailPage = ({ num = 1 }) => {
 
   return (
     <div>
-      <div className={`card border ${Border.MAIN} mt-4`}>
+      <div className={`card border ${Border.MAIN} mb-4`}>
         <div className="p-4">
-          <BarChart title="당신이 좋아하는 술은?" data={sampleData1} />
+          <BarChart title="당신이 좋아하는 것은?" data={sampleData1} />
         </div>
       </div>
       <Tab category={category[num]} activeTab={activeTab} onClick={handleTabClick} />
