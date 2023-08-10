@@ -36,6 +36,8 @@ import com.a304.ggong.repository.VoteRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import static com.a304.ggong.entity.QuestionType.*;
+
 @Slf4j
 @RequiredArgsConstructor // 생성자 주입
 @Service
@@ -82,14 +84,20 @@ public class MachineServiceImpl implements MachineService {
 
 	// 이번주에 기기에 출력될 대학 질문 리스트 구하는 메소드
 	public List<Question> getUniQuestionIdList(){
+
 		List<Question> tmpList = new ArrayList<>();
 
 		QuestionGroup questionGroup = new QuestionGroup();
 
 		int groupNum = questionGroup.getThisWeekGroupNum();
 
-		List<Question> tmpCommon = questionRepository.findAllByGroupAndType(groupNum, "공통");
-		List<Question> tmpUni = questionRepository.findAllByGroupAndType(groupNum, "대학");
+		System.out.println("대학 메소드 groupNum"+groupNum);
+
+		List<Question> tmpCommon = questionRepository.findAllByGroupAndType(groupNum, 공통);
+		List<Question> tmpUni = questionRepository.findAllByGroupAndType(groupNum, 대학);
+
+		System.out.println("대학 메소드 tmpCommon.get(0)"+tmpCommon.get(0));
+		System.out.println("대학 메소드 tmpUni.get(0)"+tmpUni.get(0));
 
 		// 공통 넣기
 		for(int idx = 0; idx < tmpCommon.size(); idx++){
@@ -99,6 +107,11 @@ public class MachineServiceImpl implements MachineService {
 		// 대학 넣기
 		for(int idx = 0; idx < tmpUni.size(); idx++){
 			tmpList.add(tmpUni.get(idx));
+		}
+
+		// 대학 넣기
+		for(int idx = 0; idx < tmpList.size(); idx++){
+			System.out.println(tmpList.get(idx));
 		}
 
 		return tmpList;
@@ -112,8 +125,8 @@ public class MachineServiceImpl implements MachineService {
 
 		int groupNum = questionGroup.getThisWeekGroupNum();
 
-		List<Question> tmpCommon = questionRepository.findAllByGroupAndType(groupNum, "공통");
-		List<Question> tmpCom = questionRepository.findAllByGroupAndType(groupNum, "기업");
+		List<Question> tmpCommon = questionRepository.findAllByGroupAndType(groupNum, 공통);
+		List<Question> tmpCom = questionRepository.findAllByGroupAndType(groupNum, 기업);
 
 		// 공통 넣기
 		for(int idx = 0; idx < tmpCommon.size(); idx++){
@@ -184,10 +197,16 @@ public class MachineServiceImpl implements MachineService {
 		List<Question> questionList = new ArrayList<>();
 
 		String machineType = tmpMachine.getName();
+
 		if(machineType.contains("대학교")){ // 대학교이면
 			questionList = this.getUniQuestionIdList();
 		}else { // 기업이면
 			questionList = this.getComQuestionIdList();
+		}
+
+		// test
+		for(int idx = 0; idx < questionList.size(); idx++){
+			System.out.println(questionList.get(idx));
 		}
 
 
@@ -195,6 +214,8 @@ public class MachineServiceImpl implements MachineService {
 		LocalDateTime now = LocalDateTime.now();
 
 		Long questionId = this.getPresentQuestionId(questionList, now);
+
+		System.out.println("service의 questionId: "+questionId);
 
 		Question tmpQuestion = questionRepository.findById(questionId).get();
 
@@ -219,6 +240,9 @@ public class MachineServiceImpl implements MachineService {
 			Timestamp startDate = Timestamp.valueOf(startOfLastWeek);
 			Timestamp endDate = Timestamp.valueOf(endOfLastWeek.plusMinutes(15)); // 15분씩 더하기
 
+			System.out.println("startDate:"+startDate);
+			System.out.println("endDate:"+endDate);
+
 			tmpArr[idx] = voteRepository.countByVoteDate(startDate, endDate); // 배열에 넣어주고
 
 			// startOfLastWeek endOfLastWeek로 갱신
@@ -227,21 +251,27 @@ public class MachineServiceImpl implements MachineService {
 		}
 		tmp.setUserCount(tmpArr);
 
+		System.out.println(tmp.getUserCount());
+
 		// 이번주 23:59:59 -> 끝
 		// 저번주 00:00:00 -> 시작
-		LocalDateTime lastWeek = now.with(TemporalAdjusters.previous(DayOfWeek.SUNDAY)).minusDays(6).with(LocalDateTime.MIN);
-		LocalDateTime thisWeek = now.with(LocalDateTime.MAX);
+		Timestamp lastWeek = Timestamp.valueOf(now.with(TemporalAdjusters.previous(DayOfWeek.SUNDAY)).minusDays(6).with(LocalDateTime.MIN));
+		Timestamp thisWeek = Timestamp.valueOf(now.with(LocalDateTime.MAX));
 
-		// voterepo에 메소드 추가해주기
+		System.out.println("lastWeek: "+lastWeek);
+		System.out.println("thisWeek: "+thisWeek);
 
 		// answerA, answerB
-//		Long answerA = voteRepository.countByQuestionGroupAndAnswerTypeAndQuestionType(question.getGroup(), 0, question.getType().toString());
-//		Long answerB = voteRepository.countByQuestionGroupAndAnswerTypeAndQuestionType(question.getGroup(), 1, question.getType().toString());
-//
-//		tmp.setAnswerA(answerA);
-//		tmp.setAnswerB(answerB);
+		Long answerA = voteRepository.countByMachineNoAndQuestionIdAndAnswerAndStartDayAndEndDay(machineNo, questionId,0,lastWeek,thisWeek);
+		Long answerB = voteRepository.countByMachineNoAndQuestionIdAndAnswerAndStartDayAndEndDay(machineNo, questionId,1,lastWeek,thisWeek);
 
-		return null;
+		System.out.println("service의 answerA: "+answerA);
+		System.out.println("service의 answerB: "+answerB);
+
+		tmp.setAnswerA(answerA);
+		tmp.setAnswerB(answerB);
+
+		return tmp;
 	}
 
 	// 관심 기기 등록

@@ -29,12 +29,12 @@ public interface VoteRepository extends JpaRepository<Vote, Long> {
 
 	// group과 type에 따라 전체 answer count하기
 	@Query("SELECT COUNT(v) FROM Vote v WHERE v.question.type = :questionType GROUP BY v.question.group HAVING v.question.group = :questionGroup")
-	Long countByQuestionGroupAndQuestionType(@Param("questionGroup") int questionGroup, @Param("questionType") String questionType);
+	Long countByQuestionGroupAndQuestionType(@Param("questionGroup") int questionGroup, @Param("questionType") Enum questionType);
 
 	// group별(지난주 or 이번주) type(공통 or 특화)에 따라 A or B(answer)판단해서 count 해주기
 	@Query("SELECT COUNT(v) FROM Vote v WHERE v.question.type = :questionType AND v.answer = :answerType GROUP BY v.question.group HAVING v.question.group = :questionGroup")
 	Long countByQuestionGroupAndAnswerTypeAndQuestionType(@Param("questionGroup") int questionGroup, @Param("answerType") int answerType,
-		@Param("questionType") String questionType);
+		@Param("questionType") Enum questionType);
 
 	//당일 수거함 사용자 수(실시간), 지난달 사용자 수 추출 메서드
 	@Query("SELECT COUNT(v) FROM Vote v WHERE v.voteDate >= :startDate AND v.voteDate < :endDate")
@@ -58,6 +58,7 @@ public interface VoteRepository extends JpaRepository<Vote, Long> {
 	Long countByVoteDateAndUserId(@Param("startDate") Timestamp startDate, @Param("endDate") Timestamp endDate, @Param("userNo") Long userNo);
 
 	// 기기 상세 조회에 쓸 vote 메소드
-	// 파라미터로 기기 넘버, 퀘스천 아이디, 시작날짜, 끝날짜
-
+	// 파라미터로 기기 넘버, 퀘스천 아이디, 시작날짜, 끝날짜, A or B(answer)
+	@Query("SELECT COUNT(v) FROM Vote v WHERE v.machine.machineNo = :machineNo AND v.question.questionID = :questionId AND v.answer = :answer AND v.voteDate >= :startDate AND v.voteDate < :endDate")
+	Long countByMachineNoAndQuestionIdAndAnswerAndStartDayAndEndDay(@Param("machineNo") Long machineNo, @Param("questionId") Long questionId, @Param("answer") int answer, @Param("startDate") Timestamp startDate, @Param("endDate") Timestamp endDate);
 }
