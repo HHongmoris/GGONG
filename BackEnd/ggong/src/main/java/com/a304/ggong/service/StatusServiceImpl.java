@@ -113,6 +113,7 @@ public class StatusServiceImpl implements StatusService{
         List<MachineStatResponse> machineUserStats = new ArrayList<>();
         //기기명 전부 불러오기
         List<String> machines = machineRepository.findNameBy();
+        System.out.println(machines.toString());
         //현재 날짜 설정
         LocalDateTime now = LocalDateTime.now();
 
