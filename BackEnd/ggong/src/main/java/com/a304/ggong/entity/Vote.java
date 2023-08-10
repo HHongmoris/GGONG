@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -46,7 +48,8 @@ public class Vote {
 	private Question question;
 
 	@Column(name = "vote_date")
-	private Timestamp voteDate;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date voteDate;
 
 	@Column(name = "answer")
 	private int answer;

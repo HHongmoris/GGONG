@@ -79,20 +79,20 @@ public class UserService {
 //		Timestamp nowDate = Timestamp.valueOf(now);
 //		Timestamp yesDate = Timestamp.valueOf(yesterday);
 
-		System.out.println("이것은 서비스의 nowDate입니다. "+nowDate);
-		System.out.println("이것은 서비스의 yesDate입니다. "+yesDate);
+		// System.out.println("이것은 서비스의 nowDate입니다. "+nowDate);
+		// System.out.println("이것은 서비스의 yesDate입니다. "+yesDate);
+		//
+		// SmokeCountResponse tmp = new SmokeCountResponse();
+		//
+		// // 오늘
+		// tmp.setCurrentCount(voteRepository.countByVoteDateAndUserId(nowDate,nowDate,userNo));
+		//
+		// // 어제
+		// tmp.setPastCount(voteRepository.countByVoteDateAndUserId(yesDate,yesDate,userNo));
+		//
+		// System.out.println("이것은 service의 tmp now: "+tmp.getCurrentCount());
 
-		SmokeCountResponse tmp = new SmokeCountResponse();
-
-		// 오늘
-		tmp.setCurrentCount(voteRepository.countByVoteDateAndUserId(nowDate,nowDate,userNo));
-
-		// 어제
-		tmp.setPastCount(voteRepository.countByVoteDateAndUserId(yesDate,yesDate,userNo));
-
-		System.out.println("이것은 service의 tmp now: "+tmp.getCurrentCount());
-
-		return tmp;
+		return null;
 
 	}
 
