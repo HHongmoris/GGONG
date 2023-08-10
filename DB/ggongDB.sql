@@ -47,7 +47,7 @@ CREATE TABLE `question` (
 
 CREATE TABLE `vote` (
     `vote_no` INT NOT NULL AUTO_INCREMENT,
-    `user_no` INT NOT NULL,
+    `user_no` INT,
     `machine_no` INT NOT NULL,
     `question_ID` INT NOT NULL,
     `vote_date` DATETIME NOT NULL,
