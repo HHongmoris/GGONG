@@ -403,6 +403,102 @@
         "valueB": 55,
         "ratioB": 55
       }
+    ],
+    [
+      {
+        "voteNo": 2,
+        "title": "강남구",
+        "labelA": "소주",
+        "valueA": 50,
+        "ratioA": 50,
+        "labelB": "맥주",
+        "valueB": 50,
+        "ratioB": 50
+      },
+      {
+        "voteNo": 2,
+        "title": "송파구",
+        "labelA": "소주",
+        "valueA": 50,
+        "ratioA": 50,
+        "labelB": "맥주",
+        "valueB": 50,
+        "ratioB": 50
+      },
+      {
+        "voteNo": 2,
+        "title": "서초구",
+        "labelA": "소주",
+        "valueA": 50,
+        "ratioA": 50,
+        "labelB": "맥주",
+        "valueB": 50,
+        "ratioB": 50
+      }
+    ],
+    [
+      {
+        "voteNo": 2,
+        "title": "20대",
+        "labelA": "소주",
+        "valueA": 50,
+        "ratioA": 50,
+        "labelB": "맥주",
+        "valueB": 50,
+        "ratioB": 50
+      },
+      {
+        "voteNo": 2,
+        "title": "30대",
+        "labelA": "소주",
+        "valueA": 50,
+        "ratioA": 50,
+        "labelB": "맥주",
+        "valueB": 50,
+        "ratioB": 50
+      },
+      {
+        "voteNo": 2,
+        "title": "40대",
+        "labelA": "소주",
+        "valueA": 50,
+        "ratioA": 50,
+        "labelB": "맥주",
+        "valueB": 50,
+        "ratioB": 50
+      }
+    ],
+    [
+      {
+        "voteNo": 2,
+        "title": "서울대",
+        "labelA": "소주",
+        "valueA": 50,
+        "ratioA": 50,
+        "labelB": "맥주",
+        "valueB": 50,
+        "ratioB": 50
+      },
+      {
+        "voteNo": 2,
+        "title": "연세대",
+        "labelA": "소주",
+        "valueA": 50,
+        "ratioA": 50,
+        "labelB": "맥주",
+        "valueB": 50,
+        "ratioB": 50
+      },
+      {
+        "voteNo": 2,
+        "title": "고려대",
+        "labelA": "소주",
+        "valueA": 50,
+        "ratioA": 50,
+        "labelB": "맥주",
+        "valueB": 50,
+        "ratioB": 50
+      }
     ]
   ]
 }
