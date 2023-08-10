@@ -1,0 +1,299 @@
+{
+  "users": [
+    {
+      "userNo": 1,
+      "email": "doctorHong@ssafy.com",
+      "nickname": "홍성민",
+      "userRating": "나무",
+      "ageRange": "20대",
+      "gender": "남성",
+      "favoriteCigarette": "말보로",
+      "QR": "https://www.naver.com",
+      "points": 14020
+    }
+  ],
+  "user-smoke": {
+    "currentCount": 5,
+    "pastCount": 10
+  },
+  "user-like": [
+    {
+      "machineNo": 1,
+      "machineName": "멀티캠퍼스 역삼",
+      "userCount": [20, 30, 40, 50, 20, 15, 34],
+      "question": "저녁메뉴 추천",
+      "optionA": "소주",
+      "optionB": "맥주",
+      "answerA": 3000,
+      "answerB": 2000
+    },
+    {
+      "machineNo": 2,
+      "machineName": "스타벅스 어딘가점",
+      "userCount": [20, 30, 40, 20, 20, 15, 34],
+      "question": "담배 추천",
+      "optionA": "에쎄",
+      "optionB": "멘솔",
+      "answerA": 34567,
+      "answerB": 27790
+    }
+  ],
+  "machines": [
+    {
+      "machineNo": 1,
+      "name": "멀티캠퍼스 역삼",
+      "latitude": 38.7464864512,
+      "longitude": 137.12312111
+    },
+    {
+      "machineNo": 2,
+      "name": "스타벅스 어딘가점",
+      "latitude": 38.746486452,
+      "longitude": 137.12312121
+    }
+  ],
+  "machine-like": [
+    {
+      "machineNo": 1,
+      "name": "멀티캠퍼스 역삼"
+    },
+    {
+      "machineNo": 2,
+      "name": "스타벅스 어딘가점"
+    }
+  ],
+  "items": [
+    {
+      "itemNo": 1,
+      "price": 5000,
+      "pin": "ABCD-1234-ABCD-1234"
+    },
+    {
+      "itemNo": 2,
+      "price": 10000,
+      "pin": "EFGH-5678-EFGH-5678"
+    },
+    {
+      "itemNo": 3,
+      "price": 5000,
+      "pin": "ABCD-5678-ABCD-5678"
+    },
+    {
+      "itemNo": 4,
+      "price": 50000,
+      "pin": "HIJK-1234-HIJK-1234"
+    }
+  ],
+  "buyitems": [
+    {
+      "itemNo": 1,
+      "price": 5000,
+      "pin": "ABCD-1234-ABCD-1234"
+    },
+    {
+      "itemNo": 4,
+      "price": 50000,
+      "pin": "HIJK-1234-HIJK-1234"
+    }
+  ],
+  "points": [
+    {
+      "eventTime": "2023-05-31(Mon) 15:35",
+      "balance": 14000,
+      "variant": 200,
+      "detail": "역삼 멀티캠퍼스"
+    },
+    {
+      "eventTime": "2023-07-07(Fri) 15:35",
+      "balance": 19000,
+      "variant": 20,
+      "detail": "역삼 멀티캠퍼스"
+    },
+    {
+      "eventTime": "2023-07-12(Wed) 15:35",
+      "balance": 14000,
+      "variant": -5000,
+      "detail": 5000
+    },
+    {
+      "eventTime": "2023-07-31(Mon) 15:35",
+      "balance": 14020,
+      "variant": 20,
+      "detail": "역삼 멀티캠퍼스"
+    }
+  ],
+  "machineCnts": [
+    {
+      "machineName": "역삼 멀티캠퍼스",
+      "userCnt": 140
+    },
+    {
+      "machineName": "잠실 롯데타워",
+      "userCnt": 304
+    }
+  ],
+  "gender": [
+    {
+      "label": "남성",
+      "value": 304
+    },
+    {
+      "label": "여성",
+      "value": 201
+    }
+  ],
+  "ages": [
+    {
+      "label": "20대",
+      "value": 78
+    },
+    {
+      "label": "30대",
+      "value": 51
+    },
+    {
+      "label": "40대",
+      "value": 20
+    },
+    {
+      "label": "50대",
+      "value": 15
+    },
+    {
+      "label": "기타",
+      "value": 21
+    }
+  ],
+  "totalData": {
+    "totalUser": 2701,
+    "lastMonthUser": 1204
+  },
+  "todayData": {
+    "todayUser": 304
+  },
+  "currentData": [
+    [
+      {
+        "title": "당신이 좋아하는 술은?",
+        "labelA": "소주",
+        "valueA": 30,
+        "ratioA": 30,
+        "labelB": "맥주",
+        "valueB": 70,
+        "ratioB": 70
+      },
+      {
+        "title": "당신의 성향은?",
+        "labelA": "민초",
+        "valueA": 40,
+        "ratioA": 40,
+        "labelB": "반민초",
+        "valueB": 60,
+        "ratioB": 60
+      }
+    ],
+    [
+      {
+        "title": "축제 때 더 기대되는 것은?",
+        "labelA": "공연",
+        "valueA": 90,
+        "ratioA": 90,
+        "labelB": "주점",
+        "valueB": 10,
+        "ratioB": 10
+      },
+      {
+        "title": "더 싫은 것은?",
+        "labelA": "우주공강",
+        "valueA": 40,
+        "ratioA": 40,
+        "labelB": "평일 내내 1교시",
+        "valueB": 60,
+        "ratioB": 60
+      }
+    ],
+    [
+      {
+        "title": "더 싫은 것은?",
+        "labelA": "야근",
+        "valueA": 20,
+        "ratioA": 20,
+        "labelB": "주말 출근",
+        "valueB": 80,
+        "ratioB": 80
+      },
+      {
+        "title": "더 원하는 것은?",
+        "labelA": "보너스 50만원",
+        "valueA": 40,
+        "ratioA": 40,
+        "labelB": "유급휴가 3일",
+        "valueB": 60,
+        "ratioB": 60
+      }
+    ]
+  ],
+  "pastData": [
+    [
+      {
+        "title": "당신이 좋아하는 술은?",
+        "labelA": "소주",
+        "valueA": 45,
+        "ratioA": 45,
+        "labelB": "맥주",
+        "valueB": 55,
+        "ratioB": 55
+      },
+      {
+        "title": "당신의 성향은?",
+        "labelA": "민초",
+        "valueA": 85,
+        "ratioA": 85,
+        "labelB": "반민초",
+        "valueB": 15,
+        "ratioB": 15
+      }
+    ],
+    [
+      {
+        "title": "축제 때 더 기대되는 것은?",
+        "labelA": "공연",
+        "valueA": 23,
+        "ratioA": 23,
+        "labelB": "주점",
+        "valueB": 77,
+        "ratioB": 77
+      },
+      {
+        "title": "더 싫은 것은?",
+        "labelA": "우주공강",
+        "valueA": 52,
+        "ratioA": 52,
+        "labelB": "평일 내내 1교시",
+        "valueB": 48,
+        "ratioB": 48
+      }
+    ],
+    [
+      {
+        "title": "더 싫은 것은?",
+        "labelA": "야근",
+        "valueA": 83,
+        "ratioA": 83,
+        "labelB": "주말 출근",
+        "valueB": 17,
+        "ratioB": 17
+      },
+      {
+        "title": "더 원하는 것은?",
+        "labelA": "보너스 50만원",
+        "valueA": 50,
+        "ratioA": 50,
+        "labelB": "유급휴가 3일",
+        "valueB": 50,
+        "ratioB": 50
+      }
+    ]
+  ]
+}
+
