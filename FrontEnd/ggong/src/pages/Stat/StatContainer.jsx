@@ -16,7 +16,7 @@ const StatContainer = () => {
   useEffect(() => {
     // useApi를 통해 해당 경로에 있는 데이터를 GET방식으로 받는다.
     // 'set변수'로 변수에 데이터 할당
-    useApi('/todayData', 'GET')
+    useApi('/stat/today', 'GET')
       .then(res => {
         // 요청이 성공적으로 처리된 경우, response.data를 사용하여 데이터를 업데이트합니다.
         setToday(res.data.todayUser);
@@ -25,7 +25,7 @@ const StatContainer = () => {
         console.error(e.message);
       });
 
-    useApi('/totalData', 'GET')
+    useApi('/stat/user', 'GET')
       .then(res => {
         setUsers(res.data);
       })
@@ -33,7 +33,7 @@ const StatContainer = () => {
         console.error(e.message);
       });
 
-    useApi('/ages', 'GET')
+    useApi('/stat/age', 'GET')
       .then(res => {
         setAges(res.data);
       })
@@ -41,7 +41,7 @@ const StatContainer = () => {
         console.error(e.message);
       });
 
-    useApi('/gender', 'GET')
+    useApi('/stat/gender', 'GET')
       .then(res => {
         setGender(res.data);
       })
@@ -49,7 +49,7 @@ const StatContainer = () => {
         console.error(e.message);
       });
 
-    useApi('/machineCnts', 'GET')
+    useApi('/stat/machine', 'GET')
       .then(res => {
         setMachine(res.data);
       })
