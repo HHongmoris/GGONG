@@ -3,6 +3,7 @@ package com.a304.ggong.service;
 import com.a304.ggong.dto.response.AllAnswerResponse;
 import com.a304.ggong.dto.response.AnswerDetailResponse;
 import com.a304.ggong.entity.Question;
+import com.a304.ggong.entity.QuestionType;
 import com.a304.ggong.entity.Vote;
 import com.a304.ggong.repository.QuestionRepository;
 import com.a304.ggong.repository.VoteRepository;
@@ -40,7 +41,7 @@ public class AnswerServiceImpl implements AnswerService{
 
     // 공통 사용 메소드
     // AllAnswerResponse에 나머지 값(answerA, answerB) 구해주기
-    AllAnswerResponse getAnswers(int idx, int questionGroup, Enum questionType){
+    AllAnswerResponse getAnswers(int idx, int questionGroup, QuestionType questionType){
         // 임시 AllAnswerResponse 객체를 만들고 거기에 Question을 넣어줌
         AllAnswerResponse tmp = new AllAnswerResponse(questions.get(idx));
 
@@ -304,6 +305,6 @@ public class AnswerServiceImpl implements AnswerService{
         Timestamp deleteDate = Timestamp.valueOf(startOfToday);
 
         // 이부분 다시 보기!
-        voteRepository.deleteByDate(deleteDate);
+//        voteRepository.deleteByDate(deleteDate);
     }
 }
