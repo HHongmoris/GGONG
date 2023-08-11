@@ -16,13 +16,13 @@ const AnswerContainer = () => {
 
   // path에 따라 다른 데이터 받기, 타이틀 정보도 다르게 받음.
   useEffect(() => {
-    if (location.pathname === '/vote/current') {
-      useApi('/vote/current', 'GET').then(res => {
+    if (location.pathname === '/answers/present') {
+      useApi('/answers/present', 'GET').then(res => {
         setVoteData(res.data);
         setTitleContent('진행 중인 투표');
       });
-    } else if (location.pathname === '/vote/past') {
-      useApi('/vote/past', 'GET').then(res => {
+    } else if (location.pathname === '/answers') {
+      useApi('/answers', 'GET').then(res => {
         setVoteData(res.data);
         setTitleContent('지난 투표');
       });
