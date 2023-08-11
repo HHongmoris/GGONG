@@ -73,7 +73,7 @@ public class UserController {
 	public ResponseEntity<MachineDetailResponse[]> getLikeMachine(@RequestHeader(required = true, name = "Authorization") String token){
 		//성민
 		String email = jwtService.extractEmailTest(token);
-		if(email.equals("")) {
+		if(email == null) {
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		}
 

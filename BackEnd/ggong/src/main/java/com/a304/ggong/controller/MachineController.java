@@ -48,35 +48,11 @@ public class MachineController {
 		return new ResponseEntity<>(machineList, HttpStatus.OK);
 	}
 
-	// 관심 기기 목록
-//	@GetMapping("/like")
-//	public ResponseEntity<Object> likeMachineList(@AuthenticationPrincipal String email) {
-//	public ResponseEntity<Object> likeMachineList(@RequestHeader(required = true, name = "Authorization") String token) {
-//		System.out.println(token);
-//		// token에서 email 빼오기
-//		Optional<String> opEmail = jwtService.extractEmail(token);
-//
-//		if (opEmail.isEmpty()) { // optional Email이 null이라면 토큰이 유효하지 않다는 소리
-//			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-//		}
-//
-//		String email = opEmail.get();
-//		System.out.println("email: " + email);
-//		List<LikeResponse> likeList = machineService.selectAllFavoriteMachines(email);
-//
-//		if (likeList == null) {
-//		FavoriteMachineNotFoundException favoriteMachineNotFoundException = new FavoriteMachineNotFoundException();
-//		return new ResponseEntity<>(favoriteMachineNotFoundException, HttpStatus.INTERNAL_SERVER_ERROR);
-//	}
-//
-//		return new ResponseEntity<Object>(likeList, HttpStatus.OK);
-//}
-
 	//성민 시도 - 안되면 이 블럭 삭제
 	@GetMapping("/like")
 	public ResponseEntity<Object> likeMachineList(@RequestHeader(required = true, name = "Authorization") String token) {
 		String email = jwtService.extractEmailTest(token);
-		if(email.equals("")) {
+		if(email==null) {
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		}
 		List<LikeResponse> likeList = machineService.selectAllFavoriteMachines(email);
@@ -98,23 +74,14 @@ public class MachineController {
 
 	// 관심 기기 등록
 	@PostMapping
-	public ResponseEntity<List<LikeResponse>> registLikeMachine(@RequestHeader String token,
+	public ResponseEntity<List<LikeResponse>> registLikeMachine(@RequestHeader(required = true, name = "Authorization") String token,
 		LikeRegistRequest request) {
 		//성민
 		String email = jwtService.extractEmailTest(token);
-		if(email.equals("")) {
+		if(email==null) {
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		}
 
-//		// token에서 email 빼오기
-//		Optional<String> opEmail = jwtService.extractEmail(token);
-//
-//		if (opEmail.isEmpty()) { // optional Email이 null이라면 토큰이 유효하지 않다는 소리
-//			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-//		}
-//
-//		// 토큰이 유효하다면? email 추출
-//		String email = opEmail.get();
 		machineService.insertFavoriteMachine(email, request);
 
 		// 관심 기기 새로 업데이트 해서 프론트에 주기
@@ -124,15 +91,14 @@ public class MachineController {
 
 	// 관심 기기 삭제
 	@DeleteMapping
-	public ResponseEntity<List<LikeResponse>> deleteLikeMachine(@RequestHeader String token,
+	public ResponseEntity<List<LikeResponse>> deleteLikeMachine(@RequestHeader(required = true, name = "Authorization") String token,
 		LikeDeleteRequest request) {
-		machineService.deleteFavoriteMachine(request);
-
-		//성민
 		String email = jwtService.extractEmailTest(token);
-		if(email.equals("")) {
+		if(email==null) {
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		}
+		machineService.deleteFavoriteMachine(email,request);
+
 
 //		Optional<String> opEmail = jwtService.extractEmail(token);
 //		if (opEmail.isEmpty()) {
