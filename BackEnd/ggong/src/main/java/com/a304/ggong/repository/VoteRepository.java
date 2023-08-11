@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
+import com.a304.ggong.entity.QuestionType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -29,12 +30,12 @@ public interface VoteRepository extends JpaRepository<Vote, Long> {
 
 	// group과 type에 따라 전체 answer count하기
 	@Query("SELECT COUNT(v) FROM Vote v WHERE v.question.type = :questionType GROUP BY v.question.group HAVING v.question.group = :questionGroup")
-	Long countByQuestionGroupAndQuestionType(@Param("questionGroup") int questionGroup, @Param("questionType") String questionType);
+	Long countByQuestionGroupAndQuestionType(@Param("questionGroup") int questionGroup, @Param("questionType") QuestionType questionType);
 
 	// group별(지난주 or 이번주) type(공통 or 특화)에 따라 A or B(answer)판단해서 count 해주기
 	@Query("SELECT COUNT(v) FROM Vote v WHERE v.question.type = :questionType AND v.answer = :answerType GROUP BY v.question.group HAVING v.question.group = :questionGroup")
 	Long countByQuestionGroupAndAnswerTypeAndQuestionType(@Param("questionGroup") int questionGroup, @Param("answerType") int answerType,
-		@Param("questionType") String questionType);
+		@Param("questionType") QuestionType questionType);
 
 	//당일 수거함 사용자 수(실시간), 지난달 사용자 수 추출 메서드
 	@Query("SELECT COUNT(v) FROM Vote v WHERE v.voteDate >= :startDate AND v.voteDate < :endDate")
@@ -45,8 +46,9 @@ public interface VoteRepository extends JpaRepository<Vote, Long> {
 	Long countByMachine(@Param("machine") String machine, @Param("startDate") Timestamp startDate,
 		@Param("endDate") Timestamp endDate);
 
+	//이거 일단 주석처리함 나중에 수정 필요
 	// 지난달 데이터 삭제
-	@Query("DELETE FROM Vote v WHERE v.voteDate = :deleteDate")
+	@Query("DELETE FROM Vote v WHERE DATE(v.voteDate) <= DATE(:deleteDate)")
 	void deleteByDate(@Param("deleteDate") Timestamp deleteDate);
 
 	// 오늘, 어제 수거함 사용자 수
