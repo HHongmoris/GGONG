@@ -237,7 +237,7 @@ public class AnswerServiceImpl implements AnswerService{
         // findByQuestionGroupAndType 사용
 
         // 먼저, 그룹별, 타입별 질문을 몽땅 가져오자
-        questions = questionRepository.findAllByGroupAndType(questionGroup,공통);
+        questions = questionRepository.findByGroupAndType(questionGroup,공통);
 
         // 먼저 list 만들어서
         list = new ArrayList<>();
@@ -259,7 +259,7 @@ public class AnswerServiceImpl implements AnswerService{
         // findByQuestionGroupAndType 사용
 
         // 먼저, 그룹별, 타입별 질문을 몽땅 가져오자
-        questions = questionRepository.findAllByGroupAndType(questionGroup,대학);
+        questions = questionRepository.findByGroupAndType(questionGroup,대학);
 
         // 먼저 list 만들어서
         list = new ArrayList<>();
@@ -281,7 +281,7 @@ public class AnswerServiceImpl implements AnswerService{
         // findByQuestionGroupAndType 사용
 
         // 먼저, 그룹별, 타입별 질문을 몽땅 가져오자
-        questions = questionRepository.findAllByGroupAndType(questionGroup, 기업);
+        questions = questionRepository.findByGroupAndType(questionGroup, 기업);
 
         // 먼저 list 만들어서
         list = new ArrayList<>();

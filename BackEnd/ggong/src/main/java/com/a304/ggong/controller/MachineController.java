@@ -1,14 +1,11 @@
 package com.a304.ggong.controller;
 
 import java.util.List;
-import java.util.Optional;
 
-import com.a304.ggong.entity.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,8 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.a304.ggong.dto.request.LikeDeleteRequest;
-import com.a304.ggong.dto.request.LikeRegistRequest;
 import com.a304.ggong.dto.response.AllMachinesResponse;
 import com.a304.ggong.dto.response.LikeResponse;
 import com.a304.ggong.dto.response.MachineDetailResponse;
@@ -73,16 +68,15 @@ public class MachineController {
 	}
 
 	// 관심 기기 등록
-	@PostMapping
-	public ResponseEntity<List<LikeResponse>> registLikeMachine(@RequestHeader(required = true, name = "Authorization") String token,
-		LikeRegistRequest request) {
+	@PostMapping("/{machineNo}")
+	public ResponseEntity<List<LikeResponse>> registLikeMachine(@RequestHeader(required = true, name = "Authorization") String token, @PathVariable("machineNo") Long machineNo) {
 		//성민
 		String email = jwtService.extractEmailTest(token);
 		if(email==null) {
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		}
 
-		machineService.insertFavoriteMachine(email, request);
+		machineService.insertFavoriteMachine(email, machineNo);
 
 		// 관심 기기 새로 업데이트 해서 프론트에 주기
 		List<LikeResponse> likes = machineService.selectAllFavoriteMachines(email);
@@ -92,12 +86,12 @@ public class MachineController {
 	// 관심 기기 삭제
 	@DeleteMapping
 	public ResponseEntity<List<LikeResponse>> deleteLikeMachine(@RequestHeader(required = true, name = "Authorization") String token,
-		LikeDeleteRequest request) {
+		@PathVariable("machineNo") Long machineNo) {
 		String email = jwtService.extractEmailTest(token);
 		if(email==null) {
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		}
-		machineService.deleteFavoriteMachine(email,request);
+		machineService.deleteFavoriteMachine(email,machineNo);
 
 
 //		Optional<String> opEmail = jwtService.extractEmail(token);
