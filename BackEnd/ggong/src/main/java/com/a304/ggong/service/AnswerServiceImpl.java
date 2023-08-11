@@ -19,6 +19,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import static com.a304.ggong.entity.QuestionType.*;
+
 @Slf4j
 @RequiredArgsConstructor // 생성자 주입
 @Service
@@ -235,14 +237,14 @@ public class AnswerServiceImpl implements AnswerService{
         // findByQuestionGroupAndType 사용
 
         // 먼저, 그룹별, 타입별 질문을 몽땅 가져오자
-        questions = questionRepository.findAllByGroupAndType(questionGroup, QuestionType.공통);
+        questions = questionRepository.findAllByGroupAndType(questionGroup,공통);
 
         // 먼저 list 만들어서
         list = new ArrayList<>();
 
         // for문 돌려서 AllAnswerResponse에 나머지 값 answerA, answerB 구하기
         for(int idx = 0; idx < questions.size(); idx++){
-            AllAnswerResponse tmp = getAnswers(idx, questionGroup, QuestionType.공통);
+            AllAnswerResponse tmp = getAnswers(idx, questionGroup, 공통);
 
             list.add(tmp);
         }
@@ -257,14 +259,14 @@ public class AnswerServiceImpl implements AnswerService{
         // findByQuestionGroupAndType 사용
 
         // 먼저, 그룹별, 타입별 질문을 몽땅 가져오자
-        questions = questionRepository.findAllByGroupAndType(questionGroup, QuestionType.대학);
+        questions = questionRepository.findAllByGroupAndType(questionGroup,대학);
 
         // 먼저 list 만들어서
         list = new ArrayList<>();
 
         // for문 돌려서 AllAnswerResponse에 나머지 값 answerA, answerB 구하기
         for(int idx = 0; idx < questions.size(); idx++){
-            AllAnswerResponse tmp = getAnswers(idx, questionGroup, QuestionType.대학);
+            AllAnswerResponse tmp = getAnswers(idx, questionGroup, 대학);
 
             list.add(tmp);
         }
@@ -279,14 +281,14 @@ public class AnswerServiceImpl implements AnswerService{
         // findByQuestionGroupAndType 사용
 
         // 먼저, 그룹별, 타입별 질문을 몽땅 가져오자
-        questions = questionRepository.findAllByGroupAndType(questionGroup, QuestionType.기업);
+        questions = questionRepository.findAllByGroupAndType(questionGroup, 기업);
 
         // 먼저 list 만들어서
         list = new ArrayList<>();
 
         // for문 돌려서 AllAnswerResponse에 나머지 값 answerA, answerB 구하기
         for(int idx = 0; idx < questions.size(); idx++){
-            AllAnswerResponse tmp = getAnswers(idx, questionGroup, QuestionType.기업);
+            AllAnswerResponse tmp = getAnswers(idx, questionGroup, 기업);
 
             list.add(tmp);
         }
