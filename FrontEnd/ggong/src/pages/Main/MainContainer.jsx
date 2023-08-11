@@ -6,6 +6,8 @@ import MainPage from './MainPage';
 import useApi from '../../hooks/useApi';
 import { useSelector } from 'react-redux';
 
+import axios from 'axios';
+
 // 메인 페이지에 필요한 데이터를 관리하는 컨테이너
 const MainContainer = () => {
   // 오늘 투표수, 어제 투표수, 관심 기기, 선택 가능한 기기번호, 선택된 기기번호
@@ -25,11 +27,12 @@ const MainContainer = () => {
     const { token } = user;
     console.log('메인페이지', user, token);
 
-    useApi('/users/smoke', 'GET', token).then(res => {
-      console.log('smoke done');
-      setToday(res.data.currentCount);
-      setYesterday(res.data.pastCount);
-    });
+    token &&
+      useApi('/users/smoke', 'GET', token).then(res => {
+        console.log('smoke done');
+        setToday(res.data.currentCount);
+        setYesterday(res.data.pastCount);
+      });
 
     useApi('/users/like', 'GET', token)
       .then(res => {
@@ -37,6 +40,18 @@ const MainContainer = () => {
       })
       .catch(err => console.log(err));
   }, [location]);
+
+  //   axios({
+  //     // API 서버 URL
+  //     url: 'http://localhost:8000/users/like',
+  //     // HTTP 메서드
+  //     method: 'GET',
+  //     // 요청 헤더 설정
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //   }).then(res => setLikes(res.data));
+  // }, [location]);
 
   // 관심 기기목록에 변동이 생기면 Select 태그로 선택가능한 옵션의 목록과 선택 default 값을 반환합니다.
   useEffect(() => {
