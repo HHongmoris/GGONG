@@ -32,9 +32,15 @@ const AnswerDetailPage = ({ num = 1 }) => {
   const location = useLocation();
 
   useEffect(() => {
-    useApi('/vote/detail', 'GET').then(res => {
-      setDetailData(res.data);
-    });
+    if (location.pathname === `/answers/present/${questionId}`) {
+      useApi(`/answers/present/${questionId}`, 'GET').then(res => {
+        setDetailData(res.data);
+      });
+    } else if (location.pathname === `/answers/${questionId}`) {
+      useApi(`/answers/${questionId}`, 'GET').then(res => {
+        setDetailData(res.data);
+      });
+    }
   }, [location]);
 
   // 클릭했을 때 tabIndex에 해당하는 탭이 활성화
