@@ -84,7 +84,7 @@ public class MachineController {
 	}
 
 	// 관심 기기 삭제
-	@DeleteMapping
+	@DeleteMapping("/{machineNo}")
 	public ResponseEntity<List<LikeResponse>> deleteLikeMachine(@RequestHeader(required = true, name = "Authorization") String token,
 		@PathVariable("machineNo") Long machineNo) {
 		String email = jwtService.extractEmailTest(token);
@@ -93,14 +93,6 @@ public class MachineController {
 		}
 		machineService.deleteFavoriteMachine(email,machineNo);
 
-
-//		Optional<String> opEmail = jwtService.extractEmail(token);
-//		if (opEmail.isEmpty()) {
-//			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-//		}
-//
-//		// token에서 email 빼오기
-//		String email = opEmail.get();
 		// 관심 기기 새로 업데이트 해서 프론트에 주기
 		List<LikeResponse> likes = machineService.selectAllFavoriteMachines(email);
 		return new ResponseEntity<>(likes, HttpStatus.OK);
