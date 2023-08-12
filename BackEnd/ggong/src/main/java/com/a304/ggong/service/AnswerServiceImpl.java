@@ -87,15 +87,39 @@ public class AnswerServiceImpl implements AnswerService{
             allAnswerResponse.setContent(questions.get(qID.intValue()).getContent());
             allAnswerResponse.setOptionA(questions.get(qID.intValue()).getOptionA());
             allAnswerResponse.setOptionB(questions.get(qID.intValue()).getOptionB());
-            allAnswerResponse.setAnswerA(ACnt);
-            allAnswerResponse.setAnswerB(allCnt - ACnt);
+
             //비율 계산하여 총합 100이 나오게 백분율로 계산한 값 넘기기
             //근데 이제 처음엔 0이기 때문에 조건 나누기
+
             if(allCnt != 0){
-                allAnswerResponse.setRateA((ACnt*100)/allCnt);
-                allAnswerResponse.setRateB(100 - (ACnt*100)/allCnt);
+                if(ACnt == null){
+                    ACnt = 0L;
+                    Long rateA = 0L;
+                    Long rateB = 100L;
+                    allAnswerResponse.setAnswerA(ACnt);
+                    allAnswerResponse.setAnswerB(allCnt-ACnt);
+                    allAnswerResponse.setRateA(rateA);
+                    allAnswerResponse.setRateB(rateB);
+
+                }else if(ACnt == allCnt){
+                    Long BCnt = 0L;
+                    Long rateA = 100L;
+                    Long rateB = 0L;
+                    allAnswerResponse.setAnswerA(ACnt);
+                    allAnswerResponse.setAnswerB(BCnt);
+                    allAnswerResponse.setRateA(rateA);
+                    allAnswerResponse.setRateB(rateB);
+                }else{
+                    allAnswerResponse.setAnswerA(ACnt);
+                    allAnswerResponse.setAnswerB(allCnt - ACnt);
+                    allAnswerResponse.setRateA((ACnt*100)/allCnt);
+                    allAnswerResponse.setRateB(100 - (ACnt*100)/allCnt);
+                }
+
             }else{
                 //allCnt가 0일때는 둘다 0으로 처리
+                allAnswerResponse.setAnswerA(0L);
+                allAnswerResponse.setAnswerB(0L);
                 allAnswerResponse.setRateA(0L);
                 allAnswerResponse.setRateB(0L);
             }
@@ -277,27 +301,29 @@ public class AnswerServiceImpl implements AnswerService{
     public List<AllAnswerResponse> selectAnswersGroupByCommon(int questionGroup) {
         // countByAnswer 사용해서 AllAnswerResponse에 넣어주기
         // findByQuestionGroupAndType 사용
-        List<Question> questionsPublic = new ArrayList<>();
 
-        // 먼저, 그룹별, 타입별 질문을 몽땅 가져오자
-        questionsPublic = questionRepository.findAllByGroupAndType(questionGroup, QuestionType.공통);
+        List<AllAnswerResponse> allAnswerResponses = getAnswers(questionGroup, QuestionType.공통);
+//        List<Question> questionsPublic = new ArrayList<>();
+//
+//        // 먼저, 그룹별, 타입별 질문을 몽땅 가져오자
+//        questionsPublic = questionRepository.findAllByGroupAndType(questionGroup, QuestionType.공통);
+//
+//        // 먼저 list 만들어서
+//        list = new ArrayList<>();
+//
+//        if(questionsPublic.size() != 0){
+//            // for문 돌려서 AllAnswerResponse에 나머지 값 answerA, answerB 구하기
+//            for(int idx = 0; idx < questionsPublic.size(); idx++){
+//                AllAnswerResponse tmp = getAnswers(questionGroup, QuestionType.공통).get(idx);
+//
+//                list.add(tmp);
+//            }
+//        }else{
+//            list = null;
+//        }
 
-        // 먼저 list 만들어서
-        list = new ArrayList<>();
 
-        if(questionsPublic.size() != 0){
-            // for문 돌려서 AllAnswerResponse에 나머지 값 answerA, answerB 구하기
-            for(int idx = 0; idx < questionsPublic.size(); idx++){
-                AllAnswerResponse tmp = getAnswers(questionGroup, QuestionType.공통).get(idx);
-
-                list.add(tmp);
-            }
-        }else{
-            list = null;
-        }
-
-
-        return list;
+        return allAnswerResponses;
     }
 
     // 대학 질문 응답 데이터 조회
@@ -305,26 +331,27 @@ public class AnswerServiceImpl implements AnswerService{
     public List<AllAnswerResponse> selectAnswersGroupByUnis(int questionGroup) {
         // countByAnswer 사용해서 AllAnswerResponse에 넣어주기
         // findByQuestionGroupAndType 사용
-        List<Question> questionsUnis = new ArrayList<>();
+        List<AllAnswerResponse> allAnswerResponses = getAnswers(questionGroup, QuestionType.대학);
+//        List<Question> questionsUnis = new ArrayList<>();
+//
+//        // 먼저, 그룹별, 타입별 질문을 몽땅 가져오자
+//        questionsUnis = questionRepository.findAllByGroupAndType(questionGroup, QuestionType.대학);
+//
+//        // 먼저 list 만들어서
+//        list = new ArrayList<>();
+//        if(questionsUnis.size() != 0){
+//            // for문 돌려서 AllAnswerResponse에 나머지 값 answerA, answerB 구하기
+//            for(int idx = 0; idx < questionsUnis.size(); idx++){
+//                AllAnswerResponse tmp = getAnswers(questionGroup, QuestionType.대학).get(idx);
+//
+//                list.add(tmp);
+//            }
+//        }else{
+//            list = null;
+//        }
 
-        // 먼저, 그룹별, 타입별 질문을 몽땅 가져오자
-        questionsUnis = questionRepository.findAllByGroupAndType(questionGroup, QuestionType.대학);
 
-        // 먼저 list 만들어서
-        list = new ArrayList<>();
-        if(questionsUnis.size() != 0){
-            // for문 돌려서 AllAnswerResponse에 나머지 값 answerA, answerB 구하기
-            for(int idx = 0; idx < questionsUnis.size(); idx++){
-                AllAnswerResponse tmp = getAnswers(questionGroup, QuestionType.대학).get(idx);
-
-                list.add(tmp);
-            }
-        }else{
-            list = null;
-        }
-
-
-        return list;
+        return allAnswerResponses;
     }
 
     // 기업 질문 응답 데이터 조회
@@ -332,37 +359,44 @@ public class AnswerServiceImpl implements AnswerService{
     public List<AllAnswerResponse> selectAnswersGroupByCompanies(int questionGroup) {
         // countByAnswer 사용해서 AllAnswerResponse에 넣어주기
         // findByQuestionGroupAndType 사용
-        List<Question> questionsCompanies = new ArrayList<>();
+        List<AllAnswerResponse> allAnswerResponses = getAnswers(questionGroup, QuestionType.기업);
+//        List<Question> questionsCompanies = new ArrayList<>();
+//
+//        // 먼저, 그룹별, 타입별 질문을 몽땅 가져오자
+//        questionsCompanies = questionRepository.findAllByGroupAndType(questionGroup, QuestionType.기업);
+//
+//        // 먼저 list 만들어서
+//        list = new ArrayList<>();
+//        if(questionsCompanies.size() != 0){
+//            // for문 돌려서 AllAnswerResponse에 나머지 값 answerA, answerB 구하기
+//            for(int idx = 0; idx < questionsCompanies.size(); idx++){
+//                AllAnswerResponse tmp = getAnswers(questionGroup, QuestionType.기업).get(idx);
+//
+//                list.add(tmp);
+//            }
+//        }else{
+//            list = null;
+//        }
 
-        // 먼저, 그룹별, 타입별 질문을 몽땅 가져오자
-        questionsCompanies = questionRepository.findAllByGroupAndType(questionGroup, QuestionType.기업);
 
-        // 먼저 list 만들어서
-        list = new ArrayList<>();
-        if(questionsCompanies.size() != 0){
-            // for문 돌려서 AllAnswerResponse에 나머지 값 answerA, answerB 구하기
-            for(int idx = 0; idx < questionsCompanies.size(); idx++){
-                AllAnswerResponse tmp = getAnswers(questionGroup, QuestionType.기업).get(idx);
-
-                list.add(tmp);
-            }
-        }else{
-            list = null;
-        }
-
-
-        return list;
+        return allAnswerResponses;
     }
 
     // 지난 vote 초기화
     public void iniAnswers(){
         LocalDateTime now = LocalDateTime.now();
 
-        LocalDateTime startOfToday = now.with(LocalTime.MIN).minusDays(32);
+        LocalDateTime startOfLastMonth = now.minusMonths(1).withDayOfMonth(1).with(LocalTime.MIN);
+        // 지난달의 마지막 일자 (이번 달의 1일 이전)
+        LocalDateTime endOfLastMonth = now.withDayOfMonth(1).minusDays(1).with(LocalTime.MAX);
 
-        Timestamp deleteDate = Timestamp.valueOf(startOfToday);
+        Timestamp start = Timestamp.valueOf(startOfLastMonth);
+        Timestamp end = Timestamp.valueOf(endOfLastMonth);
+//        LocalDateTime startOfToday = now.with(LocalTime.MIN).minusDays(32);
+//
+//        Timestamp deleteDate = Timestamp.valueOf(startOfToday);
 
         // 이부분 다시 보기!
-//        voteRepository.deleteByDate(deleteDate);
+        voteRepository.deleteByVoteDateBetween(start, end);
     }
 }

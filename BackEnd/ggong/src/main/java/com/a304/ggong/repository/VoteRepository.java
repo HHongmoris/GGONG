@@ -12,6 +12,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.a304.ggong.entity.Vote;
+import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 public interface VoteRepository extends JpaRepository<Vote, Long> {
@@ -47,8 +48,9 @@ public interface VoteRepository extends JpaRepository<Vote, Long> {
 
 	//이거 일단 주석처리함 나중에 수정 필요
 	// 지난달 데이터 삭제
-	@Query("DELETE FROM Vote v WHERE DATE(v.voteDate) <= DATE(:deleteDate)")
-	void deleteByDate(@Param("deleteDate") Timestamp deleteDate);
+//	@Query("DELETE FROM Vote v WHERE v.voteDate <= :deleteDate")
+	@Transactional
+	void deleteByVoteDateBetween(@Param("startOfLastMonth") Timestamp startOfLastMonth, @Param("endOfLastMonth") Timestamp endOfLastMonth);
 
 	// 오늘, 어제 수거함 사용자 수
 //	@Query("SELECT COUNT(v) FROM Vote v WHERE v.voteDate = :date")
