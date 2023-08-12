@@ -16,7 +16,7 @@ public class AnswerDetailResponse {
 	private String dataLabel;
 	private Long answerA = 0L;
 	private Long answerB = 0L;
-	private double rateA;
-	private double rateB;
+	private Long rateA;
+	private Long rateB;
 
 }
