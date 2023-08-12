@@ -1,5 +1,6 @@
 package com.a304.ggong.service;
 
+import java.sql.SQLOutput;
 import java.sql.Timestamp;
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
@@ -197,7 +198,11 @@ public class MachineServiceImpl implements MachineService {
 
 		Long questionId = this.getPresentQuestionId(questionList, now);
 
+		System.out.println("questionId: "+questionId);
+
 		Question tmpQuestion = questionRepository.findById(questionId).get();
+
+		System.out.println(tmpQuestion.toString());
 
 		// MachineDetailResponse 객체 만들기
 		MachineDetailResponse tmp = new MachineDetailResponse(tmpMachine,tmpQuestion);
@@ -207,7 +212,7 @@ public class MachineServiceImpl implements MachineService {
 		// 일단 어제 기준으로 해보고
 		// 시간 남으면 지난주 평균으로 해보기!
 
-		//지난주 날짜 설정
+		// 어제 날짜 설정
 		LocalDateTime startOfYes = now.minusDays(1).with(LocalTime.MIN);
 
 		// plusMinutes(숫자) method -> 15분씩 더해줌
@@ -225,8 +230,9 @@ public class MachineServiceImpl implements MachineService {
 			System.out.println("startDate: "+startTime);
 			System.out.println("endDate: "+endTime);
 
-			tmpArr[idx] = voteRepository.countByVoteDate(startTime, endTime); // 배열에 넣어주고
-
+			long cnt = voteRepository.countByVoteDate(startTime, endTime); // 배열에 넣어주고
+			System.out.println("cnt: "+cnt);
+			tmpArr[idx] = cnt;
 			// startTime endTime으로 갱신
 			startTime = endTime;
 
@@ -238,19 +244,20 @@ public class MachineServiceImpl implements MachineService {
 
 		System.out.println(tmp.getUserCount());
 
-		// 이번주 23:59:59 -> 끝
-		// 저번주 00:00:00 -> 시작
-		Timestamp lastWeek = Timestamp.valueOf(now.with(TemporalAdjusters.previous(DayOfWeek.SUNDAY)).minusDays(6).with(LocalDateTime.MIN));
-		Timestamp thisWeek = Timestamp.valueOf(now.with(LocalDateTime.MAX));
+		// 오늘 퀴즈 대답
+		Timestamp todayStart = Timestamp.valueOf(now.with(LocalTime.MIN));
+		Timestamp todayEnd = Timestamp.valueOf(now.with(LocalTime.MAX));
 
-		System.out.println("lastWeek: "+lastWeek);
-		System.out.println("thisWeek: "+thisWeek);
+		System.out.println("todayStart: "+todayStart);
+		System.out.println("todayEnd: "+todayEnd);
 
 		// answerA, answerB
-		Long answerA = voteRepository.countByMachineNoAndQuestionIdAndAnswerAndStartDayAndEndDay(machineNo, questionId,0,lastWeek,thisWeek);
-		Long answerB = voteRepository.countByMachineNoAndQuestionIdAndAnswerAndStartDayAndEndDay(machineNo, questionId,1,lastWeek,thisWeek);
+		Long answerA = voteRepository.countByMachineNoAndQuestionIdAndAnswerAndStartDayAndEndDay(machineNo, questionId,0,todayStart,todayEnd);
 
 		System.out.println("service의 answerA: "+answerA);
+
+		Long answerB = voteRepository.countByMachineNoAndQuestionIdAndAnswerAndStartDayAndEndDay(machineNo, questionId,1,todayStart,todayEnd);
+
 		System.out.println("service의 answerB: "+answerB);
 
 		tmp.setAnswerA(answerA);
