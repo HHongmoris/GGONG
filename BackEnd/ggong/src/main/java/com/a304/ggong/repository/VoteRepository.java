@@ -1,11 +1,10 @@
 package com.a304.ggong.repository;
 
 import java.sql.Timestamp;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
-import com.a304.ggong.dto.response.QuestionAndAnswerCnt;
+import com.a304.ggong.dto.QuestionAndAnswerCnt;
 import com.a304.ggong.entity.QuestionType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -30,12 +29,12 @@ public interface VoteRepository extends JpaRepository<Vote, Long> {
 	List<Vote> findAllWithMachineAndQuestionFetchJoin(@Param("questionGroup") int questionGroup);
 
 	// group과 type에 따라 전체 answer count하기
-	@Query("SELECT v.question.questionID, COUNT(v) FROM Vote v LEFT JOIN Question q ON v.question.questionID = q.questionID WHERE q.group = :questionGroup AND q.type = :questionType GROUP BY v.question.questionID")
-	List<QuestionAndAnswerCnt> countByQuestionGroupAndQuestionType(@Param("questionGroup") int questionGroup, @Param("questionType") QuestionType questionType);
+	@Query("SELECT v.question.questionID AS questionID, COUNT(v) AS answerCnt FROM Vote v LEFT JOIN Question q ON v.question.questionID = q.questionID WHERE q.group = :questionGroup AND q.type = :questionType GROUP BY v.question.questionID")
+	List<Long[]> countByQuestionGroupAndQuestionType(@Param("questionGroup") int questionGroup, @Param("questionType") QuestionType questionType);
 
 	// group별(지난주 or 이번주) type(공통 or 특화)에 따라 A or B(answer)판단해서 count 해주기
-	@Query("SELECT q.questionID, NULLIF((SELECT COUNT(*) FROM Vote v WHERE v.question.questionID = q.questionID AND (v.answer IS NULL OR v.answer = :answerType)), 0) FROM Question q WHERE q.group = :questionGroup AND q.type = :questionType")
-	List<QuestionAndAnswerCnt> countByQuestionGroupAndAnswerTypeAndQuestionType(@Param("questionGroup") int questionGroup, @Param("answerType") int answerType, @Param("questionType") QuestionType questionType);
+	@Query("SELECT q.questionID AS questionID, NULLIF((SELECT COUNT(*) FROM Vote v WHERE v.question.questionID = q.questionID AND (v.answer IS NULL OR v.answer = :answerType)), 0) AS answerCnt FROM Question q WHERE q.group = :questionGroup AND q.type = :questionType")
+	List<Long[]> countByQuestionGroupAndAnswerTypeAndQuestionType(@Param("questionGroup") int questionGroup, @Param("answerType") int answerType, @Param("questionType") QuestionType questionType);
 
 	//당일 수거함 사용자 수(실시간), 지난달 사용자 수 추출 메서드
 	@Query("SELECT COUNT(v) FROM Vote v WHERE v.voteDate >= :startDate AND v.voteDate < :endDate")

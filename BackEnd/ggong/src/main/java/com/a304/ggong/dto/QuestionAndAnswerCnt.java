@@ -1,4 +1,4 @@
-package com.a304.ggong.dto.response;
+package com.a304.ggong.dto;
 
 import com.a304.ggong.entity.Question;
 import lombok.AllArgsConstructor;

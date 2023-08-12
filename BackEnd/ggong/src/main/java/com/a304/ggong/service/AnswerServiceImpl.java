@@ -2,6 +2,7 @@ package com.a304.ggong.service;
 
 import com.a304.ggong.dto.response.AllAnswerResponse;
 import com.a304.ggong.dto.response.AnswerDetailResponse;
+import com.a304.ggong.dto.QuestionAndAnswerCnt;
 import com.a304.ggong.entity.Question;
 import com.a304.ggong.entity.QuestionType;
 import com.a304.ggong.entity.Vote;
@@ -12,7 +13,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -32,14 +32,14 @@ public class AnswerServiceImpl implements AnswerService{
 
     // 공통 사용 변수
     // 모든 질문 추출
-    private List<Question> questions;
+//    private List<Question> questions;
     private List<AllAnswerResponse> list;
     // 질문 상세 페이지
     private List<Vote> votes;
 
     // 공통 사용 메소드
     // AllAnswerResponse에 나머지 값(answerA, answerB) 구해주기
-    List<AllAnswerResponse> getAnswers(int idx, int questionGroup, QuestionType questionType){
+    private List<AllAnswerResponse> getAnswers(int questionGroup, QuestionType questionType){
 //        // 임시 AllAnswerResponse 객체를 만들고 거기에 Question을 넣어줌
 //        AllAnswerResponse tmp = new AllAnswerResponse(questions.get(idx));
 //
@@ -59,8 +59,52 @@ public class AnswerServiceImpl implements AnswerService{
 //
 //        tmp.setRateA(rateA);
 //        tmp.setRateB(rateB);
+        List<Question> questions = questionRepository.findAll();
+        //AllAnswerResponse 리스트 만들기
+        List<AllAnswerResponse> allAnswerResponses = new ArrayList<>();
+        //선택한 questiongroup과 questionType에 맞는 질문 전체 응답 수 카운트 리스트 생성
+        List<Long[]> allQA = voteRepository.countByQuestionGroupAndQuestionType(questionGroup, questionType);
+        List<Long[]> answerACnt = voteRepository.countByQuestionGroupAndAnswerTypeAndQuestionType(questionGroup, 0, questionType);
 
-        return tmp;
+        for(int i=0; i<allQA.size(); i++){
+            //allQA에 있는 질문 아이디를 통해 질문 데이터 불러와서 AllAnswerResponse에 담기
+//            //allQA로부터 질문 아이디 가져오기
+//            Long qID = allQA.get(i).getQuestionID();
+//            //가져온 질문 아이디의 전체 답변 수
+//            Long allCnt = allQA.get(i).getAnswerCnt();
+//            //가져온 질문 아이디의 A 항목 답변 수
+//            Long ACnt = answerACnt.get(i).getAnswerCnt();
+            //allQA로부터 질문 아이디 가져오기
+            Long qID = allQA.get(i)[0];
+            //가져온 질문 아이디의 전체 답변 수
+            Long allCnt = allQA.get(i)[1];
+            //가져온 질문 아이디의 A 항목 답변 수
+            Long ACnt = answerACnt.get(i)[1];
+            //담아야할 AllAnswerResponse 바구니 생성
+            AllAnswerResponse allAnswerResponse = new AllAnswerResponse();
+                //바구니에 값 하나하나 입력해주기
+            allAnswerResponse.setQuestionID(qID);
+            allAnswerResponse.setContent(questions.get(qID.intValue()).getContent());
+            allAnswerResponse.setOptionA(questions.get(qID.intValue()).getOptionA());
+            allAnswerResponse.setOptionB(questions.get(qID.intValue()).getOptionB());
+            allAnswerResponse.setAnswerA(ACnt);
+            allAnswerResponse.setAnswerB(allCnt - ACnt);
+            //비율 계산하여 총합 100이 나오게 백분율로 계산한 값 넘기기
+            //근데 이제 처음엔 0이기 때문에 조건 나누기
+            if(allCnt != 0){
+                allAnswerResponse.setRateA((ACnt*100)/allCnt);
+                allAnswerResponse.setRateB(100 - (ACnt*100)/allCnt);
+            }else{
+                //allCnt가 0일때는 둘다 0으로 처리
+                allAnswerResponse.setRateA(0L);
+                allAnswerResponse.setRateB(0L);
+            }
+            //넣어준 allAnswerResponse를 리스트에 담기
+            allAnswerResponses.add(allAnswerResponse);
+
+        }
+
+        return allAnswerResponses;
     }
 
     // 질문 상세 페이지
@@ -233,19 +277,25 @@ public class AnswerServiceImpl implements AnswerService{
     public List<AllAnswerResponse> selectAnswersGroupByCommon(int questionGroup) {
         // countByAnswer 사용해서 AllAnswerResponse에 넣어주기
         // findByQuestionGroupAndType 사용
+        List<Question> questionsPublic = new ArrayList<>();
 
         // 먼저, 그룹별, 타입별 질문을 몽땅 가져오자
-        questions = questionRepository.findAllByGroupAndType(questionGroup, QuestionType.공통);
+        questionsPublic = questionRepository.findAllByGroupAndType(questionGroup, QuestionType.공통);
 
         // 먼저 list 만들어서
         list = new ArrayList<>();
 
-        // for문 돌려서 AllAnswerResponse에 나머지 값 answerA, answerB 구하기
-        for(int idx = 0; idx < questions.size(); idx++){
-            AllAnswerResponse tmp = getAnswers(idx, questionGroup, QuestionType.공통);
+        if(questionsPublic.size() != 0){
+            // for문 돌려서 AllAnswerResponse에 나머지 값 answerA, answerB 구하기
+            for(int idx = 0; idx < questionsPublic.size(); idx++){
+                AllAnswerResponse tmp = getAnswers(questionGroup, QuestionType.공통).get(idx);
 
-            list.add(tmp);
+                list.add(tmp);
+            }
+        }else{
+            list = null;
         }
+
 
         return list;
     }
@@ -255,19 +305,24 @@ public class AnswerServiceImpl implements AnswerService{
     public List<AllAnswerResponse> selectAnswersGroupByUnis(int questionGroup) {
         // countByAnswer 사용해서 AllAnswerResponse에 넣어주기
         // findByQuestionGroupAndType 사용
+        List<Question> questionsUnis = new ArrayList<>();
 
         // 먼저, 그룹별, 타입별 질문을 몽땅 가져오자
-        questions = questionRepository.findAllByGroupAndType(questionGroup, QuestionType.대학);
+        questionsUnis = questionRepository.findAllByGroupAndType(questionGroup, QuestionType.대학);
 
         // 먼저 list 만들어서
         list = new ArrayList<>();
+        if(questionsUnis.size() != 0){
+            // for문 돌려서 AllAnswerResponse에 나머지 값 answerA, answerB 구하기
+            for(int idx = 0; idx < questionsUnis.size(); idx++){
+                AllAnswerResponse tmp = getAnswers(questionGroup, QuestionType.대학).get(idx);
 
-        // for문 돌려서 AllAnswerResponse에 나머지 값 answerA, answerB 구하기
-        for(int idx = 0; idx < questions.size(); idx++){
-            AllAnswerResponse tmp = getAnswers(idx, questionGroup, QuestionType.대학);
-
-            list.add(tmp);
+                list.add(tmp);
+            }
+        }else{
+            list = null;
         }
+
 
         return list;
     }
@@ -277,19 +332,24 @@ public class AnswerServiceImpl implements AnswerService{
     public List<AllAnswerResponse> selectAnswersGroupByCompanies(int questionGroup) {
         // countByAnswer 사용해서 AllAnswerResponse에 넣어주기
         // findByQuestionGroupAndType 사용
+        List<Question> questionsCompanies = new ArrayList<>();
 
         // 먼저, 그룹별, 타입별 질문을 몽땅 가져오자
-        questions = questionRepository.findAllByGroupAndType(questionGroup, QuestionType.기업);
+        questionsCompanies = questionRepository.findAllByGroupAndType(questionGroup, QuestionType.기업);
 
         // 먼저 list 만들어서
         list = new ArrayList<>();
+        if(questionsCompanies.size() != 0){
+            // for문 돌려서 AllAnswerResponse에 나머지 값 answerA, answerB 구하기
+            for(int idx = 0; idx < questionsCompanies.size(); idx++){
+                AllAnswerResponse tmp = getAnswers(questionGroup, QuestionType.기업).get(idx);
 
-        // for문 돌려서 AllAnswerResponse에 나머지 값 answerA, answerB 구하기
-        for(int idx = 0; idx < questions.size(); idx++){
-            AllAnswerResponse tmp = getAnswers(idx, questionGroup, QuestionType.기업);
-
-            list.add(tmp);
+                list.add(tmp);
+            }
+        }else{
+            list = null;
         }
+
 
         return list;
     }
