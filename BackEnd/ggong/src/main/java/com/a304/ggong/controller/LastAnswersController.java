@@ -39,6 +39,7 @@ public class LastAnswersController {
         List<AllAnswerResponse> uniAnswers = answerService.selectAnswersGroupByUnis(questionGroupNum);
         List<AllAnswerResponse> comAnswers = answerService.selectAnswersGroupByCompanies(questionGroupNum);
 
+        System.out.println();
         for(int idx = 0; idx < 3; idx++){
             result[idx] = new ArrayList<>();
         }

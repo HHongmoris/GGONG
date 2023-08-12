@@ -39,26 +39,26 @@ public class AnswerServiceImpl implements AnswerService{
 
     // 공통 사용 메소드
     // AllAnswerResponse에 나머지 값(answerA, answerB) 구해주기
-    AllAnswerResponse getAnswers(int idx, int questionGroup, QuestionType questionType){
-        // 임시 AllAnswerResponse 객체를 만들고 거기에 Question을 넣어줌
-        AllAnswerResponse tmp = new AllAnswerResponse(questions.get(idx));
-
-        // answerA 구해서 객체에 넣어줌
-        Long answerA = voteRepository.countByQuestionGroupAndAnswerTypeAndQuestionType(questionGroup, 0, questionType);
-        tmp.setAnswerA(answerA);
-
-        // answerB 구해서 객체에 넣어줌
-        Long answerB = voteRepository.countByQuestionGroupAndAnswerTypeAndQuestionType(questionGroup, 1, questionType);
-        tmp.setAnswerA(answerB);
-
-        // rate 구해주기
-        Long answerAll = voteRepository.countByQuestionGroupAndQuestionType(questionGroup,questionType);
-
-        Long rateA = answerA / answerAll;
-        Long rateB = answerB / answerAll;
-
-        tmp.setRateA(rateA);
-        tmp.setRateB(rateB);
+    List<AllAnswerResponse> getAnswers(int idx, int questionGroup, QuestionType questionType){
+//        // 임시 AllAnswerResponse 객체를 만들고 거기에 Question을 넣어줌
+//        AllAnswerResponse tmp = new AllAnswerResponse(questions.get(idx));
+//
+//        // answerA 구해서 객체에 넣어줌
+//        Long answerA = voteRepository.countByQuestionGroupAndAnswerTypeAndQuestionType(questionGroup, 0, questionType);
+//        tmp.setAnswerA(answerA);
+//
+//        // answerB 구해서 객체에 넣어줌
+//        Long answerB = voteRepository.countByQuestionGroupAndAnswerTypeAndQuestionType(questionGroup, 1, questionType);
+//        tmp.setAnswerA(answerB);
+//
+//        // rate 구해주기
+//        Long answerAll = voteRepository.countByQuestionGroupAndQuestionType(questionGroup,questionType);
+//
+//        Long rateA = answerA / answerAll;
+//        Long rateB = answerB / answerAll;
+//
+//        tmp.setRateA(rateA);
+//        tmp.setRateB(rateB);
 
         return tmp;
     }
