@@ -269,26 +269,30 @@ public class MachineServiceImpl implements MachineService {
 	// 관심 기기 등록
 	@Override
 	public void insertFavoriteMachine(String email, Long machineNo) {
-		// FavoriteMachine entity에 값을 넣으려면 user, machine 객체가 필요
-		// machine
-		Machine machine = machineRepository.findById(machineNo).orElseThrow();
 
-		//user
-		User user = userRepository.findByEmail(email).orElseThrow();
+		// user 꺼내오기
+		User user = userRepository.findByEmail(email).get();
 
-		// // save메소드에 넣어줄 FavoriteMachine 객체 만들기
-		// FavoriteMachine favoriteMachine = entity.toEntity(user, machine);
+		// machine 꺼내오기
+		Machine machine = machineRepository.findById(machineNo).get();
 
-		// favoriteMachineRepository.save(favoriteMachine);
+		FavoriteMachine favoriteMachine = FavoriteMachine.builder().user(user).machine(machine).build();
+
+		System.out.println(favoriteMachine.toString());
+
+		favoriteMachineRepository.save(favoriteMachine);
 
 	}
 
 	// 관심 기기 삭제
 	@Override
 	public void deleteFavoriteMachine(String email, Long machineNo) {
+
+		// user객체 받아오기
+		Long userNo = userRepository.findByEmail(email).get().getUserNo();
+
 		// FavoriteMachine 객체 받아오기
-		FavoriteMachine favoriteMachine = favoriteMachineRepository.findByMachine_MachineNo(machineNo)
-			.orElseThrow();
+		FavoriteMachine favoriteMachine = favoriteMachineRepository.findByUser_UserNoAndMachine_MachineNo(userNo,machineNo).get();
 
 		favoriteMachineRepository.delete(favoriteMachine);
 
