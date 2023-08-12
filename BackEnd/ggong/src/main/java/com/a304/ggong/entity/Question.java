@@ -14,6 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@ToString
 public class Question {
 
 	@Id
@@ -38,6 +39,10 @@ public class Question {
 
 	@Enumerated(EnumType.STRING)
 	private QuestionType type;
+
+	QuestionType getQuestionType(){
+		return type;
+	}
 
 	// @OneToMany(mappedBy = "questionId")
 	// @Builder.Default
