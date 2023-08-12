@@ -26,7 +26,7 @@ import java.util.concurrent.Executors;
 @CrossOrigin(origins = "http://localhost:8080")
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/api/answers/sse")
+@RequestMapping("/api/answers/present")
 public class PresentAnswersController {
 
     @Autowired

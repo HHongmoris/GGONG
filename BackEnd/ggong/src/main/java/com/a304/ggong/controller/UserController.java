@@ -1,15 +1,11 @@
 package com.a304.ggong.controller;
 
-import com.a304.ggong.dto.request.LikeRegistRequest;
 import com.a304.ggong.dto.request.UserCigarRequest;
-import com.a304.ggong.dto.response.LikeResponse;
 import com.a304.ggong.dto.response.MachineDetailResponse;
 import com.a304.ggong.dto.response.SmokeCountResponse;
 import com.a304.ggong.dto.response.UserCigarResponse;
-import com.a304.ggong.entity.User;
 import com.a304.ggong.global.jwt.service.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,8 +14,6 @@ import com.a304.ggong.dto.UserSignUpDto;
 import com.a304.ggong.service.UserService;
 
 import lombok.RequiredArgsConstructor;
-
-import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -73,7 +67,7 @@ public class UserController {
 	public ResponseEntity<MachineDetailResponse[]> getLikeMachine(@RequestHeader(required = true, name = "Authorization") String token){
 		//성민
 		String email = jwtService.extractEmailTest(token);
-		if(email.equals("")) {
+		if(email == null) {
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		}
 

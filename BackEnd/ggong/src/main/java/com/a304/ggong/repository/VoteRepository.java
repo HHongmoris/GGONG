@@ -60,4 +60,8 @@ public interface VoteRepository extends JpaRepository<Vote, Long> {
 	@Query("SELECT COUNT(v) FROM Vote v WHERE v.voteDate >= :startDate AND v.voteDate < :endDate AND v.user.userNo = :userNo")
 	Long countByVoteDateAndUserId(@Param("startDate") Timestamp startDate, @Param("endDate") Timestamp endDate, @Param("userNo") Long userNo);
 
+	// 기기 상세 조회에 쓸 vote 메소드
+	// 파라미터로 기기 넘버, 퀘스천 아이디, 시작날짜, 끝날짜, A or B(answer)
+	@Query("SELECT COUNT(v) FROM Vote v WHERE v.machine.machineNo = :machineNo AND v.question.questionID = :questionId AND v.answer = :answer AND v.voteDate >= :startDate AND v.voteDate < :endDate")
+	Long countByMachineNoAndQuestionIdAndAnswerAndStartDayAndEndDay(@Param("machineNo") Long machineNo, @Param("questionId") Long questionId, @Param("answer") int answer, @Param("startDate") Timestamp startDate, @Param("endDate") Timestamp endDate);
 }

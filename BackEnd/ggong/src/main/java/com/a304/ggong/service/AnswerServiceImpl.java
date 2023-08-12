@@ -19,6 +19,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import static com.a304.ggong.entity.QuestionType.*;
+
 @Slf4j
 @RequiredArgsConstructor // 생성자 주입
 @Service
