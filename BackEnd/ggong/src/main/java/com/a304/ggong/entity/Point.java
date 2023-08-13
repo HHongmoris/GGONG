@@ -11,6 +11,7 @@ import java.sql.Timestamp;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class Point {
     //포인트 번호(id)
     @Id
@@ -28,7 +29,7 @@ public class Point {
 
     //잔여 포인트
     @Column(name = "balance_point")
-    private int balancePoint;
+    private Integer balancePoint;
 
     //투표 번호(vote 테이블)
     @ManyToOne(fetch = FetchType.LAZY)

@@ -4,10 +4,7 @@ import java.sql.Timestamp;
 
 import com.a304.ggong.entity.Point;
 import com.a304.ggong.entity.Product;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.sql.Timestamp;
 
@@ -15,18 +12,21 @@ import java.sql.Timestamp;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class PointListResponse {
     private Timestamp eventTime;
-    private int balancePoint;
+    private Integer balancePoint;
     private int point;
-    private String machineName;
-    private int price;
+    // 이거 상황에 따라 null 될수있도록 처리 해줘야겠네...
+    // null 값들 다 빼니까 잘나와
+//    private String machineName;
+//    private Integer price; // 근데 애초에 이 가격이 왜 필요하지?
 
     public PointListResponse(Point entity){
         this.eventTime = entity.getEventTime();
         this.balancePoint = entity.getBalancePoint();
         this.point = entity.getPoint();
-        this.machineName = entity.getVote().getMachine().getName();
-        this.price = entity.getBuy().getProduct().getPrice();
+//        this.machineName = entity.getVote().getMachine().getName();
+//        this.price = entity.getBuy().getProduct().getPrice();
     }
 }

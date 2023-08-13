@@ -115,11 +115,11 @@ public class UserService {
 	@Transactional
 	public UserCigarResponse updateCiga (String email, UserCigarRequest request){
 		User user = userRepository.findByEmail(email).get();
-		user.setFavoriteCigarette(request.getFavoriteCigarette());
+		request.setFavoriteCigarette(request.getFavoriteCigarette());
+		request.toEntity();
 
+		UserCigarResponse response = new UserCigarResponse(user);
 
-		UserCigarResponse response = new UserCigarResponse();
-		response.setFavoriteCigarette(request.getFavoriteCigarette());
 		return response;
 	}
 
