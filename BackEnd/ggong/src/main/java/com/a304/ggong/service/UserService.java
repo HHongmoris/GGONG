@@ -102,27 +102,21 @@ public class UserService {
 
 		List<FavoriteMachine> favoriteMachine = favoriteMachineRepository.findByUser_UserNo(user.getUserNo());
 
-		System.out.println("이것은 서비스의 favoriteMachine.size()"+favoriteMachine.size());
-
 		MachineDetailResponse[] arr = new MachineDetailResponse[favoriteMachine.size()];
 
 		for(int idx = 0; idx < favoriteMachine.size(); idx++){
 			arr[idx] = machineService.selectMachineDetail(favoriteMachine.get(idx).getMachine().getMachineNo());
 		}
 
-		for(MachineDetailResponse m : arr){
-			System.out.println("이것은 arr의 machinedetailresponse입니다. "+m.getName());
-		}
-
 		return arr;
 	}
 
 	// 사용 담배 수정
+	@Transactional
 	public UserCigarResponse updateCiga (String email, UserCigarRequest request){
 		User user = userRepository.findByEmail(email).get();
 		user.setFavoriteCigarette(request.getFavoriteCigarette());
-		// .save하면 update로 돼...? 자동으로...?
-		userRepository.save(user);
+
 
 		UserCigarResponse response = new UserCigarResponse();
 		response.setFavoriteCigarette(request.getFavoriteCigarette());

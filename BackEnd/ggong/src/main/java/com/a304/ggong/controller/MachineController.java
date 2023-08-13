@@ -1,10 +1,14 @@
 package com.a304.ggong.controller;
 
+import java.io.IOException;
 import java.util.List;
 
+import com.a304.ggong.global.sseemitter.SseEmitters;
+import com.a304.ggong.service.SseService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -22,6 +26,7 @@ import com.a304.ggong.global.jwt.service.JwtService;
 import com.a304.ggong.service.MachineService;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 @Slf4j
 @Controller
@@ -35,6 +40,10 @@ public class MachineController {
 
 	@Autowired
 	private final JwtService jwtService;
+
+	// SSE
+	private final SseEmitters sseEmitters;
+	private final SseService service;
 
 	// 모든 기기 조회
 	@GetMapping
@@ -60,11 +69,21 @@ public class MachineController {
 		return new ResponseEntity<Object>(likeList, HttpStatus.OK);
 	}
 
+	// SSE 이식 (현재 질문과 답변)
 	// 특정 기기의 상세 정보 조회
-	@GetMapping("/{machineNo}")
-	public ResponseEntity<MachineDetailResponse> getMachineDetailInfo(@PathVariable("machineNo") Long machineNo) {
+	@GetMapping(value = "/{machineNo}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+	public ResponseEntity<SseEmitter> getMachineDetailInfo(@PathVariable("machineNo") Long machineNo) {
+		SseEmitter emitter = new SseEmitter();
+		sseEmitters.add(emitter);
+
 		MachineDetailResponse machineDetailResponse = machineService.selectMachineDetail(machineNo);
-		return new ResponseEntity<MachineDetailResponse>(machineDetailResponse, HttpStatus.OK);
+
+		try{
+			emitter.send(SseEmitter.event().name("detail").data(machineDetailResponse));
+		}catch (IOException e){
+			e.printStackTrace();
+		}
+		return ResponseEntity.ok(emitter);
 	}
 
 	// 관심 기기 등록

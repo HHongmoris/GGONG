@@ -43,8 +43,6 @@ public class UserController {
 	// 	return new ResponseEntity<Boolean>(true,HttpStatus.OK);
 	// }
 
-	// 최근 포인트 조회는 list로 받은 포인트 객체에서 인덱스로 조정
-
 	// 오늘, 어제 넣은 꽁초 개수 조회
 	@GetMapping("/smoke")
 	public ResponseEntity<SmokeCountResponse> getCiga(@RequestHeader(required = true, name = "Authorization") String token){

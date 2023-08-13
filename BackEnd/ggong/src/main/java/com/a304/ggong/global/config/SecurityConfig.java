@@ -42,23 +42,23 @@ public class SecurityConfig {
         http
                 .formLogin().disable()
                 .httpBasic().disable()
-                .csrf().disable()
-                .headers().frameOptions().disable()
-                .and()
-
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                .authorizeRequests()
-                .antMatchers("/","/css/**","/images/**","/js/**","/favicon.ico","/db/**").permitAll()
-                .antMatchers("/sign-up").permitAll()
-                //.antMatchers("/**").permitAll() 혹시 위에 코드가 안되면 전체 permit
-                .anyRequest().authenticated()
-                .and()
-
-                .oauth2Login()
-                .successHandler(oAuth2LoginSuccessHandler)
-                .failureHandler(oAuth2LoginFailureHandler)
-                .userInfoEndpoint().userService(customOAuth2UserService);
+                .csrf().disable().cors();
+//                .headers().frameOptions().disable()
+//                .and()
+//
+//                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+//                .and()
+//                .authorizeRequests()
+//                .antMatchers("/","/css/**","/images/**","/js/**","/favicon.ico","/db/**").permitAll()
+//                .antMatchers("/sign-up").permitAll()
+//                //.antMatchers("/**").permitAll() 혹시 위에 코드가 안되면 전체 permit
+//                .anyRequest().authenticated()
+//                .and()
+//
+//                .oauth2Login()
+//                .successHandler(oAuth2LoginSuccessHandler)
+//                .failureHandler(oAuth2LoginFailureHandler)
+//                .userInfoEndpoint().userService(customOAuth2UserService);
 
         http.addFilterAfter(customJsonUsernamePasswordAuthenticationFilter(), LogoutFilter.class);
         http.addFilterBefore(jwtAuthenticationProcessingFilter(), CustomJsonUsernamePasswordAuthenticationFilter.class);
