@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.a304.ggong.dto.QuestionAndAnswerCnt;
+import com.a304.ggong.dto.VoteMachineUserData;
 import com.a304.ggong.entity.QuestionType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -28,6 +29,16 @@ public interface VoteRepository extends JpaRepository<Vote, Long> {
 //	@Query("SELECT v.answer, v.voteDate, m.areaGu, m.name, u.ageRange FROM Vote v LEFT JOIN Machine m ON v.machine.machineNo = m.machineNo LEFT JOIN User u ON v.user.userNo = u.userNo WHERE v.question.group = :questionGroup")
 	@Query("SELECT v.answer, v.voteDate, v.machine.areaGu, v.machine.name, v.user.ageRange FROM Vote v WHERE v.question.group = :questionGroup")
 	List<Vote> findAllWithMachineAndQuestionFetchJoin(@Param("questionGroup") int questionGroup);
+
+
+	//answer detail에 들어갈 메서드
+	@Query("SELECT v.answer, v.voteDate, m.name, m.areaGu, u.ageRange FROM Vote v " +
+			"JOIN v.machine m " +
+			"JOIN v.user u " +
+			"WHERE v.question.group = :questionGroup")
+	List<VoteMachineUserData> findVoteDataByQuestionGroup(@Param("questionGroup") int questionGroup);
+
+
 
 	// group과 type에 따라 전체 answer count하기
 	@Query("SELECT v.question.questionID AS questionID, COUNT(v) AS answerCnt FROM Vote v LEFT JOIN Question q ON v.question.questionID = q.questionID WHERE q.group = :questionGroup AND q.type = :questionType GROUP BY v.question.questionID")
