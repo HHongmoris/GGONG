@@ -133,7 +133,7 @@ public class AnswerServiceImpl implements AnswerService{
         // for문도 돌리고... if문도 돌리고...
         // 먼저 Vote들을 리스트로 받아오기
 //        votes = voteRepository.findAllWithMachineAndQuestionFetchJoin(questionGroup);
-        List<Object[]> voteMachineUserDatas = voteRepository.findVoteDataByQuestionGroup(questionGroup);
+        List<Object[]> voteMachineUserDatas = voteRepository.findVoteDataByQuestionGroup(questionId);
         System.out.println("여기 : "+voteMachineUserDatas.get(0));
         // 객체 넣어줄 map
         HashMap<String, AnswerDetailResponse> areaMap = new HashMap<String, AnswerDetailResponse>();
@@ -148,17 +148,92 @@ public class AnswerServiceImpl implements AnswerService{
         //지역별 상세 결과 모음
         if(idx == 0){
             //지역별일 때는 dataLabel에 areagu 들어가게
-            for(int i=0; i<voteMachineUserDatas.size(); i++){
+            List<Object[]> areaGuData = voteRepository.findVoteDataByAreaGu(questionId);
+
+            for(int i=0; i<areaGuData.size(); i++){
                 AnswerDetailResponse answerDetailResponse = new AnswerDetailResponse();
                 //dataLabel에 지역구 어디인지 넣음
-                answerDetailResponse.setDataLabel((String) voteMachineUserDatas.get(i)[3]);
-                //선택한 답안 확인
-                int answer = (int) voteMachineUserDatas.get(i)[1];
-//                if(answer == 0){    //답안이 0일 때(A선택)
-
+                answerDetailResponse.setDataLabel((String) areaGuData.get(i)[0]);
+                //답변 수 합 계산
+                Long answerA =(Long) areaGuData.get(i)[1];
+                Long answerB =(Long) areaGuData.get(i)[2];
+                Long total = answerA + answerB;
+                Long rateA = 0L;
+                Long rateB = 0L;
+                //각 항이 null일 때 경우 나눠서 생각
+                if(total != 0L){
+                    if(answerA == null){
+                        answerA = 0L;
+                        rateA = 0L;
+                        rateB = 100L;
+                    }else if(answerA == total){
+                        answerB = 0L;
+                        rateA = 100L;
+                        rateB = 0L;
+                    }else{
+                        rateA = (answerA*100)/total;
+                        rateB = 100 - rateA;
+                    }
+                }else{
+                    answerA = 0L;
+                    answerB = 0L;
+                    rateA = 0L;
+                    rateB = 0L;
                 }
 
+                //구한 값들 다 AnswerDetailResponse에 넣어주기
+                answerDetailResponse.setAnswerA(answerA);
+                answerDetailResponse.setAnswerB(answerB);
+                answerDetailResponse.setRateA(rateA);
+                answerDetailResponse.setRateB(rateB);
+
+
             }
+        }else if(idx == 1){
+            //연령대 별 일 때는 dataLabel에 ageRange 들어가게
+            List<Object[]> ageRangeData = voteRepository.findVoteDataByAgeRange(questionId);
+
+            for(int i=0; i<ageRangeData.size(); i++){
+                AnswerDetailResponse answerDetailResponse = new AnswerDetailResponse();
+                //dataLabel에 지역구 어디인지 넣음
+                answerDetailResponse.setDataLabel((String) ageRangeData.get(i)[0]);
+                //답변 수 합 계산
+                Long answerA =(Long) ageRangeData.get(i)[1];
+                Long answerB =(Long) ageRangeData.get(i)[2];
+                Long total = answerA + answerB;
+                Long rateA = 0L;
+                Long rateB = 0L;
+                //각 항이 null일 때 경우 나눠서 생각
+                if(total != 0L){
+                    if(answerA == null){
+                        answerA = 0L;
+                        rateA = 0L;
+                        rateB = 100L;
+                    }else if(answerA == total){
+                        answerB = 0L;
+                        rateA = 100L;
+                        rateB = 0L;
+                    }else{
+                        rateA = (answerA*100)/total;
+                        rateB = 100 - rateA;
+                    }
+                }else{
+                    answerA = 0L;
+                    answerB = 0L;
+                    rateA = 0L;
+                    rateB = 0L;
+                }
+
+                //구한 값들 다 AnswerDetailResponse에 넣어주기
+                answerDetailResponse.setAnswerA(answerA);
+                answerDetailResponse.setAnswerB(answerB);
+                answerDetailResponse.setRateA(rateA);
+                answerDetailResponse.setRateB(rateB);
+
+
+            }
+        }else if(idx == 3){
+
         }
 
 //        // for문 돌리기

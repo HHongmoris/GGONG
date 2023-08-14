@@ -31,15 +31,19 @@ public interface VoteRepository extends JpaRepository<Vote, Long> {
 
 
 	//answer detail에 들어갈 메서드
-//	@Query("SELECT new com.a304.ggong.dto.VoteMachineUserData(v.answer, v.voteDate, m.areaGu, m.name, u.ageRange) " +
-//			"FROM Vote v " +
-//			"JOIN v.machine m " +
-//			"JOIN v.user u " +
-//			"WHERE v.question.questionID IN " +
-//			"(SELECT q.questionID FROM Question q WHERE q.group = :questionGroup)")
-	@Query("SELECT q.questionID AS questionID, v.answer AS answer, v.voteDate AS voteDate, m.areaGu AS areaGu, m.name AS machineName, u.ageRange AS ageRange FROM Vote v JOIN Question q ON v.question.questionID = q.questionID JOIN Machine m ON v.machine.machineNo = m.machineNo JOIN User u ON v.user.userNo = u.userNo WHERE v.question.questionID IN (SELECT q.questionID AS questionID FROM Question q WHERE q.group = :questionGroup)")
-	List<Object[]> findVoteDataByQuestionGroup(@Param("questionGroup") int questionGroup);
+	//질문 번호, 제출 답안, 투표시간, 지역, 기기명, 연령대 출력
+//	@Query("SELECT q.questionID AS questionID, v.answer AS answer, v.voteDate AS voteDate, m.areaGu AS areaGu, m.name AS machineName, u.ageRange AS ageRange FROM Vote v JOIN Question q ON v.question.questionID = q.questionID JOIN Machine m ON v.machine.machineNo = m.machineNo JOIN User u ON v.user.userNo = u.userNo WHERE v.question.questionID IN (SELECT q.questionID AS questionID FROM Question q WHERE q.group = :questionGroup)")
+	@Query("SELECT q.questionID AS questionID, v.answer AS answer, v.voteDate AS voteDate, m.areaGu AS areaGu, m.name AS machineName, u.ageRange AS ageRange FROM Vote v JOIN Question q ON v.question.questionID = q.questionID JOIN Machine m ON v.machine.machineNo = m.machineNo JOIN User u ON v.user.userNo = u.userNo WHERE v.question.questionID = :questionID")
+	List<Object[]> findVoteDataByQuestionGroup(@Param("questionID") Long questionID);
 
+	//위 쿼리에서 지역별로 묶은 뒤 답안 카운트
+//	@Query("SELECT m.areaGu AS areaGu, COUNT(CASE WHEN v.answer = 0 THEN 1 ELSE NULL END) AS answerA, COUNT(CASE WHEN v.answer = 1 THEN 1 ELSE NULL END) AS answerB FROM Vote v JOIN Question q ON v.question.questionID = q.questionID JOIN Machine m ON v.machine.machineNo = m.machineNo JOIN User u ON v.user.userNo = u.userNo WHERE v.question.questionID IN (SELECT q.questionID AS questionID FROM Question q WHERE q.group = :questionGroup) GROUP BY m.areaGu")
+	@Query("SELECT m.areaGu AS areaGu, COUNT(CASE WHEN v.answer = 0 THEN 1 ELSE NULL END) AS answerA, COUNT(CASE WHEN v.answer = 1 THEN 1 ELSE NULL END) AS answerB FROM Vote v JOIN Question q ON v.question.questionID = q.questionID JOIN Machine m ON v.machine.machineNo = m.machineNo JOIN User u ON v.user.userNo = u.userNo WHERE v.question.questionID = :questionID GROUP BY m.areaGu")
+	List<Object[]> findVoteDataByAreaGu(@Param("questionID") Long questionID);
+
+	//연령대별로 묶은 뒤 답안 카운트
+	@Query("SELECT u.ageRange AS ageRange, COUNT(CASE WHEN v.answer = 0 THEN 1 ELSE NULL END) AS answerA, COUNT(CASE WHEN v.answer = 1 THEN 1 ELSE NULL END) AS answerB FROM Vote v JOIN Question q ON v.question.questionID = q.questionID JOIN Machine m ON v.machine.machineNo = m.machineNo JOIN User u ON v.user.userNo = u.userNo WHERE v.question.questionID = :questionID GROUP BY u.ageRange")
+	List<Object[]> findVoteDataByAgeRange(@Param("questionID") Long questionID);
 
 
 	// group과 type에 따라 전체 answer count하기
