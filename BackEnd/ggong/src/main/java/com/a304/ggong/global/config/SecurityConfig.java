@@ -24,6 +24,11 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.logout.LogoutFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import java.util.List;
 
 @Configuration
 @EnableWebSecurity
@@ -43,19 +48,22 @@ public class SecurityConfig {
                 .formLogin().disable()
                 .httpBasic().disable()
                 .csrf().disable()
+                .cors()
+                .and()
                 .headers().frameOptions().disable()
                 .and()
 
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/","/css/**","/images/**","/js/**","/favicon.ico","/db/**").permitAll()
+                .antMatchers("/","/css/**","/images/**","/js/**","/favicon.ico","/db/**", "/api/**").permitAll()
                 .antMatchers("/sign-up").permitAll()
                 //.antMatchers("/**").permitAll() 혹시 위에 코드가 안되면 전체 permit
                 .anyRequest().authenticated()
                 .and()
 
                 .oauth2Login()
+                .redirectionEndpoint(endpoint -> endpoint.baseUri("/api/login/oauth2/code/*"))
                 .successHandler(oAuth2LoginSuccessHandler)
                 .failureHandler(oAuth2LoginFailureHandler)
                 .userInfoEndpoint().userService(customOAuth2UserService);
@@ -102,6 +110,23 @@ public class SecurityConfig {
     public JwtAuthenticationProcessingFilter jwtAuthenticationProcessingFilter() {
         JwtAuthenticationProcessingFilter jwtAuthenticationFilter = new JwtAuthenticationProcessingFilter(jwtService, userRepository);
         return jwtAuthenticationFilter;
+    }
+
+    // 스프링 시큐리티에서 사용할 CORS 설정
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration config = new CorsConfiguration();
+
+        config.setAllowCredentials(true);
+        config.setAllowedOrigins(List.of("http://localhost:3000", "http://localhost:8080", "https://accounts.kakao.com/login",
+                "http://i9a304.p.ssafy.io:3000", "http://i9a304.p.ssafy.io:8080", "http://i9a304.p.ssafy.io"));
+        config.setAllowedMethods(List.of("GET", "POST", "PUT", "OPTIONS"));
+        config.setAllowedHeaders(List.of("*"));
+        config.setExposedHeaders(List.of("*"));
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", config);
+        return source;
     }
 
 }
