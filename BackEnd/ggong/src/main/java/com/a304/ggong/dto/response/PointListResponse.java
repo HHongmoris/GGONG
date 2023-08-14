@@ -6,6 +6,7 @@ import com.a304.ggong.entity.Point;
 import com.a304.ggong.entity.Product;
 import lombok.*;
 
+import javax.persistence.Column;
 import java.sql.Timestamp;
 
 @Getter
@@ -19,8 +20,11 @@ public class PointListResponse {
     private int point;
     // 이거 상황에 따라 null 될수있도록 처리 해줘야겠네...
     // null 값들 다 빼니까 잘나와
-   private String machineName;
-   private int price;
+    @Column(nullable = true)
+    private String machineName;
+
+    @Column(nullable = true)
+    private int price;
 
     public PointListResponse(Point entity){
         this.eventTime = entity.getEventTime();
