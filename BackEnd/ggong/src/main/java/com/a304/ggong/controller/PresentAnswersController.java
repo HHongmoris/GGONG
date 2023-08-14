@@ -49,7 +49,7 @@ public class PresentAnswersController {
                 // voteTable 갱신
                 answerService.iniAnswers();
 
-                List<AllAnswerResponse>[] result = new java.util.List[3];
+                List<AllAnswerResponse>[] result = new List[3];
 
                 List<AllAnswerResponse> commonAnswers = answerService.selectAnswersGroupByCommon(questionGroupNum);
                 List<AllAnswerResponse> uniAnswers = answerService.selectAnswersGroupByUnis(questionGroupNum);
