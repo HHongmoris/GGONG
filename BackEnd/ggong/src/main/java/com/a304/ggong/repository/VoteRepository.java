@@ -4,8 +4,6 @@ import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 
-import com.a304.ggong.dto.QuestionAndAnswerCnt;
-import com.a304.ggong.dto.VoteMachineUserData;
 import com.a304.ggong.entity.QuestionType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -25,18 +23,22 @@ public interface VoteRepository extends JpaRepository<Vote, Long> {
 
 	Optional<Vote> findAllByQuestion_QuestionID(Long questionId);
 
+	//이거 우선 주석처리
 	// Vote + Machine + User Fetch Join
 //	@Query("SELECT v.answer, v.voteDate, m.areaGu, m.name, u.ageRange FROM Vote v LEFT JOIN Machine m ON v.machine.machineNo = m.machineNo LEFT JOIN User u ON v.user.userNo = u.userNo WHERE v.question.group = :questionGroup")
-	@Query("SELECT v.answer, v.voteDate, v.machine.areaGu, v.machine.name, v.user.ageRange FROM Vote v WHERE v.question.group = :questionGroup")
-	List<Vote> findAllWithMachineAndQuestionFetchJoin(@Param("questionGroup") int questionGroup);
+//	@Query("SELECT v.answer, v.voteDate, v.machine.areaGu, v.machine.name, v.user.ageRange FROM Vote v WHERE v.question.group = :questionGroup")
+//	List<Vote> findAllWithMachineAndQuestionFetchJoin(@Param("questionGroup") int questionGroup);
 
 
 	//answer detail에 들어갈 메서드
-	@Query("SELECT v.answer, v.voteDate, m.name, m.areaGu, u.ageRange FROM Vote v " +
-			"JOIN v.machine m " +
-			"JOIN v.user u " +
-			"WHERE v.question.group = :questionGroup")
-	List<VoteMachineUserData> findVoteDataByQuestionGroup(@Param("questionGroup") int questionGroup);
+//	@Query("SELECT new com.a304.ggong.dto.VoteMachineUserData(v.answer, v.voteDate, m.areaGu, m.name, u.ageRange) " +
+//			"FROM Vote v " +
+//			"JOIN v.machine m " +
+//			"JOIN v.user u " +
+//			"WHERE v.question.questionID IN " +
+//			"(SELECT q.questionID FROM Question q WHERE q.group = :questionGroup)")
+	@Query("SELECT q.questionID AS questionID, v.answer AS answer, v.voteDate AS voteDate, m.areaGu AS areaGu, m.name AS machineName, u.ageRange AS ageRange FROM Vote v JOIN Question q ON v.question.questionID = q.questionID JOIN Machine m ON v.machine.machineNo = m.machineNo JOIN User u ON v.user.userNo = u.userNo WHERE v.question.questionID IN (SELECT q.questionID AS questionID FROM Question q WHERE q.group = :questionGroup)")
+	List<Object[]> findVoteDataByQuestionGroup(@Param("questionGroup") int questionGroup);
 
 
 

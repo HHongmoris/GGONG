@@ -126,36 +126,36 @@ public class PresentAnswersController {
 
     // 질문 응답 상세페이지
     // 대학Path
-    @GetMapping(value = "/uni", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-    public ResponseEntity<List<AnswerDetailResponse>[]> getUniAnswersDetail(){
-        List<AnswerDetailResponse>[] result = new List[3];
-
-        QuestionGroup questionGroup = new QuestionGroup();
-        int questionGroupNum = questionGroup.getThisWeekGroupNum();
-
-        for(int idx = 0; idx < 3; idx++){
-            result[idx] = new ArrayList<>();
-        }
-
-        result = answerService.selectDetailAnswer(questionGroupNum, "대학");
-        return new ResponseEntity<>(result, HttpStatus.OK);
-    }
-
-    // 질문 응답 상세페이지
-    // 기업Path
-    @GetMapping(value ="/com", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-    public ResponseEntity<List<AnswerDetailResponse>[]> getComAnswersDetail(){
-        List<AnswerDetailResponse>[] result = new List[3];
-
-
-        QuestionGroup questionGroup = new QuestionGroup();
-        int questionGroupNum = questionGroup.getThisWeekGroupNum();
-
-        for(int idx = 0; idx < 3; idx++){
-            result[idx] = new ArrayList<>();
-        }
-
-        result = answerService.selectDetailAnswer(questionGroupNum, "기업");
-        return new ResponseEntity<>(result, HttpStatus.OK);
-    }
+//    @GetMapping(value = "/uni", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+//    public ResponseEntity<List<AnswerDetailResponse>[]> getUniAnswersDetail(){
+//        List<AnswerDetailResponse>[] result = new List[3];
+//
+//        QuestionGroup questionGroup = new QuestionGroup();
+//        int questionGroupNum = questionGroup.getThisWeekGroupNum();
+//
+//        for(int idx = 0; idx < 3; idx++){
+//            result[idx] = new ArrayList<>();
+//        }
+//
+//        result = answerService.selectDetailAnswer(questionGroupNum, "대학");
+//        return new ResponseEntity<>(result, HttpStatus.OK);
+//    }
+//
+//    // 질문 응답 상세페이지
+//    // 기업Path
+//    @GetMapping(value ="/com", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+//    public ResponseEntity<List<AnswerDetailResponse>[]> getComAnswersDetail(){
+//        List<AnswerDetailResponse>[] result = new List[3];
+//
+//
+//        QuestionGroup questionGroup = new QuestionGroup();
+//        int questionGroupNum = questionGroup.getThisWeekGroupNum();
+//
+//        for(int idx = 0; idx < 3; idx++){
+//            result[idx] = new ArrayList<>();
+//        }
+//
+//        result = answerService.selectDetailAnswer(questionGroupNum, "기업");
+//        return new ResponseEntity<>(result, HttpStatus.OK);
+//    }
 }

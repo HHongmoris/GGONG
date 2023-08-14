@@ -1,9 +1,7 @@
 package com.a304.ggong.service;
 
-import com.a304.ggong.dto.VoteMachineUserData;
 import com.a304.ggong.dto.response.AllAnswerResponse;
 import com.a304.ggong.dto.response.AnswerDetailResponse;
-import com.a304.ggong.dto.QuestionAndAnswerCnt;
 import com.a304.ggong.entity.Question;
 import com.a304.ggong.entity.QuestionType;
 import com.a304.ggong.entity.Vote;
@@ -19,8 +17,6 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
-import static com.a304.ggong.entity.QuestionType.*;
 
 @Slf4j
 @RequiredArgsConstructor // 생성자 주입
@@ -71,12 +67,7 @@ public class AnswerServiceImpl implements AnswerService{
 
         for(int i=0; i<allQA.size(); i++){
             //allQA에 있는 질문 아이디를 통해 질문 데이터 불러와서 AllAnswerResponse에 담기
-//            //allQA로부터 질문 아이디 가져오기
-//            Long qID = allQA.get(i).getQuestionID();
-//            //가져온 질문 아이디의 전체 답변 수
-//            Long allCnt = allQA.get(i).getAnswerCnt();
-//            //가져온 질문 아이디의 A 항목 답변 수
-//            Long ACnt = answerACnt.get(i).getAnswerCnt();
+
             //allQA로부터 질문 아이디 가져오기
             Long qID = allQA.get(i)[0];
             //가져온 질문 아이디의 전체 답변 수
@@ -137,13 +128,13 @@ public class AnswerServiceImpl implements AnswerService{
     // 질문 상세 페이지
     // 대학
     @Override
-    public List<AnswerDetailResponse>[] selectDetailAnswer(int questionGroup, String machineLocation) {
+    public List<AnswerDetailResponse>[] selectDetailAnswer(int questionGroup, Long questionId) {
         // findAllWithMachineAndQuestionFetchJoin 사용
         // for문도 돌리고... if문도 돌리고...
         // 먼저 Vote들을 리스트로 받아오기
-        votes = voteRepository.findAllWithMachineAndQuestionFetchJoin(questionGroup);
-
-        List<VoteMachineUserData> voteMachineUserDatas = voteRepository.findVoteDataByQuestionGroup(questionGroup);
+//        votes = voteRepository.findAllWithMachineAndQuestionFetchJoin(questionGroup);
+        List<Object[]> voteMachineUserDatas = voteRepository.findVoteDataByQuestionGroup(questionGroup);
+        System.out.println("여기 : "+voteMachineUserDatas.get(0));
         // 객체 넣어줄 map
         HashMap<String, AnswerDetailResponse> areaMap = new HashMap<String, AnswerDetailResponse>();
         HashMap<String, AnswerDetailResponse> ageMap = new HashMap<String, AnswerDetailResponse>();
@@ -152,147 +143,172 @@ public class AnswerServiceImpl implements AnswerService{
 
         List<AnswerDetailResponse>[] result = new List[3];
 
-        // for문 돌리기
-        // 지역
-        for(int idx = 0; idx < voteMachineUserDatas.size(); idx++){
-            VoteMachineUserData tmpVote = voteMachineUserDatas.get(idx);
+        //지역, 연령, 특화 분류하는 인덱스
+        int idx = 0;
+        //지역별 상세 결과 모음
+        if(idx == 0){
+            //지역별일 때는 dataLabel에 areagu 들어가게
+            for(int i=0; i<voteMachineUserDatas.size(); i++){
+                AnswerDetailResponse answerDetailResponse = new AnswerDetailResponse();
+                //dataLabel에 지역구 어디인지 넣음
+                answerDetailResponse.setDataLabel((String) voteMachineUserDatas.get(i)[3]);
+                //선택한 답안 확인
+                int answer = (int) voteMachineUserDatas.get(i)[1];
+//                if(answer == 0){    //답안이 0일 때(A선택)
 
-            // 답변
-            int answer = tmpVote.getAnswer();
-            // answer가 0(A)이면 true로 바뀌게
-            boolean b = false;
-            if(answer == 0){
-                b = true;
-            }
-
-            // 먼저 List에 넣어줄 객체 만들고
-            AnswerDetailResponse tmp = new AnswerDetailResponse();
-
-            // 지역
-            String areaGu = tmpVote.getAreaGu();
-            if(!areaMap.containsKey(areaGu)){
-
-                // 지역구 넣어주고
-                tmp.setDataLabel(areaGu);
-                if(b){ // A를 선택했으면?
-                    tmp.setAnswerA(tmp.getAnswerA()+1);
-                }else {
-                    tmp.setAnswerB(tmp.getAnswerB()+1);
-                }
-
-                // map에 넣어주기
-                areaMap.put(areaGu, tmp);
-            }else {
-                tmp = areaMap.get(areaGu);
-                if(b){ // A를 선택했으면?
-                    tmp.setAnswerA(tmp.getAnswerA()+1);
-                }else { // B를 선택했으면?
-                    tmp.setAnswerB(tmp.getAnswerB()+1);
-                }
-            }
-
-            // 연령
-            String age = tmpVote.getAgeRange();
-            if(!ageMap.containsKey(age)){
-
-                // 지역구 넣어주고
-                tmp.setDataLabel(age);
-                if(b){ // A를 선택했으면?
-                    tmp.setAnswerA(tmp.getAnswerA()+1);
-                }else {
-                    tmp.setAnswerB(tmp.getAnswerB()+1);
-                }
-
-                // map에 넣어주기
-                ageMap.put(age, tmp);
-            }else {
-                tmp = ageMap.get(age);
-                if(b){ // A를 선택했으면?
-                    tmp.setAnswerA(tmp.getAnswerA()+1);
-                }else { // B를 선택했으면?
-                    tmp.setAnswerB(tmp.getAnswerB()+1);
-                }
-            }
-
-            // 대학
-            if(machineLocation.equals("대학")){
-                String uni = tmpVote.getMachineName();
-
-                // 대학인지 기업인지 구분
-                if (!uni.contains("대학교")) {
-                    continue;
-                }
-
-                if (!uniMap.containsKey(uni)) {
-
-                    // 대학명 넣어주고
-                    tmp.setDataLabel(uni);
-                    if (b) { // A를 선택했으면?
-                        tmp.setAnswerA(tmp.getAnswerA() + 1);
-                    } else {
-                        tmp.setAnswerB(tmp.getAnswerB() + 1);
-                    }
-
-                    // map에 넣어주기
-                    uniMap.put(uni, tmp);
-                } else {
-                    tmp = uniMap.get(uni);
-                    if (b) { // A를 선택했으면?
-                        tmp.setAnswerA(tmp.getAnswerA() + 1);
-                    } else { // B를 선택했으면?
-                        tmp.setAnswerB(tmp.getAnswerB() + 1);
-                    }
-                }
-            }else { // 기업
-                String com = tmpVote.getMachineName();
-
-                // 대학인지 기업인지 구분
-                if (com.contains("대학교")) {
-                    continue;
-                }
-
-                if (!comMap.containsKey(com)) {
-
-                    // 대학명 넣어주고
-                    tmp.setDataLabel(com);
-                    if (b) { // A를 선택했으면?
-                        tmp.setAnswerA(tmp.getAnswerA() + 1);
-                    } else {
-                        tmp.setAnswerB(tmp.getAnswerB() + 1);
-                    }
-
-                    // map에 넣어주기
-                    comMap.put(com, tmp);
-                } else {
-                    tmp = comMap.get(com);
-                    if (b) { // A를 선택했으면?
-                        tmp.setAnswerA(tmp.getAnswerA() + 1);
-                    } else { // B를 선택했으면?
-                        tmp.setAnswerB(tmp.getAnswerB() + 1);
-                    }
                 }
 
             }
-
-        }
-        List<AnswerDetailResponse> tmpAreaLIst = new ArrayList<>(areaMap.values());
-        List<AnswerDetailResponse> tmpAgeLIst = new ArrayList<>(ageMap.values());
-        List<AnswerDetailResponse> tmpUniLIst = new ArrayList<>(uniMap.values());
-        List<AnswerDetailResponse> tmpComLIst = new ArrayList<>(comMap.values());
-
-        for(int idx = 0; idx < 3; idx++){
-            result[idx] = new ArrayList<>();
         }
 
-        // 각 value를 List로 묶어서 배열에 넣어주기
-        result[0] = tmpAreaLIst;
-        result[1] = tmpAgeLIst;
+//        // for문 돌리기
+//        // 지역
+//        for(int idx = 0; idx < voteMachineUserDatas.size(); idx++){
+//            Object[] tmpVote = voteMachineUserDatas.get(idx);
+//            // 답변
+//            int answer = (int) tmpVote[1];
+//            // answer가 0(A)이면 true로 바뀌게
+//            boolean b = false;
+//            if(answer == 0){
+//                b = true;
+//            }
+//
+//            // 먼저 List에 넣어줄 객체 만들고
+//            AnswerDetailResponse tmp = new AnswerDetailResponse();
+//
+//            // 지역
+//            String areaGu = (String) tmpVote[3];
+//            if(!areaMap.containsKey(areaGu)){
+//
+//                // 지역구 넣어주고
+//                tmp.setDataLabel(areaGu);
+//                if(b){ // A를 선택했으면?
+//                    tmp.setAnswerA(tmp.getAnswerA()+1);
+//                }else {
+//                    tmp.setAnswerB(tmp.getAnswerB()+1);
+//                }
+//
+//                // map에 넣어주기
+//                areaMap.put(areaGu, tmp);
+//            }else {
+//                tmp = areaMap.get(areaGu);
+//                if(b){ // A를 선택했으면?
+//                    tmp.setAnswerA(tmp.getAnswerA()+1);
+//                }else { // B를 선택했으면?
+//                    tmp.setAnswerB(tmp.getAnswerB()+1);
+//                }
+//            }
+//
+//            // 연령
+////            String age = tmpVote.getAgeRange();
+//            String age = (String) tmpVote[5];
+//            if(!ageMap.containsKey(age)){
+//
+//                // 지역구 넣어주고
+//                tmp.setDataLabel(age);
+//                if(b){ // A를 선택했으면?
+//                    tmp.setAnswerA(tmp.getAnswerA()+1);
+//                }else {
+//                    tmp.setAnswerB(tmp.getAnswerB()+1);
+//                }
+//
+//                // map에 넣어주기
+//                ageMap.put(age, tmp);
+//            }else {
+//                tmp = ageMap.get(age);
+//                if(b){ // A를 선택했으면?
+//                    tmp.setAnswerA(tmp.getAnswerA()+1);
+//                }else { // B를 선택했으면?
+//                    tmp.setAnswerB(tmp.getAnswerB()+1);
+//                }
+//            }
+//
+////            String name = tmpVote.getMachineName();
+//            String name = (String) tmpVote[4];
+//            // 대학
+//            if(name.contains("대학")){
+////                String uni = tmpVote.getMachineName();
+//                String uni = (String) tmpVote[4];
+//
+//                // 대학인지 기업인지 구분
+//                if (!uni.contains("대학교")) {
+//                    continue;
+//                }
+//
+//                if (!uniMap.containsKey(uni)) {
+//
+//                    // 대학명 넣어주고
+//                    tmp.setDataLabel(uni);
+//                    if (b) { // A를 선택했으면?
+//                        tmp.setAnswerA(tmp.getAnswerA() + 1);
+//                    } else {
+//                        tmp.setAnswerB(tmp.getAnswerB() + 1);
+//                    }
+//
+//                    // map에 넣어주기
+//                    uniMap.put(uni, tmp);
+//                } else {
+//                    tmp = uniMap.get(uni);
+//                    if (b) { // A를 선택했으면?
+//                        tmp.setAnswerA(tmp.getAnswerA() + 1);
+//                    } else { // B를 선택했으면?
+//                        tmp.setAnswerB(tmp.getAnswerB() + 1);
+//                    }
+//                }
+//            }else { // 기업
+////                String com = tmpVote.getMachineName();
+//                String com = (String) tmpVote[4];
+//
+//                // 대학인지 기업인지 구분
+//                if (com.contains("대학교")) {
+//                    continue;
+//                }
+//
+//                if (!comMap.containsKey(com)) {
+//
+//                    // 대학명 넣어주고
+//                    tmp.setDataLabel(com);
+//                    if (b) { // A를 선택했으면?
+//                        tmp.setAnswerA(tmp.getAnswerA() + 1);
+//                    } else {
+//                        tmp.setAnswerB(tmp.getAnswerB() + 1);
+//                    }
+//
+//                    // map에 넣어주기
+//                    comMap.put(com, tmp);
+//                } else {
+//                    tmp = comMap.get(com);
+//                    if (b) { // A를 선택했으면?
+//                        tmp.setAnswerA(tmp.getAnswerA() + 1);
+//                    } else { // B를 선택했으면?
+//                        tmp.setAnswerB(tmp.getAnswerB() + 1);
+//                    }
+//                }
+//
+//            }
+//
+//        }
+//        List<AnswerDetailResponse> tmpAreaLIst = new ArrayList<>(areaMap.values());
+//        List<AnswerDetailResponse> tmpAgeLIst = new ArrayList<>(ageMap.values());
+//        List<AnswerDetailResponse> tmpUniLIst = new ArrayList<>(uniMap.values());
+//        List<AnswerDetailResponse> tmpComLIst = new ArrayList<>(comMap.values());
 
-        if(machineLocation.equals("대학")){
-            result[2] = tmpUniLIst;
-        }else {
-            result[2] = tmpComLIst;
-        }
+//        for(int idx = 0; idx < 3; idx++){
+//            result[idx] = new ArrayList<>();
+//        }
+//
+//        // 각 value를 List로 묶어서 배열에 넣어주기
+//        result[0] = tmpAreaLIst;
+//        result[1] = tmpAgeLIst;
+//
+//        //이거 잠시 보류
+////        if(machineLocation.equals("대학")){
+////            result[2] = tmpUniLIst;
+////        }else {
+////            result[2] = tmpComLIst;
+////        }
+//        result[2] = tmpUniLIst;
+////        result[3] = tmpComLIst;
 
 
         return result;
