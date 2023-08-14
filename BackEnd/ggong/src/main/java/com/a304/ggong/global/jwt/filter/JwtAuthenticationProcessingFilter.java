@@ -33,12 +33,18 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
     
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+        log.info(request.getRequestURI());
+        log.info(request.getMethod());
+        log.info(request.getHeader("Authorization"));
+        
         if(request.getMethod().equals("OPTIONS")) {
+            log.info("OPTIONS");
             return;
         }
 
         if(request.getRequestURI().startsWith(NO_CHECK_URL)){
-
+            log.info("NO_CHECK_URL");
+            
             filterChain.doFilter(request, response);
             return;
         }
@@ -48,11 +54,15 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
                 .orElse(null);
 
         if(refreshToken != null) {
+            log.info("REFRESH NOT NULL");
+            
             checkRefreshTokenAndReIssueAccessToken(response, refreshToken);
             return;
         }
         
         if(refreshToken == null) {
+            log.info("REFRESH NULL");
+            
             checkAccessTokenAndAuthentication(request, response, filterChain);
         }
     }
