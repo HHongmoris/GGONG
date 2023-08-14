@@ -51,14 +51,8 @@ public class PointServiceImpl implements PointService{
         start += " 00:00:00.0";
         end += " 23:59:59.9";
 
-        System.out.println("start: "+start);
-        System.out.println("end: "+end);
-
         Timestamp startDate = Timestamp.valueOf(start);
         Timestamp endDate = Timestamp.valueOf(end);
-
-        System.out.println("startDate: "+startDate);
-        System.out.println("endDate: "+endDate);
 
         return pointRepository.findByUserNoAndEventTimeBetween(user.getUserNo(),startDate,endDate)
                 .stream()
@@ -86,10 +80,6 @@ public class PointServiceImpl implements PointService{
        // Point point = pointRepository.findTopByUser_UserNoOOrderByEventTimeDesc(user.getUserNo());
 
         List<Point> list = pointRepository.findAllByUser_UserNo(user.getUserNo());
-
-        for(Point p : list){
-            System.out.println(p.toString());
-        }
 
         if(list.size()==0){
             return null;

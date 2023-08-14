@@ -63,10 +63,6 @@ public class PointController {
 
         List<PointListResponse> points = pointService.selectPointListByUserEmailAndDate(email, start, end);
 
-        System.out.println("controller의 PointListRes");
-        for(PointListResponse p : points){
-            System.out.println(p.toString());
-        }
 
         return ResponseEntity.status(HttpStatus.OK).body(points);
 
