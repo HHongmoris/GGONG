@@ -198,8 +198,6 @@ public class MachineServiceImpl implements MachineService {
 
 		Long questionId = this.getPresentQuestionId(questionList, now);
 
-		System.out.println("questionId: "+questionId);
-
 		Question tmpQuestion = questionRepository.findById(questionId).get();
 
 		System.out.println(tmpQuestion.toString());
@@ -227,11 +225,8 @@ public class MachineServiceImpl implements MachineService {
 
 		for(int idx = 0; idx < 96; idx++) {
 
-			System.out.println("startDate: "+startTime);
-			System.out.println("endDate: "+endTime);
-
 			long cnt = voteRepository.countByVoteDate(startTime, endTime); // 배열에 넣어주고
-			System.out.println("cnt: "+cnt);
+
 			tmpArr[idx] = cnt;
 			// startTime endTime으로 갱신
 			startTime = endTime;
@@ -242,23 +237,15 @@ public class MachineServiceImpl implements MachineService {
 		}
 		tmp.setUserCount(tmpArr);
 
-		System.out.println(tmp.getUserCount());
-
 		// 오늘 퀴즈 대답
 		Timestamp todayStart = Timestamp.valueOf(now.with(LocalTime.MIN));
 		Timestamp todayEnd = Timestamp.valueOf(now.with(LocalTime.MAX));
 
-		System.out.println("todayStart: "+todayStart);
-		System.out.println("todayEnd: "+todayEnd);
-
 		// answerA, answerB
 		Long answerA = voteRepository.countByMachineNoAndQuestionIdAndAnswerAndStartDayAndEndDay(machineNo, questionId,0,todayStart,todayEnd);
 
-		System.out.println("service의 answerA: "+answerA);
-
 		Long answerB = voteRepository.countByMachineNoAndQuestionIdAndAnswerAndStartDayAndEndDay(machineNo, questionId,1,todayStart,todayEnd);
 
-		System.out.println("service의 answerB: "+answerB);
 
 		tmp.setAnswerA(answerA);
 		tmp.setAnswerB(answerB);
@@ -277,8 +264,6 @@ public class MachineServiceImpl implements MachineService {
 		Machine machine = machineRepository.findById(machineNo).get();
 
 		FavoriteMachine favoriteMachine = FavoriteMachine.builder().user(user).machine(machine).build();
-
-		System.out.println(favoriteMachine.toString());
 
 		favoriteMachineRepository.save(favoriteMachine);
 

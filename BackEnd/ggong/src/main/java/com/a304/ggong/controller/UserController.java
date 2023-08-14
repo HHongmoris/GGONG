@@ -43,8 +43,6 @@ public class UserController {
 	// 	return new ResponseEntity<Boolean>(true,HttpStatus.OK);
 	// }
 
-	// 최근 포인트 조회는 list로 받은 포인트 객체에서 인덱스로 조정
-
 	// 오늘, 어제 넣은 꽁초 개수 조회
 	@GetMapping("/smoke")
 	public ResponseEntity<SmokeCountResponse> getCiga(@RequestHeader(required = true, name = "Authorization") String token){
@@ -56,9 +54,6 @@ public class UserController {
 		}
 		SmokeCountResponse tmp = userService.selectVote(email);
 
-//		// token에서 이메일 추출
-//		Optional<String> opEmail = jwtService.extractEmail(token);
-//		SmokeCountResponse tmp = userService.selectVote(opEmail.toString());
 		return new ResponseEntity<>(tmp, HttpStatus.OK);
 	}
 
@@ -73,8 +68,6 @@ public class UserController {
 
 		MachineDetailResponse[] tmp = userService.selectLikeMachine(email);
 
-//		Optional<String> opEmail = jwtService.extractEmail(token);
-//		MachineDetailResponse tmp = userService.selectLikeMachine(opEmail.toString());
 		return  new ResponseEntity<>(tmp,HttpStatus.OK);
 	}
 
@@ -84,13 +77,12 @@ public class UserController {
 															 UserCigarRequest request){
 		//성민
 		String email = jwtService.extractEmailTest(token);
-		if(email.equals("")) {
+		if(email==null) {
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		}
+
 		UserCigarResponse tmp = userService.updateCiga(email, request);
 
-//		Optional<String> opEmail = jwtService.extractEmail(token);
-//		UserCigarResponse tmp = userService.updateCiga(opEmail.get(), request);
 		return new ResponseEntity<>(tmp, HttpStatus.OK);
 	}
 
@@ -99,13 +91,11 @@ public class UserController {
 	public ResponseEntity<?> deprecatedUser(@RequestHeader(required = true, name = "Authorization") String token){
 		//성민
 		String email = jwtService.extractEmailTest(token);
-		if(email.equals("")) {
+		if(email==null) {
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		}
 		userService.deleteUser(email);
 
-//		Optional<String> opEmail = jwtService.extractEmail(token);
-//		userService.deleteUser(opEmail.get());
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 }
