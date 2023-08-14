@@ -10,21 +10,28 @@ const PointPageLayout = () => {
   const { userRating, nickname, points } = useSelector(state => state.user);
   const dispatch = useDispatch(); // 디스패치 함수 가져오기
 
+  const user = useSelector(state => state.user);
+
   // points 값이 변경될 때마다 실행되는 useEffect
   useEffect(() => {
     // API 호출하여 points 값을 업데이트
-    useApi('/users/1', 'GET')
-      .then(res => {
-        // newPoints값 받아오기
-        const newPoints = res.data[0].points;
-        // nickname, userRating도 받아오기
+    // useApi('/users', 'GET')
+    //   .then(res => {
+    //     // newPoints값 받아오기
+    //     const newPoints = res.data[0].points;
+    //     // nickname, userRating도 받아오기
 
-        // Redux 스토어의 points 값을 업데이트, 나머지는 그대로 적용
-        dispatch(changePoint({ points: newPoints }));
-      })
-      .catch(error => {
-        console.error('API 호출 오류:', error);
-      });
+    //     // Redux 스토어의 points 값을 업데이트, 나머지는 그대로 적용
+    //     dispatch(changePoint({ points: newPoints }));
+    //   })
+    //   .catch(error => {
+    //     console.error('API 호출 오류:', error);
+    //   });
+    const { token } = user;
+
+    const newPoints = user.points;
+    // Redux 스토어의 points 값을 업데이트, 나머지는 그대로 적용
+    dispatch(changePoint({ points: newPoints }));
   }, [dispatch]); // dispatch 함수가 변경될 때마다 실행
 
   return (

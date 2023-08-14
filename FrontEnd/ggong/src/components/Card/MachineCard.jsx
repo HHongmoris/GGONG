@@ -12,19 +12,19 @@ import { Background, Border } from '../../global/colors';
 const MachineCard = ({ selected, setSelected, machines = [], options = [] }) => {
   const [toggle, setToggle] = useState(true);
 
-  // onClick 이벤트 함수 만들어서 넣어주면 될 듯!
-  // 등록 삭제 조건 걸어주기!
-  const likeFunction = toggle => {
-    if (toggle) {
-      // console.log(`1: ${toggle}`);
-      useApi(`/machines/${selected}`, 'DELETE').then();
-      console.log('DELETE 성공');
-    } else {
-      // console.log(`2: ${toggle}`);
-      useApi(`/machines/${selected}`, 'POST').then();
-      console.log('POST 성공');
-    }
-  };
+  // // onClick 이벤트 함수 만들어서 넣어주면 될 듯!
+  // // 등록 삭제 조건 걸어주기!
+  // const likeFunction = toggle => {
+  //   if (toggle) {
+  //     // console.log(`1: ${toggle}`);
+  //     useApi(`/machines/${machineNo}`, 'DELETE').then();
+  //     console.log('DELETE 성공');
+  //   } else {
+  //     // console.log(`2: ${toggle}`);
+  //     useApi(`/machines/${machineNo}`, 'POST').then();
+  //     console.log('POST 성공');
+  //   }
+  // };
 
   const borderColor = Border['MAIN'];
   const bgColor = Background['WHITE'];
@@ -42,6 +42,19 @@ const MachineCard = ({ selected, setSelected, machines = [], options = [] }) => 
             { label: optionA, value: answerA, ratio: rateA },
             { label: optionB, value: answerB, ratio: rateB },
           ];
+          // onClick 이벤트 함수 만들어서 넣어주면 될 듯!
+          // 등록 삭제 조건 걸어주기!
+          const likeFunction = toggle => {
+            if (toggle) {
+              // console.log(`1: ${toggle}`);
+              useApi(`/machines/${machineNo}`, 'POST').then();
+              console.log(machineNo, 'POST 성공');
+            } else {
+              // console.log(`2: ${toggle}`);
+              useApi(`/machines/${machineNo}`, 'DELETE').then();
+              console.log(machineNo, 'DELETE 성공');
+            }
+          };
           // console.log(machine, votes);
           return (
             machineNo == selected && (
