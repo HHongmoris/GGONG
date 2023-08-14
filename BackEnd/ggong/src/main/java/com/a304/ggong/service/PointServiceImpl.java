@@ -6,13 +6,10 @@ import com.a304.ggong.entity.User;
 import com.a304.ggong.repository.PointRepository;
 import com.a304.ggong.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.PageRequest;
+
 import org.springframework.stereotype.Service;
 
-import java.awt.print.Pageable;
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -42,10 +39,6 @@ public class PointServiceImpl implements PointService{
             list.add(tmp);
         }
 
-        System.out.println("selectPointAll method의 pointres list입니다.");
-        for(PointListResponse p : list){
-            System.out.println(p.toString());
-        }
         return list;
     }
 
@@ -58,8 +51,14 @@ public class PointServiceImpl implements PointService{
         start += " 00:00:00.0";
         end += " 23:59:59.9";
 
+        System.out.println("start: "+start);
+        System.out.println("end: "+end);
+
         Timestamp startDate = Timestamp.valueOf(start);
         Timestamp endDate = Timestamp.valueOf(end);
+
+        System.out.println("startDate: "+startDate);
+        System.out.println("endDate: "+endDate);
 
         return pointRepository.findByUserNoAndEventTimeBetween(user.getUserNo(),startDate,endDate)
                 .stream()
@@ -69,7 +68,7 @@ public class PointServiceImpl implements PointService{
 
     //잔여 포인트 계산
     @Override
-    public int calculateBalancePoint(String email, String end) {
+    public Integer calculateBalancePoint(String email, String end) throws NullPointerException {
         // 여기서 현재 날짜 추출해서
         // point entity에 넣어주기(데이터 update)
 
@@ -80,27 +79,25 @@ public class PointServiceImpl implements PointService{
         // email로 userNo 찾기
         User user = userRepository.findByEmail(email).get();
 
-        int balancePoint = pointRepository.selectBalancePoint(Tnow,user.getUserNo());
-        System.out.println("balancePoint: "+balancePoint);
+        Integer balancePoint = pointRepository.selectBalancePoint(Tnow,user.getUserNo());
 
         // 마지막 point entity는 어떻게 찾을까...
         // userNo가 같은 데이터들 중, 내림차순 해서 limit1걸어주자!
-//        Point point = pointRepository.findTopByUser_UserNoOOrderByEventTimeDesc(user.getUserNo());
-        System.out.println("userNo: "+user.getUserNo());
+       // Point point = pointRepository.findTopByUser_UserNoOOrderByEventTimeDesc(user.getUserNo());
+
         List<Point> list = pointRepository.findAllByUser_UserNo(user.getUserNo());
 
-        System.out.println("잔여포인트 메소드 내의 point list입니다.");
         for(Point p : list){
             System.out.println(p.toString());
         }
 
+        if(list.size()==0){
+            return null;
+        }
         Point point = list.get(list.size()-1);
 
 //        Point point = pointRepository.findTopByUser_UserNoOOrderByEventTimeDesc(user.getUserNo());
         point.setBalancePoint(balancePoint);
-
-        System.out.println("마지막 point balancePoint입니다.");
-        System.out.println(point.toString());
 
         return balancePoint;
     }
