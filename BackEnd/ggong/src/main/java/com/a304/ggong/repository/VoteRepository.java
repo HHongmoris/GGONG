@@ -45,6 +45,9 @@ public interface VoteRepository extends JpaRepository<Vote, Long> {
 	@Query("SELECT u.ageRange AS ageRange, COUNT(CASE WHEN v.answer = 0 THEN 1 ELSE NULL END) AS answerA, COUNT(CASE WHEN v.answer = 1 THEN 1 ELSE NULL END) AS answerB FROM Vote v JOIN Question q ON v.question.questionID = q.questionID JOIN Machine m ON v.machine.machineNo = m.machineNo JOIN User u ON v.user.userNo = u.userNo WHERE v.question.questionID = :questionID GROUP BY u.ageRange")
 	List<Object[]> findVoteDataByAgeRange(@Param("questionID") Long questionID);
 
+	//기기명 별로 묶은 뒤 답안 카운트
+	@Query("SELECT m.name AS name, COUNT(CASE WHEN v.answer = 0 THEN 1 ELSE NULL END) AS answerA, COUNT(CASE WHEN v.answer = 1 THEN 1 ELSE NULL END) AS answerB FROM Vote v JOIN Question q ON v.question.questionID = q.questionID JOIN Machine m ON v.machine.machineNo = m.machineNo JOIN User u ON v.user.userNo = u.userNo WHERE v.question.questionID = :questionID GROUP BY m.name")
+	List<Object[]> findVoteDataByMachineName(@Param("questionID") Long questionID);
 
 	// group과 type에 따라 전체 answer count하기
 	@Query("SELECT v.question.questionID AS questionID, COUNT(v) AS answerCnt FROM Vote v LEFT JOIN Question q ON v.question.questionID = q.questionID WHERE q.group = :questionGroup AND q.type = :questionType GROUP BY v.question.questionID")

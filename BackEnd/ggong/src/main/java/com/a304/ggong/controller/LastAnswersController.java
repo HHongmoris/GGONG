@@ -53,55 +53,15 @@ public class LastAnswersController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    // 질문 응답 상세페이지
-    // 대학Path
-//    @GetMapping("/uni")
-//    public ResponseEntity<List<AnswerDetailResponse>[]> getUniAnswersDetail(){
-//        QuestionGroup questionGroup = new QuestionGroup();
-//        int questionGroupNum = questionGroup.getLastWeekGroupNum();
-//
-//        // voteTable 갱신
-//        answerService.iniAnswers();
-//
-//        List<AnswerDetailResponse>[] result = new List[3];
-//
-//        for(int idx = 0; idx < 3; idx++){
-//            result[idx] = new ArrayList<>();
-//        }
-//
-//        result = answerService.selectDetailAnswer(questionGroupNum, "대학");
-//        return new ResponseEntity<>(result, HttpStatus.OK);
-//    }
-//
-//    // 질문 응답 상세페이지
-//    // 기업Path
-//    @GetMapping("/com")
-//    public ResponseEntity<List<AnswerDetailResponse>[]> getComAnswersDetail(){
-//        QuestionGroup questionGroup = new QuestionGroup();
-//        int questionGroupNum = questionGroup.getLastWeekGroupNum();
-//
-//        // voteTable 갱신
-//        answerService.iniAnswers();
-//
-//        List<AnswerDetailResponse>[] result = new List[3];
-//
-//        for(int idx = 0; idx < 3; idx++){
-//            result[idx] = new ArrayList<>();
-//        }
-//
-//        result = answerService.selectDetailAnswer(questionGroupNum, "기업");
-//        return new ResponseEntity<>(result, HttpStatus.OK);
-//    }
-
     @GetMapping("/{questionId}")
     public ResponseEntity<List<AnswerDetailResponse>[]> getAnswersDetail(@PathVariable("questionId") Long questionId){
         QuestionGroup questionGroup = new QuestionGroup();
         int questionGroupNum = questionGroup.getLastWeekGroupNum();
 
         //voteTable 갱신 필요
+        answerService.iniAnswers();
 
-
-        List<AnswerDetailResponse>[] result = answerService.selectDetailAnswer(questionGroupNum, questionId);
+        List<AnswerDetailResponse>[] result = answerService.selectDetailAnswer(questionId);
 
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }

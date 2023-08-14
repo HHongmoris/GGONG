@@ -5,6 +5,7 @@ import java.util.List;
 import com.a304.ggong.entity.QuestionType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.a304.ggong.entity.Question;
@@ -16,7 +17,7 @@ public interface QuestionRepository extends JpaRepository<Question, Long> {
 	// type을 service에서 따로 줘야해...
 	List<Question> findByGroupAndType(int group, QuestionType type);
 
-	@Query("SELECT q.type FROM Question q WHERE q.questionID = :quesetionID")
-	String findTypeByQuestionID(Long questionID);
+	@Query("SELECT q.type FROM Question q WHERE q.questionID = :questionID")
+	QuestionType findTypeByQuestionID(@Param("questionID") Long questionID);
 
 }

@@ -10,7 +10,7 @@ public interface AnswerService {
 	// service단에서 각각의 resDto에 answerA, answerB와 rateA, rateB의 값을 넣어줘야함.
 
 	// 질문 상세 페이지(대학)
-	public List<AnswerDetailResponse>[] selectDetailAnswer(int questionGroup, Long questionId);
+	public List<AnswerDetailResponse>[] selectDetailAnswer(Long questionId);
 
 	// 공통 질문 응답 데이터 조회
 	public List<AllAnswerResponse> selectAnswersGroupByCommon(int questionGroup);

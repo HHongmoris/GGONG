@@ -128,18 +128,12 @@ public class AnswerServiceImpl implements AnswerService{
     // 질문 상세 페이지
     // 대학
     @Override
-    public List<AnswerDetailResponse>[] selectDetailAnswer(int questionGroup, Long questionId) {
-        // findAllWithMachineAndQuestionFetchJoin 사용
-        // for문도 돌리고... if문도 돌리고...
+    public List<AnswerDetailResponse>[] selectDetailAnswer(Long questionId) throws NullPointerException{
+
         // 먼저 Vote들을 리스트로 받아오기
 //        votes = voteRepository.findAllWithMachineAndQuestionFetchJoin(questionGroup);
         List<Object[]> voteMachineUserDatas = voteRepository.findVoteDataByQuestionGroup(questionId);
-        System.out.println("여기 : "+voteMachineUserDatas.get(0));
-        // 객체 넣어줄 map
-        HashMap<String, AnswerDetailResponse> areaMap = new HashMap<String, AnswerDetailResponse>();
-        HashMap<String, AnswerDetailResponse> ageMap = new HashMap<String, AnswerDetailResponse>();
-        HashMap<String, AnswerDetailResponse> uniMap = new HashMap<String, AnswerDetailResponse>();
-        HashMap<String, AnswerDetailResponse> comMap = new HashMap<String, AnswerDetailResponse>();
+
 
         List<AnswerDetailResponse>[] result = new List[3];
 
@@ -147,6 +141,7 @@ public class AnswerServiceImpl implements AnswerService{
         int idx = 0;
         //지역별 상세 결과 모음
         if(idx == 0){
+            result[0] = new ArrayList<>();
             //지역별일 때는 dataLabel에 areagu 들어가게
             List<Object[]> areaGuData = voteRepository.findVoteDataByAreaGu(questionId);
 
@@ -187,15 +182,17 @@ public class AnswerServiceImpl implements AnswerService{
                 answerDetailResponse.setRateA(rateA);
                 answerDetailResponse.setRateB(rateB);
 
+                result[0].add(answerDetailResponse);
 
             }
         }else if(idx == 1){
+            result[1] = new ArrayList<>();
             //연령대 별 일 때는 dataLabel에 ageRange 들어가게
             List<Object[]> ageRangeData = voteRepository.findVoteDataByAgeRange(questionId);
 
             for(int i=0; i<ageRangeData.size(); i++){
                 AnswerDetailResponse answerDetailResponse = new AnswerDetailResponse();
-                //dataLabel에 지역구 어디인지 넣음
+                //dataLabel에 연령대 어디인지 넣음
                 answerDetailResponse.setDataLabel((String) ageRangeData.get(i)[0]);
                 //답변 수 합 계산
                 Long answerA =(Long) ageRangeData.get(i)[1];
@@ -230,162 +227,102 @@ public class AnswerServiceImpl implements AnswerService{
                 answerDetailResponse.setRateA(rateA);
                 answerDetailResponse.setRateB(rateB);
 
+                result[1].add(answerDetailResponse);
 
             }
-        }else if(idx == 3){
+        }else if(idx == 2){
+            result[2] = new ArrayList<>();
+            //index가 2일때는 대학인지 기업인지 판단 필요
+            QuestionType special = questionRepository.findTypeByQuestionID(questionId);
+            if(special.equals(QuestionType.대학)){
+                //대학 특화일 때
+                List<Object[]> machineNameData = voteRepository.findVoteDataByMachineName(questionId);
 
+                for(int i=0; i<machineNameData.size(); i++) {
+                    AnswerDetailResponse answerDetailResponse = new AnswerDetailResponse();
+                    //dataLabel에 기기명 무엇인지 넣음
+                    answerDetailResponse.setDataLabel((String) machineNameData.get(i)[0]);
+                    //답변 수 합 계산
+                    Long answerA = (Long) machineNameData.get(i)[1];
+                    Long answerB = (Long) machineNameData.get(i)[2];
+                    Long total = answerA + answerB;
+                    Long rateA = 0L;
+                    Long rateB = 0L;
+
+                    //각 항이 null일 때 경우 나눠서 생각
+                    if (total != 0L) {
+                        if (answerA == null) {
+                            answerA = 0L;
+                            rateA = 0L;
+                            rateB = 100L;
+                        } else if (answerA == total) {
+                            answerB = 0L;
+                            rateA = 100L;
+                            rateB = 0L;
+                        } else {
+                            rateA = (answerA * 100) / total;
+                            rateB = 100 - rateA;
+                        }
+                    } else {
+                        answerA = 0L;
+                        answerB = 0L;
+                        rateA = 0L;
+                        rateB = 0L;
+                    }
+
+                    //구한 값들 다 AnswerDetailResponse에 넣어주기
+                    answerDetailResponse.setAnswerA(answerA);
+                    answerDetailResponse.setAnswerB(answerB);
+                    answerDetailResponse.setRateA(rateA);
+                    answerDetailResponse.setRateB(rateB);
+
+                    result[2].add(answerDetailResponse);
+                }
+            } else if (special.equals(QuestionType.기업)) {
+                //기업 특화일 때
+                List<Object[]> machineNameData = voteRepository.findVoteDataByMachineName(questionId);
+
+                for(int i=0; i<machineNameData.size(); i++) {
+                    AnswerDetailResponse answerDetailResponse = new AnswerDetailResponse();
+                    //dataLabel에 기기명 무엇인지 넣음
+                    answerDetailResponse.setDataLabel((String) machineNameData.get(i)[0]);
+                    //답변 수 합 계산
+                    Long answerA = (Long) machineNameData.get(i)[1];
+                    Long answerB = (Long) machineNameData.get(i)[2];
+                    Long total = answerA + answerB;
+                    Long rateA = 0L;
+                    Long rateB = 0L;
+                    //각 항이 null일 때 경우 나눠서 생각
+                    if (total != 0L) {
+                        if (answerA == null) {
+                            answerA = 0L;
+                            rateA = 0L;
+                            rateB = 100L;
+                        } else if (answerA == total) {
+                            answerB = 0L;
+                            rateA = 100L;
+                            rateB = 0L;
+                        } else {
+                            rateA = (answerA * 100) / total;
+                            rateB = 100 - rateA;
+                        }
+                    } else {
+                        answerA = 0L;
+                        answerB = 0L;
+                        rateA = 0L;
+                        rateB = 0L;
+                    }
+
+                    //구한 값들 다 AnswerDetailResponse에 넣어주기
+                    answerDetailResponse.setAnswerA(answerA);
+                    answerDetailResponse.setAnswerB(answerB);
+                    answerDetailResponse.setRateA(rateA);
+                    answerDetailResponse.setRateB(rateB);
+
+                    result[2].add(answerDetailResponse);
+                }
+            }
         }
-
-//        // for문 돌리기
-//        // 지역
-//        for(int idx = 0; idx < voteMachineUserDatas.size(); idx++){
-//            Object[] tmpVote = voteMachineUserDatas.get(idx);
-//            // 답변
-//            int answer = (int) tmpVote[1];
-//            // answer가 0(A)이면 true로 바뀌게
-//            boolean b = false;
-//            if(answer == 0){
-//                b = true;
-//            }
-//
-//            // 먼저 List에 넣어줄 객체 만들고
-//            AnswerDetailResponse tmp = new AnswerDetailResponse();
-//
-//            // 지역
-//            String areaGu = (String) tmpVote[3];
-//            if(!areaMap.containsKey(areaGu)){
-//
-//                // 지역구 넣어주고
-//                tmp.setDataLabel(areaGu);
-//                if(b){ // A를 선택했으면?
-//                    tmp.setAnswerA(tmp.getAnswerA()+1);
-//                }else {
-//                    tmp.setAnswerB(tmp.getAnswerB()+1);
-//                }
-//
-//                // map에 넣어주기
-//                areaMap.put(areaGu, tmp);
-//            }else {
-//                tmp = areaMap.get(areaGu);
-//                if(b){ // A를 선택했으면?
-//                    tmp.setAnswerA(tmp.getAnswerA()+1);
-//                }else { // B를 선택했으면?
-//                    tmp.setAnswerB(tmp.getAnswerB()+1);
-//                }
-//            }
-//
-//            // 연령
-////            String age = tmpVote.getAgeRange();
-//            String age = (String) tmpVote[5];
-//            if(!ageMap.containsKey(age)){
-//
-//                // 지역구 넣어주고
-//                tmp.setDataLabel(age);
-//                if(b){ // A를 선택했으면?
-//                    tmp.setAnswerA(tmp.getAnswerA()+1);
-//                }else {
-//                    tmp.setAnswerB(tmp.getAnswerB()+1);
-//                }
-//
-//                // map에 넣어주기
-//                ageMap.put(age, tmp);
-//            }else {
-//                tmp = ageMap.get(age);
-//                if(b){ // A를 선택했으면?
-//                    tmp.setAnswerA(tmp.getAnswerA()+1);
-//                }else { // B를 선택했으면?
-//                    tmp.setAnswerB(tmp.getAnswerB()+1);
-//                }
-//            }
-//
-////            String name = tmpVote.getMachineName();
-//            String name = (String) tmpVote[4];
-//            // 대학
-//            if(name.contains("대학")){
-////                String uni = tmpVote.getMachineName();
-//                String uni = (String) tmpVote[4];
-//
-//                // 대학인지 기업인지 구분
-//                if (!uni.contains("대학교")) {
-//                    continue;
-//                }
-//
-//                if (!uniMap.containsKey(uni)) {
-//
-//                    // 대학명 넣어주고
-//                    tmp.setDataLabel(uni);
-//                    if (b) { // A를 선택했으면?
-//                        tmp.setAnswerA(tmp.getAnswerA() + 1);
-//                    } else {
-//                        tmp.setAnswerB(tmp.getAnswerB() + 1);
-//                    }
-//
-//                    // map에 넣어주기
-//                    uniMap.put(uni, tmp);
-//                } else {
-//                    tmp = uniMap.get(uni);
-//                    if (b) { // A를 선택했으면?
-//                        tmp.setAnswerA(tmp.getAnswerA() + 1);
-//                    } else { // B를 선택했으면?
-//                        tmp.setAnswerB(tmp.getAnswerB() + 1);
-//                    }
-//                }
-//            }else { // 기업
-////                String com = tmpVote.getMachineName();
-//                String com = (String) tmpVote[4];
-//
-//                // 대학인지 기업인지 구분
-//                if (com.contains("대학교")) {
-//                    continue;
-//                }
-//
-//                if (!comMap.containsKey(com)) {
-//
-//                    // 대학명 넣어주고
-//                    tmp.setDataLabel(com);
-//                    if (b) { // A를 선택했으면?
-//                        tmp.setAnswerA(tmp.getAnswerA() + 1);
-//                    } else {
-//                        tmp.setAnswerB(tmp.getAnswerB() + 1);
-//                    }
-//
-//                    // map에 넣어주기
-//                    comMap.put(com, tmp);
-//                } else {
-//                    tmp = comMap.get(com);
-//                    if (b) { // A를 선택했으면?
-//                        tmp.setAnswerA(tmp.getAnswerA() + 1);
-//                    } else { // B를 선택했으면?
-//                        tmp.setAnswerB(tmp.getAnswerB() + 1);
-//                    }
-//                }
-//
-//            }
-//
-//        }
-//        List<AnswerDetailResponse> tmpAreaLIst = new ArrayList<>(areaMap.values());
-//        List<AnswerDetailResponse> tmpAgeLIst = new ArrayList<>(ageMap.values());
-//        List<AnswerDetailResponse> tmpUniLIst = new ArrayList<>(uniMap.values());
-//        List<AnswerDetailResponse> tmpComLIst = new ArrayList<>(comMap.values());
-
-//        for(int idx = 0; idx < 3; idx++){
-//            result[idx] = new ArrayList<>();
-//        }
-//
-//        // 각 value를 List로 묶어서 배열에 넣어주기
-//        result[0] = tmpAreaLIst;
-//        result[1] = tmpAgeLIst;
-//
-//        //이거 잠시 보류
-////        if(machineLocation.equals("대학")){
-////            result[2] = tmpUniLIst;
-////        }else {
-////            result[2] = tmpComLIst;
-////        }
-//        result[2] = tmpUniLIst;
-////        result[3] = tmpComLIst;
-
-
         return result;
     }
     // service layer에서는 공통, 대학, 기업 메소드를 따로 만들어 데이터를 컨트롤러로 보내주고
@@ -398,25 +335,6 @@ public class AnswerServiceImpl implements AnswerService{
         // findByQuestionGroupAndType 사용
 
         List<AllAnswerResponse> allAnswerResponses = getAnswers(questionGroup, QuestionType.공통);
-//        List<Question> questionsPublic = new ArrayList<>();
-//
-//        // 먼저, 그룹별, 타입별 질문을 몽땅 가져오자
-//        questionsPublic = questionRepository.findAllByGroupAndType(questionGroup, QuestionType.공통);
-//
-//        // 먼저 list 만들어서
-//        list = new ArrayList<>();
-//
-//        if(questionsPublic.size() != 0){
-//            // for문 돌려서 AllAnswerResponse에 나머지 값 answerA, answerB 구하기
-//            for(int idx = 0; idx < questionsPublic.size(); idx++){
-//                AllAnswerResponse tmp = getAnswers(questionGroup, QuestionType.공통).get(idx);
-//
-//                list.add(tmp);
-//            }
-//        }else{
-//            list = null;
-//        }
-
 
         return allAnswerResponses;
     }
@@ -427,24 +345,6 @@ public class AnswerServiceImpl implements AnswerService{
         // countByAnswer 사용해서 AllAnswerResponse에 넣어주기
         // findByQuestionGroupAndType 사용
         List<AllAnswerResponse> allAnswerResponses = getAnswers(questionGroup, QuestionType.대학);
-//        List<Question> questionsUnis = new ArrayList<>();
-//
-//        // 먼저, 그룹별, 타입별 질문을 몽땅 가져오자
-//        questionsUnis = questionRepository.findAllByGroupAndType(questionGroup, QuestionType.대학);
-//
-//        // 먼저 list 만들어서
-//        list = new ArrayList<>();
-//        if(questionsUnis.size() != 0){
-//            // for문 돌려서 AllAnswerResponse에 나머지 값 answerA, answerB 구하기
-//            for(int idx = 0; idx < questionsUnis.size(); idx++){
-//                AllAnswerResponse tmp = getAnswers(questionGroup, QuestionType.대학).get(idx);
-//
-//                list.add(tmp);
-//            }
-//        }else{
-//            list = null;
-//        }
-
 
         return allAnswerResponses;
     }
@@ -455,24 +355,6 @@ public class AnswerServiceImpl implements AnswerService{
         // countByAnswer 사용해서 AllAnswerResponse에 넣어주기
         // findByQuestionGroupAndType 사용
         List<AllAnswerResponse> allAnswerResponses = getAnswers(questionGroup, QuestionType.기업);
-//        List<Question> questionsCompanies = new ArrayList<>();
-//
-//        // 먼저, 그룹별, 타입별 질문을 몽땅 가져오자
-//        questionsCompanies = questionRepository.findAllByGroupAndType(questionGroup, QuestionType.기업);
-//
-//        // 먼저 list 만들어서
-//        list = new ArrayList<>();
-//        if(questionsCompanies.size() != 0){
-//            // for문 돌려서 AllAnswerResponse에 나머지 값 answerA, answerB 구하기
-//            for(int idx = 0; idx < questionsCompanies.size(); idx++){
-//                AllAnswerResponse tmp = getAnswers(questionGroup, QuestionType.기업).get(idx);
-//
-//                list.add(tmp);
-//            }
-//        }else{
-//            list = null;
-//        }
-
 
         return allAnswerResponses;
     }
@@ -487,11 +369,7 @@ public class AnswerServiceImpl implements AnswerService{
 
         Timestamp start = Timestamp.valueOf(startOfLastMonth);
         Timestamp end = Timestamp.valueOf(endOfLastMonth);
-//        LocalDateTime startOfToday = now.with(LocalTime.MIN).minusDays(32);
-//
-//        Timestamp deleteDate = Timestamp.valueOf(startOfToday);
 
-        // 이부분 다시 보기!
         voteRepository.deleteByVoteDateBetween(start, end);
     }
 }
