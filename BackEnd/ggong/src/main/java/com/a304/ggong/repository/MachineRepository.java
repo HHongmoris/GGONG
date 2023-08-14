@@ -16,5 +16,7 @@ public interface MachineRepository extends JpaRepository<Machine, Long> {
 
 	Optional<Machine> findByName(String name);
 
+	@Query("SELECT m.name FROM Machine m")
 	List<String> findNameBy();
+
 }

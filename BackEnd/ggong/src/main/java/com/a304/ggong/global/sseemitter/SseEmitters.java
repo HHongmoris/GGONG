@@ -18,11 +18,7 @@ public class SseEmitters {
 
 	private final List<SseEmitter> emitters = new CopyOnWriteArrayList<>();
 
-	SseEmitter add(){
-		return add(new SseEmitter());
-	}
-
-	SseEmitter add(SseEmitter emitter){
+	public SseEmitter add(SseEmitter emitter){
 		this.emitters.add(emitter);
 		log.info("new emitter added: {}", emitter);
 		log.info("emitter list size: {}", emitters.size());
