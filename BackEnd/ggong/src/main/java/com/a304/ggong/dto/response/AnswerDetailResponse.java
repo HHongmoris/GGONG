@@ -14,9 +14,16 @@ import lombok.Setter;
 public class AnswerDetailResponse {
 
 	private String dataLabel;
+	private String optionA;
+	private String optionB;
 	private Long answerA = 0L;
 	private Long answerB = 0L;
 	private Long rateA;
 	private Long rateB;
+
+	public AnswerDetailResponse(Question entity){
+		this.optionA = entity.getOptionA();
+		this.optionB = entity.getOptionB();
+	}
 
 }

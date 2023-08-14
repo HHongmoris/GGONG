@@ -39,25 +39,7 @@ public class AnswerServiceImpl implements AnswerService{
     // 공통 사용 메소드
     // AllAnswerResponse에 나머지 값(answerA, answerB) 구해주기
     private List<AllAnswerResponse> getAnswers(int questionGroup, QuestionType questionType){
-//        // 임시 AllAnswerResponse 객체를 만들고 거기에 Question을 넣어줌
-//        AllAnswerResponse tmp = new AllAnswerResponse(questions.get(idx));
-//
-//        // answerA 구해서 객체에 넣어줌
-//        Long answerA = voteRepository.countByQuestionGroupAndAnswerTypeAndQuestionType(questionGroup, 0, questionType);
-//        tmp.setAnswerA(answerA);
-//
-//        // answerB 구해서 객체에 넣어줌
-//        Long answerB = voteRepository.countByQuestionGroupAndAnswerTypeAndQuestionType(questionGroup, 1, questionType);
-//        tmp.setAnswerA(answerB);
-//
-//        // rate 구해주기
-//        Long answerAll = voteRepository.countByQuestionGroupAndQuestionType(questionGroup,questionType);
-//
-//        Long rateA = answerA / answerAll;
-//        Long rateB = answerB / answerAll;
-//
-//        tmp.setRateA(rateA);
-//        tmp.setRateB(rateB);
+
         List<Question> questions = questionRepository.findAll();
         //AllAnswerResponse 리스트 만들기
         List<AllAnswerResponse> allAnswerResponses = new ArrayList<>();
@@ -138,38 +120,136 @@ public class AnswerServiceImpl implements AnswerService{
         List<AnswerDetailResponse>[] result = new List[3];
 
         //지역, 연령, 특화 분류하는 인덱스
-        int idx = 0;
         //지역별 상세 결과 모음
-        if(idx == 0){
-            result[0] = new ArrayList<>();
-            //지역별일 때는 dataLabel에 areagu 들어가게
-            List<Object[]> areaGuData = voteRepository.findVoteDataByAreaGu(questionId);
+        result[0] = new ArrayList<>();
+        //지역별일 때는 dataLabel에 areagu 들어가게
+        List<Object[]> areaGuData = voteRepository.findVoteDataByAreaGu(questionId);
 
-            for(int i=0; i<areaGuData.size(); i++){
+        for(int i=0; i<areaGuData.size(); i++){
+            AnswerDetailResponse answerDetailResponse = new AnswerDetailResponse();
+            //dataLabel에 지역구 어디인지 넣음
+            answerDetailResponse.setDataLabel((String) areaGuData.get(i)[0]);
+            //답변 수 합 계산
+            Long answerA =(Long) areaGuData.get(i)[1];
+            Long answerB =(Long) areaGuData.get(i)[2];
+            Long total = answerA + answerB;
+            Long rateA = 0L;
+            Long rateB = 0L;
+            //각 항이 null일 때 경우 나눠서 생각
+            if(total != 0L){
+                if(answerA == null){
+                    answerA = 0L;
+                    rateA = 0L;
+                    rateB = 100L;
+                }else if(answerA == total){
+                    answerB = 0L;
+                    rateA = 100L;
+                    rateB = 0L;
+                }else{
+                    rateA = (answerA*100)/total;
+                    rateB = 100 - rateA;
+                }
+            }else{
+                answerA = 0L;
+                answerB = 0L;
+                rateA = 0L;
+                rateB = 0L;
+            }
+
+            //구한 값들 다 AnswerDetailResponse에 넣어주기
+            answerDetailResponse.setAnswerA(answerA);
+            answerDetailResponse.setAnswerB(answerB);
+            answerDetailResponse.setRateA(rateA);
+            answerDetailResponse.setRateB(rateB);
+            answerDetailResponse.setOptionA(questionRepository.findOptionAByQuestionID(questionId));
+            answerDetailResponse.setOptionB(questionRepository.findOptionBByQuestionID(questionId));
+
+            result[0].add(answerDetailResponse);
+
+        }
+
+        //연령대별
+        result[1] = new ArrayList<>();
+        //연령대 별 일 때는 dataLabel에 ageRange 들어가게
+        List<Object[]> ageRangeData = voteRepository.findVoteDataByAgeRange(questionId);
+
+        for(int i=0; i<ageRangeData.size(); i++){
+            AnswerDetailResponse answerDetailResponse = new AnswerDetailResponse();
+            //dataLabel에 연령대 어디인지 넣음
+            answerDetailResponse.setDataLabel((String) ageRangeData.get(i)[0]);
+            //답변 수 합 계산
+            Long answerA =(Long) ageRangeData.get(i)[1];
+            Long answerB =(Long) ageRangeData.get(i)[2];
+            Long total = answerA + answerB;
+            Long rateA = 0L;
+            Long rateB = 0L;
+            //각 항이 null일 때 경우 나눠서 생각
+            if(total != 0L){
+                if(answerA == null){
+                    answerA = 0L;
+                    rateA = 0L;
+                    rateB = 100L;
+                }else if(answerA == total){
+                    answerB = 0L;
+                    rateA = 100L;
+                    rateB = 0L;
+                }else{
+                    rateA = (answerA*100)/total;
+                    rateB = 100 - rateA;
+                }
+            }else{
+                answerA = 0L;
+                answerB = 0L;
+                rateA = 0L;
+                rateB = 0L;
+            }
+
+            //구한 값들 다 AnswerDetailResponse에 넣어주기
+            answerDetailResponse.setAnswerA(answerA);
+            answerDetailResponse.setAnswerB(answerB);
+            answerDetailResponse.setRateA(rateA);
+            answerDetailResponse.setRateB(rateB);
+            answerDetailResponse.setOptionA(questionRepository.findOptionAByQuestionID(questionId));
+            answerDetailResponse.setOptionB(questionRepository.findOptionBByQuestionID(questionId));
+
+            result[1].add(answerDetailResponse);
+
+        }
+
+        //대학, 기업별
+        result[2] = new ArrayList<>();
+        //index가 2일때는 대학인지 기업인지 판단 필요
+        QuestionType special = questionRepository.findTypeByQuestionID(questionId);
+        if(special.equals(QuestionType.대학)){
+            //대학 특화일 때
+            List<Object[]> machineNameData = voteRepository.findVoteDataByMachineName(questionId);
+
+            for(int i=0; i<machineNameData.size(); i++) {
                 AnswerDetailResponse answerDetailResponse = new AnswerDetailResponse();
-                //dataLabel에 지역구 어디인지 넣음
-                answerDetailResponse.setDataLabel((String) areaGuData.get(i)[0]);
+                //dataLabel에 기기명 무엇인지 넣음
+                answerDetailResponse.setDataLabel((String) machineNameData.get(i)[0]);
                 //답변 수 합 계산
-                Long answerA =(Long) areaGuData.get(i)[1];
-                Long answerB =(Long) areaGuData.get(i)[2];
+                Long answerA = (Long) machineNameData.get(i)[1];
+                Long answerB = (Long) machineNameData.get(i)[2];
                 Long total = answerA + answerB;
                 Long rateA = 0L;
                 Long rateB = 0L;
+
                 //각 항이 null일 때 경우 나눠서 생각
-                if(total != 0L){
-                    if(answerA == null){
+                if (total != 0L) {
+                    if (answerA == null) {
                         answerA = 0L;
                         rateA = 0L;
                         rateB = 100L;
-                    }else if(answerA == total){
+                    } else if (answerA == total) {
                         answerB = 0L;
                         rateA = 100L;
                         rateB = 0L;
-                    }else{
-                        rateA = (answerA*100)/total;
+                    } else {
+                        rateA = (answerA * 100) / total;
                         rateB = 100 - rateA;
                     }
-                }else{
+                } else {
                     answerA = 0L;
                     answerB = 0L;
                     rateA = 0L;
@@ -181,40 +261,40 @@ public class AnswerServiceImpl implements AnswerService{
                 answerDetailResponse.setAnswerB(answerB);
                 answerDetailResponse.setRateA(rateA);
                 answerDetailResponse.setRateB(rateB);
+                answerDetailResponse.setOptionA(questionRepository.findOptionAByQuestionID(questionId));
+                answerDetailResponse.setOptionB(questionRepository.findOptionBByQuestionID(questionId));
 
-                result[0].add(answerDetailResponse);
-
+                result[2].add(answerDetailResponse);
             }
-        }else if(idx == 1){
-            result[1] = new ArrayList<>();
-            //연령대 별 일 때는 dataLabel에 ageRange 들어가게
-            List<Object[]> ageRangeData = voteRepository.findVoteDataByAgeRange(questionId);
+        } else if (special.equals(QuestionType.기업)) {
+            //기업 특화일 때
+            List<Object[]> machineNameData = voteRepository.findVoteDataByMachineName(questionId);
 
-            for(int i=0; i<ageRangeData.size(); i++){
+            for(int i=0; i<machineNameData.size(); i++) {
                 AnswerDetailResponse answerDetailResponse = new AnswerDetailResponse();
-                //dataLabel에 연령대 어디인지 넣음
-                answerDetailResponse.setDataLabel((String) ageRangeData.get(i)[0]);
+                //dataLabel에 기기명 무엇인지 넣음
+                answerDetailResponse.setDataLabel((String) machineNameData.get(i)[0]);
                 //답변 수 합 계산
-                Long answerA =(Long) ageRangeData.get(i)[1];
-                Long answerB =(Long) ageRangeData.get(i)[2];
+                Long answerA = (Long) machineNameData.get(i)[1];
+                Long answerB = (Long) machineNameData.get(i)[2];
                 Long total = answerA + answerB;
                 Long rateA = 0L;
                 Long rateB = 0L;
                 //각 항이 null일 때 경우 나눠서 생각
-                if(total != 0L){
-                    if(answerA == null){
+                if (total != 0L) {
+                    if (answerA == null) {
                         answerA = 0L;
                         rateA = 0L;
                         rateB = 100L;
-                    }else if(answerA == total){
+                    } else if (answerA == total) {
                         answerB = 0L;
                         rateA = 100L;
                         rateB = 0L;
-                    }else{
-                        rateA = (answerA*100)/total;
+                    } else {
+                        rateA = (answerA * 100) / total;
                         rateB = 100 - rateA;
                     }
-                }else{
+                } else {
                     answerA = 0L;
                     answerB = 0L;
                     rateA = 0L;
@@ -226,103 +306,13 @@ public class AnswerServiceImpl implements AnswerService{
                 answerDetailResponse.setAnswerB(answerB);
                 answerDetailResponse.setRateA(rateA);
                 answerDetailResponse.setRateB(rateB);
+                answerDetailResponse.setOptionA(questionRepository.findOptionAByQuestionID(questionId));
+                answerDetailResponse.setOptionB(questionRepository.findOptionBByQuestionID(questionId));
 
-                result[1].add(answerDetailResponse);
-
-            }
-        }else if(idx == 2){
-            result[2] = new ArrayList<>();
-            //index가 2일때는 대학인지 기업인지 판단 필요
-            QuestionType special = questionRepository.findTypeByQuestionID(questionId);
-            if(special.equals(QuestionType.대학)){
-                //대학 특화일 때
-                List<Object[]> machineNameData = voteRepository.findVoteDataByMachineName(questionId);
-
-                for(int i=0; i<machineNameData.size(); i++) {
-                    AnswerDetailResponse answerDetailResponse = new AnswerDetailResponse();
-                    //dataLabel에 기기명 무엇인지 넣음
-                    answerDetailResponse.setDataLabel((String) machineNameData.get(i)[0]);
-                    //답변 수 합 계산
-                    Long answerA = (Long) machineNameData.get(i)[1];
-                    Long answerB = (Long) machineNameData.get(i)[2];
-                    Long total = answerA + answerB;
-                    Long rateA = 0L;
-                    Long rateB = 0L;
-
-                    //각 항이 null일 때 경우 나눠서 생각
-                    if (total != 0L) {
-                        if (answerA == null) {
-                            answerA = 0L;
-                            rateA = 0L;
-                            rateB = 100L;
-                        } else if (answerA == total) {
-                            answerB = 0L;
-                            rateA = 100L;
-                            rateB = 0L;
-                        } else {
-                            rateA = (answerA * 100) / total;
-                            rateB = 100 - rateA;
-                        }
-                    } else {
-                        answerA = 0L;
-                        answerB = 0L;
-                        rateA = 0L;
-                        rateB = 0L;
-                    }
-
-                    //구한 값들 다 AnswerDetailResponse에 넣어주기
-                    answerDetailResponse.setAnswerA(answerA);
-                    answerDetailResponse.setAnswerB(answerB);
-                    answerDetailResponse.setRateA(rateA);
-                    answerDetailResponse.setRateB(rateB);
-
-                    result[2].add(answerDetailResponse);
-                }
-            } else if (special.equals(QuestionType.기업)) {
-                //기업 특화일 때
-                List<Object[]> machineNameData = voteRepository.findVoteDataByMachineName(questionId);
-
-                for(int i=0; i<machineNameData.size(); i++) {
-                    AnswerDetailResponse answerDetailResponse = new AnswerDetailResponse();
-                    //dataLabel에 기기명 무엇인지 넣음
-                    answerDetailResponse.setDataLabel((String) machineNameData.get(i)[0]);
-                    //답변 수 합 계산
-                    Long answerA = (Long) machineNameData.get(i)[1];
-                    Long answerB = (Long) machineNameData.get(i)[2];
-                    Long total = answerA + answerB;
-                    Long rateA = 0L;
-                    Long rateB = 0L;
-                    //각 항이 null일 때 경우 나눠서 생각
-                    if (total != 0L) {
-                        if (answerA == null) {
-                            answerA = 0L;
-                            rateA = 0L;
-                            rateB = 100L;
-                        } else if (answerA == total) {
-                            answerB = 0L;
-                            rateA = 100L;
-                            rateB = 0L;
-                        } else {
-                            rateA = (answerA * 100) / total;
-                            rateB = 100 - rateA;
-                        }
-                    } else {
-                        answerA = 0L;
-                        answerB = 0L;
-                        rateA = 0L;
-                        rateB = 0L;
-                    }
-
-                    //구한 값들 다 AnswerDetailResponse에 넣어주기
-                    answerDetailResponse.setAnswerA(answerA);
-                    answerDetailResponse.setAnswerB(answerB);
-                    answerDetailResponse.setRateA(rateA);
-                    answerDetailResponse.setRateB(rateB);
-
-                    result[2].add(answerDetailResponse);
-                }
+                result[2].add(answerDetailResponse);
             }
         }
+
         return result;
     }
     // service layer에서는 공통, 대학, 기업 메소드를 따로 만들어 데이터를 컨트롤러로 보내주고
