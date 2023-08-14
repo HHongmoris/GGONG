@@ -14,7 +14,7 @@ const PointContainer = () => {
   const location = useLocation();
 
   const search = (start, end) => {
-    useApi('/points/', 'GET').then(res => {
+    useApi(`/points?start=${start}&end=${end}`, 'GET').then(res => {
       setPoints(res.data);
       console.log(start, end);
     });

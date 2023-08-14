@@ -18,22 +18,22 @@ const ModalContent = ({ open, toggleVisible }) => {
   // console.log(price);
   // console.log(point);
 
-  // user point 불러오는 방식 바꿔줘야됩니다!
-  useApi('/users/1', 'GET').then(res => {
-    setPoint(res.data[0].points);
-  });
+  // // user point 불러오는 방식 바꿔줘야됩니다!
+  // useApi('/users/1', 'GET').then(res => {
+  //   setPoint(res.data[0].points);
+  // });
 
-  // 상품 정보도 일단 그냥 불러왔음.. 해당 상품에 맞는 정보 가져오도록 바꿔야됨.
-  useApi('/items/4', 'GET').then(res => {
-    setPrice(res.data[0].price);
-  });
+  // // 상품 정보도 일단 그냥 불러왔음.. 해당 상품에 맞는 정보 가져오도록 바꿔야됨.
+  // useApi('/items/4', 'GET').then(res => {
+  //   setPrice(res.data[0].price);
+  // });
 
   // TODO: 상품 구매로직 추가하기
   const buyProduct = () => {
     if (price > point) {
       alert('보유 포인트보다 비싼 상품입니다.');
     } else {
-      useApi('/items/1', 'POST').then();
+      useApi(`/items/${itemId}`, 'POST').then();
     }
   };
 
