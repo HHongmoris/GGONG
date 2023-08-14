@@ -22,8 +22,8 @@ public class AllAnswerResponse {
 	private Long answerA;
 	private Long answerB;
 	// 비율
-	private double rateA;
-	private double rateB;
+	private Long rateA;
+	private Long rateB;
 
 	public AllAnswerResponse(Question entity) {
 		this.questionID = entity.getQuestionID();

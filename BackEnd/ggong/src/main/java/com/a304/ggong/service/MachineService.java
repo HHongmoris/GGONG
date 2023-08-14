@@ -2,8 +2,6 @@ package com.a304.ggong.service;
 
 import java.util.List;
 
-import com.a304.ggong.dto.request.LikeDeleteRequest;
-import com.a304.ggong.dto.request.LikeRegistRequest;
 import com.a304.ggong.dto.response.AllMachinesResponse;
 import com.a304.ggong.dto.response.LikeResponse;
 import com.a304.ggong.dto.response.MachineDetailResponse;
@@ -21,9 +19,9 @@ public interface MachineService {
 
 	// 관심 기기 등록
 	// Response를 프론트에 바로 보내줘버리기...?
-	void insertFavoriteMachine(String email, LikeRegistRequest entity);
+	void insertFavoriteMachine(String email, Long machineNo);
 
 	// 관심 기기 삭제
-	void deleteFavoriteMachine(LikeDeleteRequest entity);
+	void deleteFavoriteMachine(String email, Long machineNo);
 
 }
