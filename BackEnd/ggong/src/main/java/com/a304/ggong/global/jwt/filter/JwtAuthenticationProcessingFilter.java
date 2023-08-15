@@ -24,7 +24,7 @@ import java.io.IOException;
 @Slf4j
 public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
 
-    private static final String NO_CHECK_URL = "/login";
+    private static final String NO_CHECK_URL = "/api/login";
 
     private final JwtService jwtService;
     private final UserRepository userRepository;
@@ -33,7 +33,18 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
     
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        if(request.getRequestURI().equals(NO_CHECK_URL)){
+        log.info(request.getRequestURI());
+        log.info(request.getMethod());
+        log.info(request.getHeader("Authorization"));
+        
+        if(request.getMethod().equals("OPTIONS")) {
+            log.info("OPTIONS");
+            return;
+        }
+
+        if(request.getRequestURI().startsWith(NO_CHECK_URL)){
+            log.info("NO_CHECK_URL");
+            
             filterChain.doFilter(request, response);
             return;
         }
@@ -43,11 +54,15 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
                 .orElse(null);
 
         if(refreshToken != null) {
+            log.info("REFRESH NOT NULL");
+            
             checkRefreshTokenAndReIssueAccessToken(response, refreshToken);
             return;
         }
         
         if(refreshToken == null) {
+            log.info("REFRESH NULL");
+            
             checkAccessTokenAndAuthentication(request, response, filterChain);
         }
     }
@@ -69,7 +84,7 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
 
     private void checkAccessTokenAndAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         log.info("checkAccessTokenAndAuthentication() 호출");
-        log.trace(request.getHeader("Authorization"));
+
         jwtService.extractAccessToken(request)
                 .filter(jwtService::isTokenValid)
                 .ifPresent(accessToken -> jwtService.extractEmail(accessToken)

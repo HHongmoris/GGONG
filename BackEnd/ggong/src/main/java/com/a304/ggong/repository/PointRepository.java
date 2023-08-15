@@ -3,6 +3,7 @@ package com.a304.ggong.repository;
 import java.awt.print.Pageable;
 import java.util.List;
 import java.sql.Timestamp;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -24,7 +25,7 @@ public interface PointRepository extends JpaRepository<Point, Long> {
     
     //잔여 포인트 계산
     @Query("SELECT SUM(p.point) FROM Point p WHERE p.eventTime <= :theDate AND p.user.userNo = :userNo")
-    int selectBalancePoint(@Param("theDate") Timestamp theDate, @Param("userNo") Long userNo);
+    Integer selectBalancePoint(@Param("theDate") Timestamp theDate, @Param("userNo") Long userNo);
 
 	// 특정 user의 마지막 point entity 찾기
 	// jpql은 limit가 안된대...

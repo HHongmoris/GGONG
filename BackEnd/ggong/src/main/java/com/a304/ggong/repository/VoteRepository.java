@@ -4,7 +4,6 @@ import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 
-import com.a304.ggong.dto.QuestionAndAnswerCnt;
 import com.a304.ggong.entity.QuestionType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -24,10 +23,31 @@ public interface VoteRepository extends JpaRepository<Vote, Long> {
 
 	Optional<Vote> findAllByQuestion_QuestionID(Long questionId);
 
+	//이거 우선 주석처리
 	// Vote + Machine + User Fetch Join
 //	@Query("SELECT v.answer, v.voteDate, m.areaGu, m.name, u.ageRange FROM Vote v LEFT JOIN Machine m ON v.machine.machineNo = m.machineNo LEFT JOIN User u ON v.user.userNo = u.userNo WHERE v.question.group = :questionGroup")
-	@Query("SELECT v.answer, v.voteDate, v.machine.areaGu, v.machine.name, v.user.ageRange FROM Vote v WHERE v.question.group = :questionGroup")
-	List<Vote> findAllWithMachineAndQuestionFetchJoin(@Param("questionGroup") int questionGroup);
+//	@Query("SELECT v.answer, v.voteDate, v.machine.areaGu, v.machine.name, v.user.ageRange FROM Vote v WHERE v.question.group = :questionGroup")
+//	List<Vote> findAllWithMachineAndQuestionFetchJoin(@Param("questionGroup") int questionGroup);
+
+
+	//answer detail에 들어갈 메서드
+	//질문 번호, 제출 답안, 투표시간, 지역, 기기명, 연령대 출력
+//	@Query("SELECT q.questionID AS questionID, v.answer AS answer, v.voteDate AS voteDate, m.areaGu AS areaGu, m.name AS machineName, u.ageRange AS ageRange FROM Vote v JOIN Question q ON v.question.questionID = q.questionID JOIN Machine m ON v.machine.machineNo = m.machineNo JOIN User u ON v.user.userNo = u.userNo WHERE v.question.questionID IN (SELECT q.questionID AS questionID FROM Question q WHERE q.group = :questionGroup)")
+	@Query("SELECT q.questionID AS questionID, v.answer AS answer, v.voteDate AS voteDate, m.areaGu AS areaGu, m.name AS machineName, u.ageRange AS ageRange FROM Vote v JOIN Question q ON v.question.questionID = q.questionID JOIN Machine m ON v.machine.machineNo = m.machineNo JOIN User u ON v.user.userNo = u.userNo WHERE v.question.questionID = :questionID")
+	List<Object[]> findVoteDataByQuestionGroup(@Param("questionID") Long questionID);
+
+	//위 쿼리에서 지역별로 묶은 뒤 답안 카운트
+//	@Query("SELECT m.areaGu AS areaGu, COUNT(CASE WHEN v.answer = 0 THEN 1 ELSE NULL END) AS answerA, COUNT(CASE WHEN v.answer = 1 THEN 1 ELSE NULL END) AS answerB FROM Vote v JOIN Question q ON v.question.questionID = q.questionID JOIN Machine m ON v.machine.machineNo = m.machineNo JOIN User u ON v.user.userNo = u.userNo WHERE v.question.questionID IN (SELECT q.questionID AS questionID FROM Question q WHERE q.group = :questionGroup) GROUP BY m.areaGu")
+	@Query("SELECT m.areaGu AS areaGu, COUNT(CASE WHEN v.answer = 0 THEN 1 ELSE NULL END) AS answerA, COUNT(CASE WHEN v.answer = 1 THEN 1 ELSE NULL END) AS answerB FROM Vote v JOIN Question q ON v.question.questionID = q.questionID JOIN Machine m ON v.machine.machineNo = m.machineNo JOIN User u ON v.user.userNo = u.userNo WHERE v.question.questionID = :questionID GROUP BY m.areaGu")
+	List<Object[]> findVoteDataByAreaGu(@Param("questionID") Long questionID);
+
+	//연령대별로 묶은 뒤 답안 카운트
+	@Query("SELECT u.ageRange AS ageRange, COUNT(CASE WHEN v.answer = 0 THEN 1 ELSE NULL END) AS answerA, COUNT(CASE WHEN v.answer = 1 THEN 1 ELSE NULL END) AS answerB FROM Vote v JOIN Question q ON v.question.questionID = q.questionID JOIN Machine m ON v.machine.machineNo = m.machineNo JOIN User u ON v.user.userNo = u.userNo WHERE v.question.questionID = :questionID GROUP BY u.ageRange")
+	List<Object[]> findVoteDataByAgeRange(@Param("questionID") Long questionID);
+
+	//기기명 별로 묶은 뒤 답안 카운트
+	@Query("SELECT m.name AS name, COUNT(CASE WHEN v.answer = 0 THEN 1 ELSE NULL END) AS answerA, COUNT(CASE WHEN v.answer = 1 THEN 1 ELSE NULL END) AS answerB FROM Vote v JOIN Question q ON v.question.questionID = q.questionID JOIN Machine m ON v.machine.machineNo = m.machineNo JOIN User u ON v.user.userNo = u.userNo WHERE v.question.questionID = :questionID GROUP BY m.name")
+	List<Object[]> findVoteDataByMachineName(@Param("questionID") Long questionID);
 
 	// group과 type에 따라 전체 answer count하기
 	@Query("SELECT v.question.questionID AS questionID, COUNT(v) AS answerCnt FROM Vote v LEFT JOIN Question q ON v.question.questionID = q.questionID WHERE q.group = :questionGroup AND q.type = :questionType GROUP BY v.question.questionID")

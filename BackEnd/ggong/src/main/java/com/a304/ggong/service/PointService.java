@@ -1,7 +1,6 @@
 package com.a304.ggong.service;
 
 import com.a304.ggong.dto.response.PointListResponse;
-import com.a304.ggong.entity.Point;
 
 import java.util.List;
 
@@ -13,7 +12,7 @@ public interface PointService {
     List<PointListResponse> selectPointListByUserEmailAndDate(String userEmail,String startDate, String endDate);
 
     //잔여포인트 계산
-    int calculateBalancePoint(String email, String end);
+    Integer calculateBalancePoint(String email, String end);
 
 //    List<PointListResponse> selectPointListByEventTime(String startDate, String endDate);
 
