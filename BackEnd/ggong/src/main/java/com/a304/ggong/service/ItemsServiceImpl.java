@@ -5,12 +5,10 @@ import com.a304.ggong.dto.response.AllItemResponse;
 import com.a304.ggong.dto.response.BuyListResponse;
 import com.a304.ggong.dto.response.BuyResponse;
 import com.a304.ggong.entity.Buy;
+import com.a304.ggong.entity.Point;
 import com.a304.ggong.entity.Product;
 import com.a304.ggong.entity.User;
-import com.a304.ggong.repository.BuyRepository;
-import com.a304.ggong.repository.PointRepository;
-import com.a304.ggong.repository.ProductRepository;
-import com.a304.ggong.repository.UserRepository;
+import com.a304.ggong.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.cache.spi.support.AbstractReadWriteAccess;
 import org.springframework.stereotype.Service;
@@ -28,6 +26,7 @@ public class ItemsServiceImpl implements ItemsService{
     private final BuyRepository buyRepository;
     private final PointRepository pointRepository;
     private final UserRepository userRepository;
+    private final VoteRepository voteRepository;
 
     //모든 상품 조회
     @Override
@@ -37,7 +36,7 @@ public class ItemsServiceImpl implements ItemsService{
                 .collect(Collectors.toList());
     }
 
-    public BuyResponse insertBuyItem(LocalDateTime now, String email, Long itemId){
+    public BuyResponse insertBuyItem(LocalDateTime now, String email, Long itemId) throws NullPointerException{
 
         // 일단 product 객체 가져오고
         Product product = productRepository.findById(itemId).get();
@@ -57,6 +56,17 @@ public class ItemsServiceImpl implements ItemsService{
         Buy buy = buyRequest.toEntity();
 
         buyRepository.save(buy);
+
+        // Point table도 저장해줘야함
+        Point point = new Point();
+        point.setEventTime(Tnow);
+        point.setPoint(0 - product.getPrice());
+        point.setVote(voteRepository.findById(1L).get());
+        point.setUser(user);
+        point.setBuy(buy);
+        point.setBalancePoint(pointRepository.selectBalancePoint(Timestamp.valueOf(LocalDateTime.now()),user.getUserNo()));
+
+        pointRepository.save(point);
 
         // response 리턴해줘야지
         BuyResponse buyResponse = new BuyResponse(product);
