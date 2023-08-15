@@ -15,9 +15,9 @@ public class UserResponse {
     private String gender;
     private String favoriteCigarette;
     private String QR;
-    private Long points;
+    private Integer points;
 
-    public UserResponse(User user, Long points) {
+    public UserResponse(User user, Integer points) {
         this.userNo = user.getUserNo();
         this.email = user.getEmail();
         this.nickname = user.getName();
