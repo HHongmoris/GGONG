@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -30,7 +31,8 @@ public class PointServiceImpl implements PointService{
 
         // 이부분이 문제래...
         for(int idx = 0; idx< pointList.size(); idx++){
-            System.out.println("이것은 tmp:" +new PointListResponse(pointList.get(idx)));
+            //이거 출력 잘 됨
+//            System.out.println("이것은 tmp:" +new PointListResponse(pointList.get(idx)));
             // 여기서 계속 잔여포인트 때문에 null exception이 뜬다.
             // 그래서 임시방편으로 balancePoint를 Integer 값으로 주었다.
             // vote테이블이 올라가면서 point테이블이 올라가고 그다음 그 메소드 내에서 바로 잔여포인트를 구해주는 로직이 필요하다고 판단.
@@ -62,13 +64,14 @@ public class PointServiceImpl implements PointService{
 
     //잔여 포인트 계산
     @Override
-    public Integer calculateBalancePoint(String email, String end) throws NullPointerException {
+    public Integer calculateBalancePoint(String email, Timestamp end) throws NullPointerException {
         // 여기서 현재 날짜 추출해서
         // point entity에 넣어주기(데이터 update)
 
         // 현재 날짜 설정
-        end += " 23:59:59.9";
-        Timestamp Tnow = Timestamp.valueOf(end);
+//        end += " 23:59:59.9";
+        LocalDateTime now = LocalDateTime.now();
+        Timestamp Tnow = Timestamp.valueOf(now);
 
         // email로 userNo 찾기
         User user = userRepository.findByEmail(email).get();
