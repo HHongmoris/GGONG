@@ -3,15 +3,13 @@ package com.a304.ggong.dto.response;
 import com.a304.ggong.entity.Machine;
 import com.a304.ggong.entity.Question;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class MachineDetailResponse {
 
 	private Long machineNo;
