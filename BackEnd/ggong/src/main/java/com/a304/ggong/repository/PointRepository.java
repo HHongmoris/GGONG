@@ -36,4 +36,6 @@ public interface PointRepository extends JpaRepository<Point, Long> {
 //		List<Point> findLatestByUserNo(@Param("userNo") Long userNo, Pageable pageable);
 
 	List<Point> findAllByUser_UserNo(Long userNo);
+
+	Optional<Long> findBalancePointByUser_UserNo(Long userNo);
 }
