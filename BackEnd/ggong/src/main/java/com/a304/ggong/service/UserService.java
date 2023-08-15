@@ -139,8 +139,10 @@ public class UserService {
 		User user = userRepository.findByEmail(email).orElseThrow(NoSuchElementException::new);
 		System.out.println(user);
 		System.out.println(user.getUserNo());
-		Long points = pointRepository.findBalancePointByUser_UserNo(user.getUserNo())
-				.orElse(0L);
+
+		LocalDateTime now = LocalDateTime.now();
+		Timestamp Tnow = Timestamp.valueOf(now);
+		Integer points = pointRepository.selectBalancePoint(Tnow, user.getUserNo());
 		System.out.println(points);
 
 		return new UserResponse(user, points);
