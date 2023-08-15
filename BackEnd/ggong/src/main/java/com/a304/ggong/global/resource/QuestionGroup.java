@@ -1,52 +1,48 @@
 package com.a304.ggong.global.resource;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 public class QuestionGroup {
 
-    LocalDate now = LocalDate.now();
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.KOREA);
+
+    // 오늘이 몇째주인지에 따라서 그룹 넘버가 바뀌도록!
 
     public int getThisWeekGroupNum(){
-        // 한 달에 31일로 가정
-        // 7일 간격으로 questionGroup이 바뀜
-        // 첫째주는 1 (1~7)
-        // 둘째주는 2 (8~14)
-        // 셋째주는 3 (15~21)
-        // 넷째주는 4 (22~28)
-        // 다섯째주는 5 (29~31)
-        int dayOfMonth = now.getDayOfMonth();
 
-        if(dayOfMonth >= 1 && dayOfMonth <= 7){
-            return 1;
-        }else if(dayOfMonth >= 8 && dayOfMonth <= 14){
-            return 2;
-        }else if(dayOfMonth >= 15 && dayOfMonth <= 21){
-            return 3;
-        }else if(dayOfMonth >= 22 && dayOfMonth <= 28){
-            return 4;
-        }else {
-            return 5;
+        int thisWeek = getWeekOfYear(sdf.format(new Date()));
+        thisWeek = thisWeek % 10;
+
+        if(thisWeek == 0){
+            return 10;
         }
+        return thisWeek;
+    }
+
+    // 오늘이 몇째주인지 구하는 메소드
+    private int getWeekOfYear(String date){
+        Calendar calendar = Calendar.getInstance();
+        String[] dates = date.split("-");
+        int year = Integer.parseInt(dates[0]);
+        int month = Integer.parseInt(dates[1]);
+        int day = Integer.parseInt(dates[2]);
+        calendar.set(year, month-1, day);
+        return calendar.get(Calendar.WEEK_OF_YEAR);
     }
 
     public int getLastWeekGroupNum(){
-        // 첫째주는 5
-        // 둘째주는 1
-        // 셋째주는 2
-        // 넷째주는 3
-        // 다섯째주는 4
-        int dayOfMonth = now.getDayOfMonth();
+        int thisWeek = this.getThisWeekGroupNum();
 
-        if(dayOfMonth >= 1 && dayOfMonth <= 7){
-            return 5;
-        }else if(dayOfMonth >= 8 && dayOfMonth <= 14){
-            return 1;
-        }else if(dayOfMonth >= 15 && dayOfMonth <= 21){
-            return 2;
-        }else if(dayOfMonth >= 22 && dayOfMonth <= 28){
-            return 3;
-        }else {
-            return 4;
+        int lastWeek = thisWeek -1;
+
+        switch (lastWeek){
+            case 0:
+                return 10;
         }
+        return lastWeek;
     }
 }
