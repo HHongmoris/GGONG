@@ -14,6 +14,8 @@ import com.a304.ggong.service.UserService;
 
 import lombok.RequiredArgsConstructor;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/users")
@@ -56,17 +58,30 @@ public class UserController {
 		return new ResponseEntity<>(tmp, HttpStatus.OK);
 	}
 
+//	// 회원 관심 기기 데이터 조회
+//	@GetMapping("/like")
+//	public ResponseEntity<MachineDetailResponse[]> getLikeMachine(@RequestHeader(required = true, name = "Authorization") String token){
+//		//성민
+//		String email = jwtService.extractEmailTest(token);
+//		if(email == null) {
+//			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+//		}
+//
+//		MachineDetailResponse[] tmp = userService.selectLikeMachine(email);
+//
+//		return  new ResponseEntity<>(tmp,HttpStatus.OK);
+//	}
+
 	// 회원 관심 기기 데이터 조회
 	@GetMapping("/like")
-	public ResponseEntity<MachineDetailResponse[]> getLikeMachine(@RequestHeader(required = true, name = "Authorization") String token){
+	public ResponseEntity<List<MachineDetailResponse>> getLikeMachine(@RequestHeader(required = true, name = "Authorization") String token){
 		//성민
 		String email = jwtService.extractEmailTest(token);
 		if(email == null) {
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		}
 
-		MachineDetailResponse[] tmp = userService.selectLikeMachine(email);
-
+		List<MachineDetailResponse> tmp = userService.selectLikeMachine(email);
 		return  new ResponseEntity<>(tmp,HttpStatus.OK);
 	}
 
