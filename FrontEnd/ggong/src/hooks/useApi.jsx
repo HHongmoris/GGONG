@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // API 서버의 root url
-const ROOT_URL = 'http://i9a304.p.ssafy.io/api';
+const ROOT_URL = 'http://i9a304.p.ssafy.io:8080/api';
 
 /**
  * 서버와 통신하는 hook 입니다.
