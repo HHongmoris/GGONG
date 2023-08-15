@@ -29,6 +29,8 @@ spring:
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://i9a304.p.ssafy.io:3306/ggong?useSSL=false&characterEncoding=UTF-8&serverTimezone=UTC
+#    username: ggong
     url: jdbc:mysql://localhost:3306/ggong?useSSL=false&characterEncoding=UTF-8&serverTimezone=UTC
     username: root
     password: 1234
