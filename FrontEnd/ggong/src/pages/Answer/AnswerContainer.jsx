@@ -31,7 +31,7 @@ const AnswerContainer = () => {
 
   return (
     <div>
-      <AnswerPage titleContent={titleContent} voteData={voteData} />
+      <AnswerPage className="mx-5 pb-5" titleContent={titleContent} voteData={voteData} />
     </div>
   );
 };
