@@ -180,6 +180,7 @@ public class MachineServiceImpl implements MachineService {
 		// 먼저 machineID로 machine 객체를 찾아
 		Machine tmpMachine = machineRepository.findById(machineNo).get();
 
+
 		// ID 구하기 전에 machine이 대학교인지 기업인지 찾아
 		// 그거에 따라 질문 list 다르게 넣어줘
 
