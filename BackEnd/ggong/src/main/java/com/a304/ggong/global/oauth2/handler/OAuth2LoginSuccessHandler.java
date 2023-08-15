@@ -7,6 +7,7 @@ import com.a304.ggong.global.oauth2.CustomOAuth2User;
 import com.a304.ggong.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.tomcat.util.http.parser.Authorization;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -33,7 +34,9 @@ public class OAuth2LoginSuccessHandler implements AuthenticationSuccessHandler {
 
             if(oAuth2User.getRole() == Role.GUEST) {
                 String accessToken = jwtService.createAccessToken(oAuth2User.getEmail());
-                response.sendRedirect("http://i9a304.p.ssafy.io/auth?token="+accessToken);
+//                response.sendRedirect("http://i9a304.p.ssafy.io/auth?token="+accessToken);
+                response.setHeader("Authorization","Bearer "+accessToken);
+                response.sendRedirect("/");
 
                 jwtService.sendAccessAndRefreshToken(response, accessToken, null);
 //                User findUser = userRepository.findByEmail(oAuth2User.getEmail())

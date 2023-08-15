@@ -20,17 +20,14 @@ public class PointListResponse {
     private int point;
     // 이거 상황에 따라 null 될수있도록 처리 해줘야겠네...
     // null 값들 다 빼니까 잘나와
-    @Column(nullable = true)
     private String machineName;
-
-    @Column(nullable = true)
     private int price;
 
-    public PointListResponse(Point entity){
+    public PointListResponse(Point entity) {
         this.eventTime = entity.getEventTime();
         this.balancePoint = entity.getBalancePoint();
         this.point = entity.getPoint();
-       this.machineName = entity.getVote().getMachine().getName();
-       this.price = entity.getBuy().getProduct().getPrice();
+//        this.machineName = entity.getVote().getMachine().getName();
+//        this.price = entity.getBuy().getProduct().getPrice();
     }
 }
