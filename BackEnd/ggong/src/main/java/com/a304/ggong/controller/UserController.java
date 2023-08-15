@@ -102,7 +102,7 @@ public class UserController {
 	public ResponseEntity<?> getUser(@RequestHeader(required = true, name = "Authorization") String token){
 		// 병기
 		String email = jwtService.extractEmailTest(token);
-		if(email.equals("")) {
+		if(email==null) {
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		}
 
