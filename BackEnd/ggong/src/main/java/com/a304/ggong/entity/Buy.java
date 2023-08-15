@@ -11,6 +11,7 @@ import java.sql.Timestamp;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class Buy {
     //구매내역 번호(id)
     @Id
@@ -31,4 +32,11 @@ public class Buy {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_no")
     private Product product;
+
+    @Builder
+    public Buy(Timestamp buyTime, User user, Product product) {
+        this.buyTime = buyTime;
+        this.user = user;
+        this.product = product;
+    }
 }
