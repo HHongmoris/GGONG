@@ -1,21 +1,25 @@
 package com.a304.ggong.dto.request;
 
+import com.a304.ggong.entity.Buy;
 import com.a304.ggong.entity.Product;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.a304.ggong.entity.User;
+import lombok.*;
+
+import java.sql.Timestamp;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class BuyRequest {
-    private Long productNo;
+//    private Long productNo;
 
-    public Product toEntity(){
-        return Product.builder()
-                .productNo(productNo)
-                .build();
+    private Product product;
+    private User user;
+    private Timestamp buyTime;
+
+    public Buy toEntity(){
+        return Buy.builder().buyTime(buyTime).user(user).product(product).build();
     }
 }
