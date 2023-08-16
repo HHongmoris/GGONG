@@ -360,6 +360,6 @@ public class AnswerServiceImpl implements AnswerService{
         Timestamp start = Timestamp.valueOf(startOfLastMonth);
         Timestamp end = Timestamp.valueOf(endOfLastMonth);
 
-        voteRepository.deleteByVoteDateBetween(start, end);
+//        voteRepository.deleteByVoteDateBetween(start, end);
     }
 }

@@ -32,7 +32,7 @@ public class LastAnswersController {
         int questionGroupNum = questionGroup.getLastWeekGroupNum();
 
         // voteTable 갱신
-        answerService.iniAnswers();
+//        answerService.iniAnswers();
 
         List<AllAnswerResponse>[] result = new List[3];
 
