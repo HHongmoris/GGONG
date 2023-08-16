@@ -5,7 +5,8 @@ import { Border } from '../../global/colors';
 import BarChart from '../../components/Chart/BarChart';
 import { Tab, category } from '../../components/Tab';
 import useApi from '../../hooks/useApi';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useParams, useSearchParams } from 'react-router-dom';
+import { Title, Subtitle } from '../../components/Heading';
 
 // 샘플 데이터들... 나중에 데이터 받으면 없앱시다.
 const sampleData1 = [
@@ -26,17 +27,19 @@ const AnswerDetailPage = ({ num = 1 }) => {
   // 탭 활성화 관리 (처음 상태 활성화 탭은 첫번째 탭)
   const [activeTab, setActiveTab] = useState(0);
   const [detailData, setDetailData] = useState([[]]);
-
-  console.log(detailData);
+  const [search, setSearch] = useSearchParams();
 
   const location = useLocation();
-
+  // const params = useParams();
   useEffect(() => {
+    // const questionId = params.questionId;
+    const questionId = search.get('id');
+
     if (location.pathname === `/answers/present/${questionId}`) {
       useApi(`/answers/present/${questionId}`, 'GET').then(res => {
         setDetailData(res.data);
       });
-    } else if (location.pathname === `/answers/${questionId}`) {
+    } else if (location.pathname === '/vote/detail') {
       useApi(`/answers/${questionId}`, 'GET').then(res => {
         setDetailData(res.data);
       });
@@ -49,27 +52,26 @@ const AnswerDetailPage = ({ num = 1 }) => {
   };
 
   return (
-    <div>
-      <div className={`card border ${Border.MAIN} mb-4`}>
-        <div className="p-4">
-          <BarChart title="당신이 좋아하는 것은?" data={sampleData1} />
-        </div>
+    <div className="mx-5 pb-5">
+      <div className={`card border ${Border.MAIN} mb-4 p-4`}>
+        {/* <Subtitle content="Q. 당신이 좋아하는 것은 홍성민이냐 갈비치킨이냐?" /> */}
+        <Subtitle content={`Q. ${search.get('content')}`} />
       </div>
       <Tab category={category[num]} activeTab={activeTab} onClick={handleTabClick} />
       {detailData[activeTab].map((data, idx) => {
         // data들을 다 쪼개서 받기
-        const { labelA, labelB, ratioA, ratioB, valueA, valueB, title } = data;
+        const { optionA, optionB, rateA, rateB, answerA, answerB, dataLabel } = data;
         const votes = [
           // A, B로 구조분해 할당
-          { label: labelA, value: valueA, ratio: ratioA },
-          { label: labelB, value: valueB, ratio: ratioB },
+          { label: optionA, value: answerA, ratio: rateA },
+          { label: optionB, value: answerB, ratio: rateB },
         ];
 
         return (
           <div key={idx}>
             <div className={`card border ${Border.MAIN} mt-4`}>
               <div className="p-4">
-                <BarChart title={title} data={votes} />
+                <BarChart title={dataLabel} data={votes} />
               </div>
             </div>
           </div>

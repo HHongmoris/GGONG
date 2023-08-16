@@ -106,6 +106,8 @@ const StatContainer = () => {
       .catch(e => {
         console.error(e.message);
       });
+
+    return () => eventSource.close();
   }, []);
 
   return (
