@@ -36,7 +36,7 @@ const PointPageLayout = () => {
 
   return (
     <div>
-      <div className="mb-8">
+      <div className="mx-5 pb-5 mb-8">
         <ProfileCard grade={userRating} nickname={nickname} point={points} />
       </div>
       <Outlet />

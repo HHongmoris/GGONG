@@ -99,7 +99,14 @@ const StatContainer = () => {
 
   return (
     <div>
-      <StatPage today={today} users={users} pieAges={ages} pieGender={gender} machineUsers={machine} />
+      <StatPage
+        className="mx-5 pb-5"
+        today={today}
+        users={users}
+        pieAges={ages}
+        pieGender={gender}
+        machineUsers={machine}
+      />
     </div>
   );
 };

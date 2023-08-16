@@ -28,7 +28,7 @@ public class Product {
 	private String pin;
 
 	//상품 가격정보
-	@Column(name = "price")
+	@Column(name = "price", nullable = true)
 	private int price;
 
 	@Builder

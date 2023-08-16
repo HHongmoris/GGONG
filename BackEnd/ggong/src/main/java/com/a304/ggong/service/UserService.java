@@ -26,6 +26,7 @@ import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -100,16 +101,33 @@ public class UserService {
 	}
 
 	// 회원 관심 기기 데이터 조회
-	public MachineDetailResponse[] selectLikeMachine(String email){
+//	public MachineDetailResponse[] selectLikeMachine(String email){
+//		// 먼저, Email을 이용해 유저 객체 가져와야함.
+//		User user = userRepository.findByEmail(email).get();
+//
+//		List<FavoriteMachine> favoriteMachine = favoriteMachineRepository.findByUser_UserNo(user.getUserNo());
+//
+//		MachineDetailResponse[] arr = new MachineDetailResponse[favoriteMachine.size()];
+//
+//		for(int idx = 0; idx < favoriteMachine.size(); idx++){
+//			arr[idx] = new MachineDetailResponse();
+//			arr[idx] = machineService.selectMachineDetail(favoriteMachine.get(idx).getMachine().getMachineNo());
+//		}
+//
+//		return arr;
+//	}
+
+	public List<MachineDetailResponse> selectLikeMachine(String email){
 		// 먼저, Email을 이용해 유저 객체 가져와야함.
 		User user = userRepository.findByEmail(email).get();
 
 		List<FavoriteMachine> favoriteMachine = favoriteMachineRepository.findByUser_UserNo(user.getUserNo());
 
-		MachineDetailResponse[] arr = new MachineDetailResponse[favoriteMachine.size()];
+		List<MachineDetailResponse> arr = new ArrayList<>();
 
 		for(int idx = 0; idx < favoriteMachine.size(); idx++){
-			arr[idx] = machineService.selectMachineDetail(favoriteMachine.get(idx).getMachine().getMachineNo());
+			MachineDetailResponse tmp = machineService.selectMachineDetail(favoriteMachine.get(idx).getMachine().getMachineNo());
+			arr.add(tmp);
 		}
 
 		return arr;
@@ -135,13 +153,11 @@ public class UserService {
 
 	// 회원 정보 조회
 	public UserResponse selectUser(String email){
-		System.out.println("selectUser");
 		User user = userRepository.findByEmail(email).orElseThrow(NoSuchElementException::new);
-		System.out.println(user);
-		System.out.println(user.getUserNo());
-		Long points = pointRepository.findBalancePointByUser_UserNo(user.getUserNo())
-				.orElse(0L);
-		System.out.println(points);
+
+		LocalDateTime now = LocalDateTime.now();
+		Timestamp Tnow = Timestamp.valueOf(now);
+		Integer points = pointRepository.selectBalancePoint(Tnow, user.getUserNo());
 
 		return new UserResponse(user, points);
 	}

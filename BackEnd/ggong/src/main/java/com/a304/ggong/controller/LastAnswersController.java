@@ -32,7 +32,7 @@ public class LastAnswersController {
         int questionGroupNum = questionGroup.getLastWeekGroupNum();
 
         // voteTable 갱신
-        answerService.iniAnswers();
+//        answerService.iniAnswers();
 
         List<AllAnswerResponse>[] result = new List[3];
 
@@ -40,7 +40,6 @@ public class LastAnswersController {
         List<AllAnswerResponse> uniAnswers = answerService.selectAnswersGroupByUnis(questionGroupNum);
         List<AllAnswerResponse> comAnswers = answerService.selectAnswersGroupByCompanies(questionGroupNum);
 
-        System.out.println();
         for(int idx = 0; idx < 3; idx++){
             result[idx] = new ArrayList<>();
         }
@@ -56,7 +55,7 @@ public class LastAnswersController {
     @GetMapping("/{questionId}")
     public ResponseEntity<List<AnswerDetailResponse>[]> getAnswersDetail(@PathVariable("questionId") Long questionId){
         QuestionGroup questionGroup = new QuestionGroup();
-        int questionGroupNum = questionGroup.getLastWeekGroupNum();
+        // int questionGroupNum = questionGroup.getLastWeekGroupNum();
 
         //voteTable 갱신 필요
         answerService.iniAnswers();

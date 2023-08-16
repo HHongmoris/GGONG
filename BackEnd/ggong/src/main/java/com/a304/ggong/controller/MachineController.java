@@ -74,7 +74,7 @@ public class MachineController {
 	// 특정 기기의 상세 정보 조회
 	@GetMapping(value = "/{machineNo}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
 	public ResponseEntity<SseEmitter> getMachineDetailInfo(@PathVariable("machineNo") Long machineNo) {
-		SseEmitter emitter = new SseEmitter((long) (24*60*60*1000));
+		SseEmitter emitter = new SseEmitter();
 		sseEmitters.add(emitter);
 
 		MachineDetailResponse machineDetailResponse = machineService.selectMachineDetail(machineNo);
