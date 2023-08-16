@@ -34,9 +34,10 @@ public class OAuth2LoginSuccessHandler implements AuthenticationSuccessHandler {
 
             if(oAuth2User.getRole() == Role.GUEST) {
                 String accessToken = jwtService.createAccessToken(oAuth2User.getEmail());
-//                response.sendRedirect("http://i9a304.p.ssafy.io/auth?token="+accessToken);
-                response.setHeader("Authorization","Bearer "+accessToken);
-                response.sendRedirect("/");
+                response.sendRedirect("http://i9a304.p.ssafy.io/auth?token="+accessToken);
+                // response.setHeader("Authorization","Bearer "+accessToken);
+                // response.sendRedirect("/");
+
                 jwtService.sendAccessAndRefreshToken(response, accessToken, null);
 //                User findUser = userRepository.findByEmail(oAuth2User.getEmail())
 //                                .orElseThrow(() -> new IllegalArgumentException("이메일에 해당하는 유저가 없습니다."));
