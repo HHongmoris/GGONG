@@ -35,8 +35,8 @@ const PointPageLayout = () => {
   }, [dispatch]); // dispatch 함수가 변경될 때마다 실행
 
   return (
-    <div>
-      <div className="mx-5 pb-5 mb-8">
+    <div className="mx-5 pb-5">
+      <div className="mb-8">
         <ProfileCard grade={userRating} nickname={nickname} point={points} />
       </div>
       <Outlet />

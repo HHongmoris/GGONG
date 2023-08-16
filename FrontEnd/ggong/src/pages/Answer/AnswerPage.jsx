@@ -27,7 +27,7 @@ const AnswerPage = ({ num = 0, titleContent, voteData }) => {
   };
 
   return (
-    <div>
+    <div className="mx-5 pb-5">
       <Title content={titleContent} spacing={true} />
       {/* category, activeTab, onClick 이벤트 */}
       <Tab category={category[num]} activeTab={activeTab} onClick={handleTabClick} />
