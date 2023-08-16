@@ -99,8 +99,8 @@ public class AnswerServiceImpl implements AnswerService{
                 //allCnt가 0일때는 둘다 0으로 처리
                 allAnswerResponse.setAnswerA(0L);
                 allAnswerResponse.setAnswerB(0L);
-                allAnswerResponse.setRateA(0L);
-                allAnswerResponse.setRateB(0L);
+                allAnswerResponse.setRateA(50L);
+                allAnswerResponse.setRateB(50L);
             }
             //넣어준 allAnswerResponse를 리스트에 담기
             allAnswerResponses.add(allAnswerResponse);
@@ -155,8 +155,8 @@ public class AnswerServiceImpl implements AnswerService{
             }else{
                 answerA = 0L;
                 answerB = 0L;
-                rateA = 0L;
-                rateB = 0L;
+                rateA = 50L;
+                rateB = 50L;
             }
 
             //구한 값들 다 AnswerDetailResponse에 넣어주기
@@ -203,8 +203,8 @@ public class AnswerServiceImpl implements AnswerService{
             }else{
                 answerA = 0L;
                 answerB = 0L;
-                rateA = 0L;
-                rateB = 0L;
+                rateA = 50L;
+                rateB = 50L;
             }
 
             //구한 값들 다 AnswerDetailResponse에 넣어주기
@@ -255,8 +255,8 @@ public class AnswerServiceImpl implements AnswerService{
                 } else {
                     answerA = 0L;
                     answerB = 0L;
-                    rateA = 0L;
-                    rateB = 0L;
+                    rateA = 50L;
+                    rateB = 50L;
                 }
 
                 //구한 값들 다 AnswerDetailResponse에 넣어주기
@@ -300,8 +300,8 @@ public class AnswerServiceImpl implements AnswerService{
                 } else {
                     answerA = 0L;
                     answerB = 0L;
-                    rateA = 0L;
-                    rateB = 0L;
+                    rateA = 50L;
+                    rateB = 50L;
                 }
 
                 //구한 값들 다 AnswerDetailResponse에 넣어주기

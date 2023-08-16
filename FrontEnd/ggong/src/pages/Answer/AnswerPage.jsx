@@ -34,19 +34,19 @@ const AnswerPage = ({ num = 0, titleContent, voteData }) => {
       {/* activeTab으로 voteData를 선정해서 그 안에 있는 데이터들을 map으로 탐색해서 띄워주기 */}
       {voteData[activeTab].map((data, idx) => {
         // data들을 다 쪼개서 받기
-        const { labelA, labelB, ratioA, ratioB, valueA, valueB, title } = data;
+        const { optionA, optionB, rateA, rateB, answerA, answerB, content, questionID } = data;
         const votes = [
           // A, B로 구조분해 할당
-          { label: labelA, value: valueA, ratio: ratioA },
-          { label: labelB, value: valueB, ratio: ratioB },
+          { label: optionA, value: answerA, ratio: rateA },
+          { label: optionB, value: answerB, ratio: rateB },
         ];
 
         return (
           <div key={idx}>
-            <Link to="/vote/detail">
+            <Link to={`/vote/detail?id=${questionID}&content=${content}`}>
               <div className={`card border ${Border.MAIN} mt-4`}>
                 <div className="p-4">
-                  <BarChart title={title} data={votes} />
+                  <BarChart title={content} data={votes} />
                 </div>
               </div>
             </Link>
