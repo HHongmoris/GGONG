@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Subtitle } from '../Heading';
 import Button from '../Button/Button';
 import useApi from '../../hooks/useApi';
 import { Background } from '../../global/colors';
+import { useSelector } from 'react-redux';
 
 /**
  * 모달창의 내용 컴포넌트를 반환하는 함수
@@ -11,9 +12,8 @@ import { Background } from '../../global/colors';
  * @param {Function} toggleVisible open의 상태를 변경하는 함수
  * @returns 모달창 내용 컴포넌트
  */
-const ModalContent = ({ open, toggleVisible }) => {
-  const [price, setPrice] = useState(0);
-  const [point, setPoint] = useState(0);
+const ModalContent = ({ open, toggleVisible, price }) => {
+  const user = useSelector(state => state.user);
 
   // console.log(price);
   // console.log(point);
@@ -30,10 +30,10 @@ const ModalContent = ({ open, toggleVisible }) => {
 
   // TODO: 상품 구매로직 추가하기
   const buyProduct = () => {
-    if (price > point) {
+    if (price > user.points) {
       alert('보유 포인트보다 비싼 상품입니다.');
     } else {
-      useApi(`/items/${itemId}`, 'POST').then();
+      useApi(`/items/${price}`, 'POST').then();
     }
   };
 
