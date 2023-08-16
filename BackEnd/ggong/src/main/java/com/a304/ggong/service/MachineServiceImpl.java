@@ -165,7 +165,7 @@ public class MachineServiceImpl implements MachineService {
 
 		idxDay = intDay % 21;
 
-		questionId = list.get(idxDay).getQuestionID();
+		questionId = list.get(idxDay + 1).getQuestionID();
 
 		// 현재
 		return questionId;
