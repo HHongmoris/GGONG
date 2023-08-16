@@ -50,7 +50,8 @@ public interface VoteRepository extends JpaRepository<Vote, Long> {
 	List<Object[]> findVoteDataByMachineName(@Param("questionID") Long questionID);
 
 	// group과 type에 따라 전체 answer count하기
-	@Query("SELECT v.question.questionID AS questionID, COUNT(v) AS answerCnt FROM Vote v LEFT JOIN Question q ON v.question.questionID = q.questionID WHERE q.group = :questionGroup AND q.type = :questionType GROUP BY v.question.questionID")
+	// @Query("SELECT q.questionID AS questionID, COUNT(v) AS answerCnt FROM Vote v LEFT JOIN Question q ON v.question.questionID = q.questionID WHERE q.group = :questionGroup AND q.type = :questionType GROUP BY q.questionID")
+	@Query("SELECT q.questionID AS questionID, COUNT(v) AS answerCnt FROM Vote v LEFT JOIN Question q ON v.question.questionID = q.questionID WHERE q.group = :questionGroup AND q.type = :questionType GROUP BY q.questionID")
 	List<Long[]> countByQuestionGroupAndQuestionType(@Param("questionGroup") int questionGroup, @Param("questionType") QuestionType questionType);
 
 	// group별(지난주 or 이번주) type(공통 or 특화)에 따라 A or B(answer)판단해서 count 해주기

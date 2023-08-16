@@ -57,8 +57,8 @@ public class LastAnswersController {
         QuestionGroup questionGroup = new QuestionGroup();
         // int questionGroupNum = questionGroup.getLastWeekGroupNum();
 
-        //voteTable 갱신 필요
-        answerService.iniAnswers();
+        // //voteTable 갱신 필요
+        // answerService.iniAnswers();
 
         List<AnswerDetailResponse>[] result = answerService.selectDetailAnswer(questionId);
 
