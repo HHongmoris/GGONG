@@ -1,5 +1,5 @@
 import './App.css';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import { Background } from './global/colors';
 
 import React, { useEffect } from 'react';
@@ -28,12 +28,13 @@ function App() {
   const user = useSelector(state => state.user);
   const bgColor = Background['GLOBAL'];
   const navigate = useNavigate();
+  const location = useLocation();
 
   // 로그인 안돼있으면 로그인창으로 이동
   useEffect(() => {
-    !user.token && navigate('/login');
-  });
-
+    location.pathname !== '/auth' && user.userNo === -1 && navigate('/login');
+  }, []);
+  
   return (
     <div className={`App min-h-screen ${bgColor}`}>
       <div>
