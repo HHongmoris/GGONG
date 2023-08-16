@@ -36,10 +36,10 @@ public class PresentAnswersController {
     // SSE
     private final SseEmitters sseEmitters;
 
-    // 테스트용
+    // SSE 이식
     @GetMapping(produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public ResponseEntity<SseEmitter> getAllAnswers (){
-        SseEmitter emitter = new SseEmitter();
+        SseEmitter emitter = new SseEmitter(5000L);
         sseEmitters.add(emitter);
 
             try{
@@ -65,14 +65,10 @@ public class PresentAnswersController {
                 result[2] = comAnswers;
 
                 emitter.send(SseEmitter.event().name("allAnswers").data(result));
-                emitter.complete();
+
             } catch (Exception e) {
-                emitter.completeWithError(e);
                 e.printStackTrace();
             }
-
-        emitter.onCompletion(emitter::complete);
-        emitter.onTimeout(emitter::complete);
 
         // 유저별로 sse줘야하는 경우 -> 포인트...?
         // sseEmitter.onCompletion(() -> NotificationController.'Map이름'.remove(userId));
@@ -84,7 +80,7 @@ public class PresentAnswersController {
     @GetMapping("/{questionId}")
     public ResponseEntity<SseEmitter> getAnswersDetail(@PathVariable("questionId") Long questionId){
 
-        SseEmitter emitter = new SseEmitter();
+        SseEmitter emitter = new SseEmitter(5000L);
         sseEmitters.add(emitter);
 
         try {

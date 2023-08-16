@@ -32,7 +32,7 @@ public class StatusController {
     //당일 수거함 사용자 조회
     @GetMapping("/today")
     public ResponseEntity<SseEmitter> todayUser(){
-        SseEmitter emitter = new SseEmitter();
+        SseEmitter emitter = new SseEmitter(5000L);
         sseEmitters.add(emitter);
 
         TodayUserResponse todayUserResponse = statusService.selectUserCnt();
