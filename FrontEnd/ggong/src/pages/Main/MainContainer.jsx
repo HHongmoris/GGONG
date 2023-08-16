@@ -28,7 +28,7 @@ const MainContainer = () => {
     console.log('메인페이지', user, token);
 
     token &&
-      ('/users', 'GET', token)
+      useApi('/users', 'GET', token)
         .then(res => {
           res.data.token = jwt;
           console.log(res.data);
@@ -75,7 +75,6 @@ const MainContainer = () => {
   return (
     <div>
       <MainPage
-        className="mx-5 pb-5"
         user={user}
         today={today}
         yesterday={yesterday}

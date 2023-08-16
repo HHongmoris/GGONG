@@ -19,7 +19,7 @@ const StatPage = ({ today, users = [], pieAges, pieGender, machineUsers = [] }) 
   const { totalUser, lastMonthUser } = users;
 
   return (
-    <div>
+    <div className="mx-5 pb-5">
       {/* 데이터 카드 영역 */}
       <div className="flex justify-between mb-8">
         <DataCard title="금일 이용자" data={today} />
