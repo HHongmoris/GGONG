@@ -35,7 +35,20 @@ const StatContainer = () => {
 
     useApi('/stat/age', 'GET')
       .then(res => {
-        setAges(res.data);
+        const ages = [];
+
+        res.data.forEach(datum => {
+          const ageData = {};
+
+          const { ageRange, ageRangeCnt } = datum;
+
+          ageData.label = ageRange;
+          ageData.value = ageRangeCnt;
+
+          ages.push(ageData);
+        });
+
+        setGender(ages);
       })
       .catch(e => {
         console.error(e.message);
@@ -43,7 +56,20 @@ const StatContainer = () => {
 
     useApi('/stat/gender', 'GET')
       .then(res => {
-        setGender(res.data);
+        const genders = [];
+
+        res.data.forEach(datum => {
+          const genderData = {};
+
+          const { gender, genderCnt } = datum;
+
+          genderData.label = gender;
+          genderData.value = genderCnt;
+
+          genders.push(genderData);
+        });
+
+        setGender(genders);
       })
       .catch(e => {
         console.error(e.message);
@@ -51,7 +77,20 @@ const StatContainer = () => {
 
     useApi('/stat/machine', 'GET')
       .then(res => {
-        setMachine(res.data);
+        const machines = [];
+
+        res.data.forEach(datum => {
+          const machineCnt = {};
+
+          const { machineName, userCount } = datum;
+
+          machineCnt.machineName = machineName;
+          machineCnt.userCnt = userCount;
+
+          machines.push(machineCnt);
+        });
+
+        setMachine(machines);
       })
       .catch(e => {
         console.error(e.message);
