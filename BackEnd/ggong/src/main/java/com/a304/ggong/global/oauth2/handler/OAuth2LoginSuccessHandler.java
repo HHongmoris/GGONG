@@ -7,6 +7,7 @@ import com.a304.ggong.global.oauth2.CustomOAuth2User;
 import com.a304.ggong.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.tomcat.util.http.parser.Authorization;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;

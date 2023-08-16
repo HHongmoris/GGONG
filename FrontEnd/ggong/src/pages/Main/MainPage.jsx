@@ -9,7 +9,7 @@ const MainPage = ({ user = {}, today = 0, yesterday = 0, machines = [], options 
   const { userRating = '', nickname = '', points = 0, QR = '' } = user;
 
   return (
-    <div>
+    <div className="mx-5 pb-5">
       <ProfileCard grade={userRating} nickname={nickname} point={points} qr={QR} isVisible={true} />
       <div className="flex justify-between my-10">
         {/* 오늘 담배 수 */}

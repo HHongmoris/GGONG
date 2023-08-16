@@ -23,7 +23,7 @@ const PointListItem = ({ price = 0 }) => {
           <span>문화상품권 {priceSep}원</span>
           <div className="flex justify-between items-center">
             <span>{priceSep} P</span>
-            <BuyModal />
+            <BuyModal price={price} />
           </div>
         </div>
       </div>

@@ -28,17 +28,27 @@ const MainContainer = () => {
     console.log('메인페이지', user, token);
 
     token &&
+      useApi('/users', 'GET', token)
+        .then(res => {
+          res.data.token = jwt;
+          console.log(res.data);
+          dispatch(login(res.data));
+        })
+        .catch(err => console.log(err));
+
+    token &&
       useApi('/users/smoke', 'GET', token).then(res => {
         console.log('smoke done');
         setToday(res.data.currentCount);
         setYesterday(res.data.pastCount);
       });
 
-    useApi('/users/like', 'GET', token)
-      .then(res => {
-        setLikes(res.data);
-      })
-      .catch(err => console.log(err));
+    token &&
+      useApi('/machines', 'GET', token)
+        .then(res => {
+          setLikes(res.data);
+        })
+        .catch(err => console.log(err));
   }, [location]);
 
   //   axios({
