@@ -16,14 +16,25 @@ const StatContainer = () => {
   useEffect(() => {
     // useApi를 통해 해당 경로에 있는 데이터를 GET방식으로 받는다.
     // 'set변수'로 변수에 데이터 할당
-    useApi('/stat/today', 'GET')
-      .then(res => {
-        // 요청이 성공적으로 처리된 경우, response.data를 사용하여 데이터를 업데이트합니다.
-        setToday(res.data.todayUser);
-      })
-      .catch(e => {
-        console.error(e.message);
-      });
+    const eventSource = new EventSource('http://i9a304.p.ssafy.io:8080/api/stat/today');
+
+    eventSource.onopen = () => {
+      console.log('연결');
+    };
+
+    eventSource.addEventListener('todayUsers', res => {
+      const userCount = JSON.parse(res.data)['todayUserCount'];
+      setToday(userCount);
+    });
+
+    // useApi('/stat/today', 'GET')
+    //   .then(res => {
+    //     // 요청이 성공적으로 처리된 경우, response.data를 사용하여 데이터를 업데이트합니다.
+    //     setToday(res.data.todayUser);
+    //   })
+    //   .catch(e => {
+    //     console.error(e.message);
+    //   });
 
     useApi('/stat/user', 'GET')
       .then(res => {
