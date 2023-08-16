@@ -61,8 +61,10 @@ public class AnswerServiceImpl implements AnswerService{
         List<Question> questions = questionRepository.findAll();
         //AllAnswerResponse 리스트 만들기
         List<AllAnswerResponse> allAnswerResponses = new ArrayList<>();
+
         //선택한 questiongroup과 questionType에 맞는 질문 전체 응답 수 카운트 리스트 생성
         List<Long[]> allQA = voteRepository.countByQuestionGroupAndQuestionType(questionGroup, questionType);
+
         List<Long[]> answerACnt = voteRepository.countByQuestionGroupAndAnswerTypeAndQuestionType(questionGroup, 0, questionType);
 
         for(int i=0; i<allQA.size(); i++){
@@ -72,6 +74,7 @@ public class AnswerServiceImpl implements AnswerService{
             Long qID = allQA.get(i)[0];
             //가져온 질문 아이디의 전체 답변 수
             Long allCnt = allQA.get(i)[1];
+
             //가져온 질문 아이디의 A 항목 답변 수
             Long ACnt = answerACnt.get(i)[1];
             //담아야할 AllAnswerResponse 바구니 생성
