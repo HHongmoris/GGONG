@@ -48,7 +48,7 @@ const StatContainer = () => {
           ages.push(ageData);
         });
 
-        setGender(ages);
+        setAges(ages);
       })
       .catch(e => {
         console.error(e.message);
