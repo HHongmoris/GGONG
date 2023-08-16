@@ -17,6 +17,8 @@ const AnswerContainer = () => {
   // path에 따라 다른 데이터 받기, 타이틀 정보도 다르게 받음.
   useEffect(() => {
     if (location.pathname === '/vote/current') {
+      setTitleContent('현재 진행중인 투표');
+
       const eventSource = new EventSource('http://i9a304.p.ssafy.io:8080/api/answers/present');
 
       eventSource.onopen = () => {
@@ -28,14 +30,17 @@ const AnswerContainer = () => {
         setVoteData(answers);
       });
 
-      return () => eventSource.close();
+      return () => {
+        eventSource.close();
+        console.log('종료');
+      };
     } else if (location.pathname === '/vote/past') {
       useApi('/answers', 'GET').then(res => {
-        setVoteData(res.data);
         setTitleContent('지난 투표');
+        setVoteData(res.data);
       });
     }
-  }, []);
+  }, [location]);
 
   return (
     <div>
