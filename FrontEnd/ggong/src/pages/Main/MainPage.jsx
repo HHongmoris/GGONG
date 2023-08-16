@@ -5,7 +5,7 @@ import DataCard from '../../components/Card/DataCard';
 import MachineCard from '../../components/Card/MachineCard';
 
 // 메인 페이지
-const MainPage = ({ user = {}, today = 0, yesterday = 0, machines = [], options = [], selected, setSelected }) => {
+const MainPage = ({ user = {}, today = 0, yesterday = 0, machine = {}, options = [], selected, setSelected }) => {
   const { userRating = '', nickname = '', points = 0, QR = '' } = user;
 
   return (
@@ -18,7 +18,7 @@ const MainPage = ({ user = {}, today = 0, yesterday = 0, machines = [], options 
         <DataCard title="어제 투표수" data={yesterday} />
       </div>
       {/* 선택 가능한 기기번호 목록, 기기 정보 목록, 선택된 기기의 번호, 선택된 기기 번호 변경 함수로 머신 카드를 그립니다 */}
-      <MachineCard options={options} machines={machines} selected={selected} setSelected={setSelected} />
+      <MachineCard options={options} machine={machine} selected={selected} setSelected={setSelected} />
     </div>
   );
 };
