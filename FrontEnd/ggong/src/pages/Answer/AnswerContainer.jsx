@@ -17,21 +17,34 @@ const AnswerContainer = () => {
   // path에 따라 다른 데이터 받기, 타이틀 정보도 다르게 받음.
   useEffect(() => {
     if (location.pathname === '/vote/current') {
-      useApi('/vote/current', 'GET').then(res => {
-        setVoteData(res.data);
-        setTitleContent('진행 중인 투표');
+      setTitleContent('현재 진행중인 투표');
+
+      const eventSource = new EventSource('http://i9a304.p.ssafy.io:8080/api/answers/present');
+
+      eventSource.onopen = () => {
+        console.log('연결');
+      };
+
+      eventSource.addEventListener('allAnswers', res => {
+        const answers = JSON.parse(res.data);
+        setVoteData(answers);
       });
+
+      return () => {
+        eventSource.close();
+        console.log('종료');
+      };
     } else if (location.pathname === '/vote/past') {
-      useApi('/vote/past', 'GET').then(res => {
-        setVoteData(res.data);
+      useApi('/answers', 'GET').then(res => {
         setTitleContent('지난 투표');
+        setVoteData(res.data);
       });
     }
   }, [location]);
 
   return (
     <div>
-      <AnswerPage titleContent={titleContent} voteData={voteData} />
+      <AnswerPage className="mx-5 pb-5" titleContent={titleContent} voteData={voteData} />
     </div>
   );
 };

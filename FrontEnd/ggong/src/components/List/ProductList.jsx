@@ -3,12 +3,25 @@ import React from 'react';
 import { Title } from '../Heading';
 import ProductListItem from './ProductListItem';
 
+// // 상품 종류
+const products = [
+  {
+    price: 5000,
+  },
+  {
+    price: 10000,
+  },
+  {
+    price: 50000,
+  },
+];
+
 /**
  *
  * @param {Array} data 포인트 내역의 배열
  * @returns data를 토대로 포인트 내역 리스트 컴포넌트를 만들어서 반환
  */
-const ProductList = ({ products = [] }) => {
+const ProductList = ({}) => {
   return (
     <div>
       <Title content="포인트샵" />

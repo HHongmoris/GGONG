@@ -9,7 +9,7 @@ import ModalContent from './BuyModalContent';
  *
  * @returns 구매 모달 컴포넌트
  */
-const BuyModal = () => {
+const BuyModal = ({ price }) => {
   // 모달창이 보이는 상태를 저장하는 변수
   const [visible, setVisible] = useState(false);
 
@@ -22,7 +22,7 @@ const BuyModal = () => {
     <div>
       <Button value={'구매'} handleClick={toggleVisible} size="small" />
       {/* 아래는 모달창 컴포넌트 */}
-      <ModalContent open={visible} toggleVisible={toggleVisible} />
+      <ModalContent open={visible} toggleVisible={toggleVisible} price={price} />
     </div>
   );
 };

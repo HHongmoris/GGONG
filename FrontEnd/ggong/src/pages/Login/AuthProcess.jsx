@@ -19,7 +19,7 @@ const AuthProcess = () => {
 
     jwt &&
       axios({
-        url: 'http://localhost:8080/api/users',
+        url: 'http://i9a304.p.ssafy.io:8080/api/users',
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',

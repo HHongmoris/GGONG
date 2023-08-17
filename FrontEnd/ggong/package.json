@@ -30,7 +30,7 @@
     "build-storybook": "storybook build",
     "format": "prettier --check --ignore-path .gitignore .",
     "format:fix": "prettier --write --ignore-path .gitignore .",
-    "serve": "json-server --watch json/data.json --routes json/routes.json --port 8080"
+    "serve": "json-server --watch json/data.json --routes json/routes.json --port 8000"
   },
   "eslintConfig": {
     "extends": [

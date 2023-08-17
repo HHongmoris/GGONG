@@ -14,7 +14,7 @@ const LoginPage = () => {
   return (
     <div className={`${Background.MAIN} flex flex-col justify-center items-center h-screen space-y-40`}>
       <img src={Logo} className="w-3/4" />
-      <a href="http://localhost:8080/oauth2/authorization/kakao">
+      <a href="http://i9a304.p.ssafy.io:8080/oauth2/authorization/kakao">
         <img src={LoginButton} />
       </a>
     </div>

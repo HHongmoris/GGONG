@@ -56,13 +56,14 @@ public class SecurityConfig {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/","/css/**","/images/**","/js/**","/favicon.ico","/db/**").permitAll()
+                .antMatchers("/","/css/**","/images/**","/js/**","/favicon.ico","/db/**", "/api/**").permitAll()
                 .antMatchers("/sign-up").permitAll()
                 //.antMatchers("/**").permitAll() 혹시 위에 코드가 안되면 전체 permit
                 .anyRequest().authenticated()
                 .and()
 
                 .oauth2Login()
+               .redirectionEndpoint(endpoint -> endpoint.baseUri("/api/login/oauth2/code/*"))
                 .successHandler(oAuth2LoginSuccessHandler)
                 .failureHandler(oAuth2LoginFailureHandler)
                 .userInfoEndpoint().userService(customOAuth2UserService);
@@ -117,8 +118,8 @@ public class SecurityConfig {
         CorsConfiguration config = new CorsConfiguration();
 
         config.setAllowCredentials(true);
-        config.setAllowedOrigins(List.of("http://localhost:3000", "http://localhost:8080",
-                "http://i9a304.p.ssafy.io:3000", "http://i9a304.p.ssafy.io:8080"));
+        config.setAllowedOrigins(List.of("http://localhost:3000", "http://localhost:8080", "https://accounts.kakao.com/login",
+                "http://i9a304.p.ssafy.io:3000", "http://i9a304.p.ssafy.io:8080", "http://i9a304.p.ssafy.io"));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
         config.setExposedHeaders(List.of("*"));
