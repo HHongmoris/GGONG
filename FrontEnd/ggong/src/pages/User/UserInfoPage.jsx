@@ -8,22 +8,6 @@ import Button from '../../components/Button/Button';
 // 회원 정보 페이지
 const UserInfoPage = () => {
   const { userRating, nickname, points, email, gender, ageRange, favoriteCigarette } = useSelector(state => state.user);
-  // const [selected, setSelected] = useState(0);
-  // const [options, setOptions] = useState([]);
-
-  // const dispatch = useDispatch(); // 디스패치 함수 가져오기
-
-  // // 관심 기기목록에 변동이 생기면 Select 태그로 선택가능한 옵션의 목록과 선택 default 값을 반환합니다.
-  // useEffect(() => {
-  //   useApi('/', 'GET').then(res => {
-  //     const optionList = res.data;
-  //     cigarList.forEach(cigar => optionList.push({ sendValue: cigar.cigarNo, optionName: cigar.cigarName }));
-  //     setOptions(optionList);
-  //     setSelected(cigarList[0]['cigarNo']);
-  //     const newCigar = selected;
-  //     dispatch(changeCigar({ cigar: newCigar }));
-  //   });
-  // }, [dispatch]); // dispatch 함수가 변경될 때마다 실행
 
   return (
     <div className="mx-5 pb-5">
