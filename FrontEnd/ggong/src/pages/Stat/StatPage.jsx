@@ -26,8 +26,8 @@ const StatPage = ({ today, users = [], pieAges, pieGender, machineUsers = [] }) 
         <DataCard title="전체 회원 수" data={totalUser} />
       </div>
       <div className="flex justify-between mb-8">
-        <DataCard title="지난달 총 사용자" data={lastMonthUser} />
-        <DataCard title="지난달 평균 사용자" data={Math.round(lastMonthUser / 30)} />
+        <DataCard title="지난달 총 이용자" data={lastMonthUser} smallText={true} />
+        <DataCard title="지난달 평균 이용자" data={Math.round(lastMonthUser / 30)} smallText={true} />
       </div>
       {/* 파이 차트 영역 */}
       <div className="mb-8">

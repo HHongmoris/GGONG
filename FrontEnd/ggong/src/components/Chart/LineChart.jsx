@@ -48,6 +48,11 @@ const LineChart = ({ userCount = [] }) => {
     scales: {
       y: {
         min: 0, // 최소값을 0으로 설정
+        ticks: {
+          callback: value => {
+            if (value % 1 === 0) return value;
+          },
+        },
       },
     },
   };

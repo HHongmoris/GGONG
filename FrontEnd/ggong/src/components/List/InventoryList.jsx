@@ -14,10 +14,14 @@ const InventoryList = ({ products = [] }) => {
       <Title content="구매내역" />
       <div className="divider"></div>
       {/* 각 내역을 InventoryListItem 형식으로 변환해서 표시 */}
-      {products.map((product, idx) => {
-        const { price, PIN } = product;
-        return <InventoryListItem key={idx} price={price} PIN={PIN} />;
-      })}
+      {products.length ? (
+        products.map((product, idx) => {
+          const { price, PIN } = product;
+          return <InventoryListItem key={idx} price={price} PIN={PIN} />;
+        })
+      ) : (
+        <div className="text-xl text-center">아직 구매한 상품이 없어요</div>
+      )}
     </div>
   );
 };

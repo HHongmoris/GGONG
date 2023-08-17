@@ -70,10 +70,14 @@ const PointList = ({ data = [], search }) => {
       </div>
       <div className="divider"></div>
       {/* 각 내역을 PointListItem 형식으로 변환해서 표시 */}
-      {data.map((datum, idx) => {
-        const { eventTime, detail, variant, balance } = datum;
-        return <PointListItem key={idx} datetime={eventTime} detail={detail} variant={variant} balance={balance} />;
-      })}
+      {data.length ? (
+        data.map((datum, idx) => {
+          const { eventTime, detail, variant, balance } = datum;
+          return <PointListItem key={idx} datetime={eventTime} detail={detail} variant={variant} balance={balance} />;
+        })
+      ) : (
+        <div className="text text-center">내역이 없어요</div>
+      )}
     </div>
   );
 };
