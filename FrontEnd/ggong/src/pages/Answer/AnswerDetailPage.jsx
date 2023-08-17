@@ -35,10 +35,22 @@ const AnswerDetailPage = ({ num = 1 }) => {
     // const questionId = params.questionId;
     const questionId = search.get('id');
 
-    if (location.pathname === `/answers/present/${questionId}`) {
-      useApi(`/answers/present/${questionId}`, 'GET').then(res => {
-        setDetailData(res.data);
+    if (location.pathname === '/vote/detail/present') {
+      const eventSource = new EventSource(`http://i9a304.p.ssafy.io:8080/api/answers/present/${questionId}`);
+
+      eventSource.onopen = () => {
+        console.log('연결');
+      };
+
+      eventSource.addEventListener('detailAnswer', res => {
+        const answers = JSON.parse(res.data);
+        setDetailData(answers);
       });
+
+      return () => {
+        eventSource.close();
+        console.log('종료');
+      };
     } else if (location.pathname === '/vote/detail') {
       useApi(`/answers/${questionId}`, 'GET').then(res => {
         setDetailData(res.data);
