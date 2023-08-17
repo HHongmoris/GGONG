@@ -5,7 +5,7 @@ import { Background, Border } from '../../global/colors';
 import { Subtitle } from '../Heading';
 
 // 데이터 카드 컴포넌트 : 제목(어떤 데이터인지), 데이터를 항목으로 갖는다.
-const DataCard = ({ title = '제목', data = '데이터' }) => {
+const DataCard = ({ title = '제목', data = '데이터', smallText = false }) => {
   const bgTitle = Background.MAIN;
   const bgContent = Background.WHITE;
   const borderColor = Border.MAIN;
@@ -19,7 +19,11 @@ const DataCard = ({ title = '제목', data = '데이터' }) => {
         className={`card-body items-center md: h-1/5 ${bgTitle} border ${borderColor} rounded-t-xl`}
         style={{ '--padding-card': '1rem' }}
       >
-        <span className="text-xl text-center">{title}</span>
+        {smallText ? (
+          <span className="text-sm text-center">{title}</span>
+        ) : (
+          <span className="text-xl text-center">{title}</span>
+        )}
       </div>
       <div
         className={`card-body md: h-1/5 items-center ${bgContent} ${borderColor} border rounded-b-xl`}
