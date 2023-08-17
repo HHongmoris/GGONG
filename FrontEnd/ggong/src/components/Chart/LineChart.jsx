@@ -29,7 +29,7 @@ const LineChart = ({ userCount = [] }) => {
   const stamp = [];
 
   userCount.forEach((count, idx) => {
-    const hour = ('0' + Math.round((idx * 15) / 60)).slice(-2);
+    const hour = ('0' + Math.floor((idx * 15) / 60)).slice(-2);
     const minute = ('0' + ((idx * 15) % 60)).slice(-2);
 
     const time = `${hour}:${minute}`;
