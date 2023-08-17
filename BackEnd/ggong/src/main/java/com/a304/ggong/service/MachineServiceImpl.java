@@ -247,9 +247,34 @@ public class MachineServiceImpl implements MachineService {
 
 		Long answerB = voteRepository.countByMachineNoAndQuestionIdAndAnswerAndStartDayAndEndDay(machineNo, questionId,1,todayStart,todayEnd);
 
+		Long total = answerA + answerB;
+		Long rateA = 0L;
+		Long rateB = 0L;
+		//각 항이 null일 때 경우 나눠서 생각
+		if(total != 0L){
+			if(answerA == null){
+				answerA = 0L;
+				rateA = 0L;
+				rateB = 100L;
+			}else if(answerA == total){
+				answerB = 0L;
+				rateA = 100L;
+				rateB = 0L;
+			}else{
+				rateA = (answerA*100)/total;
+				rateB = 100 - rateA;
+			}
+		}else{
+			answerA = 0L;
+			answerB = 0L;
+			rateA = 50L;
+			rateB = 50L;
+		}
 
 		tmp.setAnswerA(answerA);
 		tmp.setAnswerB(answerB);
+		tmp.setRateA(rateA);
+		tmp.setRateB(rateB);
 
 		return tmp;
 	}
