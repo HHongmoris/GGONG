@@ -45,6 +45,11 @@ const LineChart = ({ userCount = [] }) => {
     plugins: {
       legend: false,
     },
+    scales: {
+      y: {
+        min: 0, // 최소값을 0으로 설정
+      },
+    },
   };
   // x축에 표시될 라벨들을 지정
   const labels = stamp; //x축 기준
