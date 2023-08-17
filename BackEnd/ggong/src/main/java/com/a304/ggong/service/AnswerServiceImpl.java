@@ -47,6 +47,13 @@ public class AnswerServiceImpl implements AnswerService{
         //선택한 questiongroup과 questionType에 맞는 질문 전체 응답 수 카운트 리스트 생성
         List<Long[]> allQA = voteRepository.countByQuestionGroupAndQuestionType(questionGroup, questionType);
 
+        for(Long[] arrl: allQA){
+            for(Long l : arrl){
+                System.out.println(l);
+            }
+            System.out.println();
+        }
+
         List<Long[]> answerACnt = voteRepository.countByQuestionGroupAndAnswerTypeAndQuestionType(questionGroup, 0, questionType);
 
         for(int i=0; i<allQA.size(); i++){
@@ -63,9 +70,9 @@ public class AnswerServiceImpl implements AnswerService{
             AllAnswerResponse allAnswerResponse = new AllAnswerResponse();
                 //바구니에 값 하나하나 입력해주기
             allAnswerResponse.setQuestionID(qID);
-            allAnswerResponse.setContent(questions.get(qID.intValue()).getContent());
-            allAnswerResponse.setOptionA(questions.get(qID.intValue()).getOptionA());
-            allAnswerResponse.setOptionB(questions.get(qID.intValue()).getOptionB());
+            allAnswerResponse.setContent(questions.get(qID.intValue()-1).getContent());
+            allAnswerResponse.setOptionA(questions.get(qID.intValue()-1).getOptionA());
+            allAnswerResponse.setOptionB(questions.get(qID.intValue()-1).getOptionB());
 
             //비율 계산하여 총합 100이 나오게 백분율로 계산한 값 넘기기
             //근데 이제 처음엔 0이기 때문에 조건 나누기
