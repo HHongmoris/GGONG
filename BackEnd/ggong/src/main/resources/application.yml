@@ -1,14 +1,60 @@
-server:
-  address: localhost
-  port: 8080
+#server:
+#  address: localhost
+#  port: 8080
+#spring:
+#  datasource:
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://localhost:3306/ggong?useSSL=false&characterEncoding=UTF-8&serverTimezone=UTC
+#    username: root
+#    password: 1234
+#  jpa:
+#    database: mysql
+#    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+#    generate-ddl: true
+#    show-sql: true
+
 spring:
+  profiles:
+    group:
+      "local" : "local, jwt, oauth"
+    active : local
+
+---
+spring:
+  main:
+    allow-circular-references: true
+  config:
+    activate:
+      on-profile: "local"
+
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/ggong?useSSL=false&characterEncoding=UTF-8&serverTimezone=UTC
-    username: root
+    url: jdbc:mysql://i9a304.p.ssafy.io:3306/ggong?useSSL=false&characterEncoding=UTF-8&serverTimezone=UTC
+    username: ggong
+#    url: jdbc:mysql://localhost:3306/ggong?useSSL=false&characterEncoding=UTF-8&serverTimezone=UTC
+#    username: root
     password: 1234
+
   jpa:
+    show-sql: true
     database: mysql
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
-    generate-ddl: true
-    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        show_sql: true
+
+    hibernate:
+      ddl-auto: update
+
+    logging:
+      file:
+        path: ./logs
+        name: app-prod
+      logback:
+        rollingpolicy:
+          max-file-size: 3GB
+          max-history: 60
+
+    jackson:
+      time-zone: Asia/Seoul

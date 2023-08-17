@@ -1,0 +1,18 @@
+{
+  "/api/*": "/$1",
+  "/users/smoke": "/user-smoke",
+  "/users/like": "/user-like",
+  "/users/:userNo": "/users?userNo=:userNo",
+  "/machines/like": "/machine-like",
+  "/items/buy": "/buyitems",
+  "/items/:itemNo": "/items?itemNo=:itemNo",
+  "/points": "/points",
+  "/vote/current": "/currentData",
+  "/vote/past": "/pastData",
+  "/vote/detail": "/detailData",
+  "/stat/today": "/todayData",
+  "/stat/user": "/totalData",
+  "/stat/age": "/ages",
+  "/stat/gender": "/gender",
+  "/stat/machine": "/machineCnts"
+}
