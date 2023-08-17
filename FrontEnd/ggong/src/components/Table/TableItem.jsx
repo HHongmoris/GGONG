@@ -62,7 +62,6 @@ const TableItem = ({ machineNum = '기기 번호', machineName = '기기 이름'
 
   return (
     <tr className={`border-1 border-solid ${borderColor}`}>
-      <th className={`border-1 border-solid ${borderColor}`}>{machineNum}</th>
       <td className={`border-1 border-solid ${borderColor}`}>{machineName}</td>
       <td className={`border-1 border-solid ${borderColor}`}>{userCnt}</td>
     </tr>

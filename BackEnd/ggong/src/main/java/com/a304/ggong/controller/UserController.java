@@ -1,12 +1,10 @@
 package com.a304.ggong.controller;
 
-import com.a304.ggong.dto.request.LikeRegistRequest;
 import com.a304.ggong.dto.request.UserCigarRequest;
 import com.a304.ggong.dto.response.*;
 import com.a304.ggong.entity.User;
 import com.a304.ggong.global.jwt.service.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +14,7 @@ import com.a304.ggong.service.UserService;
 
 import lombok.RequiredArgsConstructor;
 
-import java.util.Optional;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -46,8 +44,6 @@ public class UserController {
 	// 	return new ResponseEntity<Boolean>(true,HttpStatus.OK);
 	// }
 
-	// 최근 포인트 조회는 list로 받은 포인트 객체에서 인덱스로 조정
-
 	// 오늘, 어제 넣은 꽁초 개수 조회
 	@GetMapping("/smoke")
 	public ResponseEntity<SmokeCountResponse> getCiga(@RequestHeader(required = true, name = "Authorization") String token){
@@ -59,25 +55,33 @@ public class UserController {
 		}
 		SmokeCountResponse tmp = userService.selectVote(email);
 
-//		// token에서 이메일 추출
-//		Optional<String> opEmail = jwtService.extractEmail(token);
-//		SmokeCountResponse tmp = userService.selectVote(opEmail.toString());
 		return new ResponseEntity<>(tmp, HttpStatus.OK);
 	}
 
+//	// 회원 관심 기기 데이터 조회
+//	@GetMapping("/like")
+//	public ResponseEntity<MachineDetailResponse[]> getLikeMachine(@RequestHeader(required = true, name = "Authorization") String token){
+//		//성민
+//		String email = jwtService.extractEmailTest(token);
+//		if(email == null) {
+//			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+//		}
+//
+//		MachineDetailResponse[] tmp = userService.selectLikeMachine(email);
+//
+//		return  new ResponseEntity<>(tmp,HttpStatus.OK);
+//	}
+
 	// 회원 관심 기기 데이터 조회
 	@GetMapping("/like")
-	public ResponseEntity<MachineDetailResponse[]> getLikeMachine(@RequestHeader(required = true, name = "Authorization") String token){
+	public ResponseEntity<List<MachineDetailResponse>> getLikeMachine(@RequestHeader(required = true, name = "Authorization") String token){
 		//성민
 		String email = jwtService.extractEmailTest(token);
-		if(email.equals("")) {
+		if(email == null) {
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		}
 
-		MachineDetailResponse[] tmp = userService.selectLikeMachine(email);
-
-//		Optional<String> opEmail = jwtService.extractEmail(token);
-//		MachineDetailResponse tmp = userService.selectLikeMachine(opEmail.toString());
+		List<MachineDetailResponse> tmp = userService.selectLikeMachine(email);
 		return  new ResponseEntity<>(tmp,HttpStatus.OK);
 	}
 
@@ -87,13 +91,12 @@ public class UserController {
 															 UserCigarRequest request){
 		//성민
 		String email = jwtService.extractEmailTest(token);
-		if(email.equals("")) {
+		if(email==null) {
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		}
+
 		UserCigarResponse tmp = userService.updateCiga(email, request);
 
-//		Optional<String> opEmail = jwtService.extractEmail(token);
-//		UserCigarResponse tmp = userService.updateCiga(opEmail.get(), request);
 		return new ResponseEntity<>(tmp, HttpStatus.OK);
 	}
 
@@ -102,13 +105,11 @@ public class UserController {
 	public ResponseEntity<?> deprecatedUser(@RequestHeader(required = true, name = "Authorization") String token){
 		//성민
 		String email = jwtService.extractEmailTest(token);
-		if(email.equals("")) {
+		if(email==null) {
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		}
 		userService.deleteUser(email);
 
-//		Optional<String> opEmail = jwtService.extractEmail(token);
-//		userService.deleteUser(opEmail.get());
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
@@ -116,7 +117,7 @@ public class UserController {
 	public ResponseEntity<?> getUser(@RequestHeader(required = true, name = "Authorization") String token){
 		// 병기
 		String email = jwtService.extractEmailTest(token);
-		if(email.equals("")) {
+		if(email==null) {
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		}
 

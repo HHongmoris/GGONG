@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Title } from '../../components/Heading';
 import { Border } from '../../global/colors';
 import { Tab, category } from '../../components/Tab';
@@ -18,7 +19,7 @@ const AnswerPage = ({ num = 0, titleContent, voteData }) => {
   // 탭 활성화 관리 (처음 상태 활성화 탭은 첫번째 탭)
   const [activeTab, setActiveTab] = useState(0);
 
-  console.log(voteData);
+  // console.log(voteData);
 
   // 클릭했을 때 tabIndex에 해당하는 탭이 활성화
   const handleTabClick = tabIndex => {
@@ -26,27 +27,31 @@ const AnswerPage = ({ num = 0, titleContent, voteData }) => {
   };
 
   return (
-    <div>
+    <div className="mx-5 pb-5">
       <Title content={titleContent} spacing={true} />
       {/* category, activeTab, onClick 이벤트 */}
       <Tab category={category[num]} activeTab={activeTab} onClick={handleTabClick} />
       {/* activeTab으로 voteData를 선정해서 그 안에 있는 데이터들을 map으로 탐색해서 띄워주기 */}
       {voteData[activeTab].map((data, idx) => {
         // data들을 다 쪼개서 받기
-        const { labelA, labelB, ratioA, ratioB, valueA, valueB, title } = data;
+        const { optionA, optionB, rateA, rateB, answerA, answerB, content, questionID } = data;
         const votes = [
           // A, B로 구조분해 할당
-          { label: labelA, value: valueA, ratio: ratioA },
-          { label: labelB, value: valueB, ratio: ratioB },
+          { label: optionA, value: answerA, ratio: rateA },
+          { label: optionB, value: answerB, ratio: rateB },
         ];
+
+        const isPresent = location.pathname === '/vote/current';
 
         return (
           <div key={idx}>
-            <div className={`card border ${Border.MAIN} mt-4`}>
-              <div className="p-4">
-                <BarChart title={title} data={votes} />
+            <Link to={`/vote/detail${isPresent && '/present'}?id=${questionID}&content=${content}`}>
+              <div className={`card border ${Border.MAIN} mt-4`}>
+                <div className="p-4">
+                  <BarChart title={content} data={votes} />
+                </div>
               </div>
-            </div>
+            </Link>
           </div>
         );
       })}

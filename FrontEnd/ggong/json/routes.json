@@ -9,6 +9,7 @@
   "/points": "/points",
   "/vote/current": "/currentData",
   "/vote/past": "/pastData",
+  "/vote/detail": "/detailData",
   "/stat/today": "/todayData",
   "/stat/user": "/totalData",
   "/stat/age": "/ages",

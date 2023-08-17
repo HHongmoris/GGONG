@@ -16,8 +16,18 @@ import icons from '../../global/icons';
  */
 const PointList = ({ data = [], search }) => {
   // 기간 시작일, 종료일
-  const [start, setStart] = useState('2023-08-01');
-  const [end, setEnd] = useState('2023-08-08');
+
+  const [start, setStart] = useState('');
+  const [end, setEnd] = useState();
+
+  useEffect(() => {
+    const date = new Date();
+    const year = date.getFullYear();
+    const month = ('0' + (1 + date.getMonth())).slice(-2);
+    const day = ('0' + date.getDate()).slice(-2);
+
+    setEnd(`${year}-${month}-${day}`);
+  }, []);
 
   const handleStartInput = (e, newStart) => {
     // 종료일이 시작일보다 느리다면
@@ -30,6 +40,7 @@ const PointList = ({ data = [], search }) => {
   };
 
   const handleClick = () => {
+    console.log(start, end);
     search(start, end);
   };
 

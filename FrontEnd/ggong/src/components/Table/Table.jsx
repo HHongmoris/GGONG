@@ -19,7 +19,6 @@ const Table = ({ data = TableData }) => {
       <table className={`border-2 border-solid ${borderColor} table table-pin-rows`}>
         <thead>
           <tr>
-            <th className={`border-2 border-solid ${borderColor} ${bgHeader} ${textColor} font-bold`}></th>
             <th className={`border-2 border-solid ${borderColor} ${bgHeader} ${textColor} font-bold`}>기기명</th>
             <th className={`border-2 border-solid ${borderColor} ${bgHeader} ${textColor} font-bold`}>사용자 수</th>
           </tr>
