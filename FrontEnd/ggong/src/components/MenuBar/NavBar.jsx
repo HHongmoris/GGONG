@@ -28,8 +28,8 @@ const NavBar = () => {
     >
       {/* 메뉴 버튼을 누르지 않았을 때 상단에 표시되는 좌측의 홈 버튼, 우측의 햄버거 버튼 영역 */}
       <div className={`w-full ${bgColor} mb-8 flex justify-between items-center`}>
-        <Link className="mx-4" to="/">
-          <img src={Logo} className="w-1/12 h-1/12" />
+        <Link className="mx-4 w-1/12" to="/">
+          <img src={Logo} />
         </Link>
         <IconButton icon={icons.MENU} onClick={toggleVisible} />
       </div>

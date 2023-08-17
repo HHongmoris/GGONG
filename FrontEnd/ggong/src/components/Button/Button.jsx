@@ -11,12 +11,25 @@ import { Background, Text } from '../../global/colors';
  * @param {false} 아이콘의 위치를 정하는 변수
  * @returns 버튼 컴포넌트
  */
-const Button = ({ value = '버튼', icon, handleClick = () => {}, leftIcon = false, color = 'MAIN', size }) => {
+const Button = ({
+  value = '버튼',
+  icon,
+  handleClick = () => {},
+  leftIcon = false,
+  color = 'MAIN',
+  size,
+  square = false,
+}) => {
   const bgColor = Background[color];
   const textColor = Text['MAIN'];
 
   return (
-    <button className={`btn ${bgColor} ${textColor} ${size === 'small' && 'btn-sm'} border-none`} onClick={handleClick}>
+    <button
+      className={`btn ${square ? 'btn-square' : ''} ${bgColor} ${textColor} ${
+        size === 'small' && 'btn-sm'
+      } border-none`}
+      onClick={handleClick}
+    >
       {/* icon이 있으면 type에 따라 icon을 표시한다 */}
       {icon && leftIcon && <span>{icon}</span>}
       <span>{value}</span>
