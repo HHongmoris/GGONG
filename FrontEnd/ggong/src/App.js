@@ -56,6 +56,7 @@ function App() {
               <Route path="past" element={<AnswerPage />} />
               {/* <Route path="detail" element={<AnswerDetailPage />} /> */}
             </Route>
+            <Route path="/vote/detail/present" element={<AnswerDetailPage />} />
             <Route path="/vote/detail" element={<AnswerDetailPage />} />
             <Route path="/stat" element={<StatContainer />} />
           </Routes>
