@@ -3,6 +3,8 @@ package com.a304.ggong.entity;
 import javax.persistence.*;
 
 import lombok.*;
+
+import org.hibernate.annotations.ColumnDefault;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.ArrayList;
@@ -41,6 +43,7 @@ public class User {
 	private String QR;
 
 	@Column(name = "user_rating")
+	@ColumnDefault("새싹")
 	private String userRating;
 
 	//추가
