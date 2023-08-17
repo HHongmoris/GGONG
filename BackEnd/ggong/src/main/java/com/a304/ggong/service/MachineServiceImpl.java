@@ -14,6 +14,7 @@ import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
+import com.a304.ggong.dto.response.AllAnswerResponse;
 import com.a304.ggong.entity.QuestionType;
 import com.a304.ggong.global.resource.QuestionGroup;
 
@@ -54,7 +55,12 @@ public class MachineServiceImpl implements MachineService {
 	public List<AllMachinesResponse> selectAllMachines() {
 		List<AllMachinesResponse> list = machineRepository.findAll().stream().map(AllMachinesResponse::new).collect(
 			Collectors.toList());
-		return list;
+		List<AllMachinesResponse> tmp = new ArrayList<>();
+
+		for(int idx = 1; idx < list.size(); idx++){
+			tmp.add(list.get(idx));
+		}
+		return tmp;
 	}
 
 	// 회원 이메일에 따라 관심 기기 리스트 조회
