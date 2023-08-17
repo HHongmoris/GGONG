@@ -22,6 +22,8 @@ public class MachineDetailResponse {
 	private Long answerB;
 	private String optionA;
 	private String optionB;
+	private Long rateA;
+	private Long rateB;
 
 	public MachineDetailResponse(Machine entityM, Question entityQ) {
 		this.machineNo = entityM.getMachineNo();
