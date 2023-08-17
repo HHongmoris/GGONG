@@ -12,7 +12,7 @@ CREATE TABLE `user` (
 	`email` VARCHAR(45) NOT NULL,
 	`favorite_cigarette` VARCHAR(45) NULL,
 	`QR` VARCHAR(100) NULL,
-	`user_rating` VARCHAR(45) NULL,
+	`user_rating` VARCHAR(45) DEFAULT '새싹',
     PRIMARY KEY (`user_no`)
 )ENGINE = InnoDB DEFAULT CHARACTER SET utf8mb4;
 
@@ -815,7 +815,7 @@ VALUES
 (20, 8, 62, '2023-08-09 00:00:55', 2),
 (21, 7, 63, '2023-08-09 00:00:55', 2);
 
-update vote set user_no = 26 where user_no = 1 and vote_no != 1;
+update vote set user_no = 2 where user_no = 1 and vote_no != 1;
 update vote set machine_no = 2 where machine_no = 1 and vote_no != 1;
 -- update vote set user_no = 26 where user_no = 1 and machine_no = 9;
 
