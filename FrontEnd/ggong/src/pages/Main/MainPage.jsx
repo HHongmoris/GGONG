@@ -6,11 +6,11 @@ import MachineCard from '../../components/Card/MachineCard';
 
 // 메인 페이지
 const MainPage = ({ user = {}, today = 0, yesterday = 0, machine = {}, options = [], selected, setSelected }) => {
-  const { userRating = '', nickname = '', points = 0, QR = '' } = user;
+  const { userNo, userRating, nickname, points } = user;
 
   return (
     <div className="mx-5 pb-5">
-      <ProfileCard grade={userRating} nickname={nickname} point={points} qr={QR} isVisible={true} />
+      <ProfileCard grade={userRating} nickname={nickname} point={points} qr={userNo} isVisible={true} />
       <div className="flex justify-between my-10">
         {/* 오늘 담배 수 */}
         <DataCard title="오늘 투표수" data={today} />
