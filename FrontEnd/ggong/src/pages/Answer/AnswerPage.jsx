@@ -45,7 +45,7 @@ const AnswerPage = ({ num = 0, titleContent, voteData }) => {
 
         return (
           <div key={idx}>
-            <Link to={`/vote/detail${isPresent && '/present'}?id=${questionID}&content=${content}`}>
+            <Link to={`/vote/detail${isPresent ? '/present' : ''}?id=${questionID}&content=${content}`}>
               <div className={`card border ${Border.MAIN} mt-4`}>
                 <div className="p-4">
                   <BarChart title={content} data={votes} />

@@ -171,7 +171,7 @@ public class MachineServiceImpl implements MachineService {
 
 		idxDay = intDay % 21;
 
-		questionId = list.get(idxDay + 1).getQuestionID();
+		questionId = list.get(idxDay).getQuestionID();
 
 		// 현재
 		return questionId;
@@ -232,7 +232,7 @@ public class MachineServiceImpl implements MachineService {
 
 		for(int idx = 0; idx < 96; idx++) {
 
-			long cnt = voteRepository.countByVoteDate(startTime, endTime); // 배열에 넣어주고
+			long cnt = voteRepository.countByVoteDateAndMachineNo(startTime, endTime, machineNo); // 배열에 넣어주고
 
 			tmpArr[idx] = cnt;
 			// startTime endTime으로 갱신

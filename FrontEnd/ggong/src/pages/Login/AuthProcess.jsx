@@ -15,7 +15,6 @@ const AuthProcess = () => {
   useEffect(() => {
     const token = searchParams.get('token');
     setJwt('Bearer ' + token);
-    console.log(jwt);
 
     jwt &&
       axios({
@@ -25,15 +24,12 @@ const AuthProcess = () => {
           'Content-Type': 'application/json',
           Authorization: jwt,
         },
-      })
-        .then(res => {
-          res.data.token = jwt;
-          console.log(res.data);
-          dispatch(login(res.data));
-          // dispatch(login(response));
-          navigate('/');
-        })
-        .catch(err => console.log(err));
+      }).then(res => {
+        res.data.token = jwt;
+        dispatch(login(res.data));
+        // dispatch(login(response));
+        navigate('/');
+      });
   }, [jwt]);
 
   return <div></div>;

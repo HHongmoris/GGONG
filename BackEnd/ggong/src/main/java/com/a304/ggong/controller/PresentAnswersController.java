@@ -39,7 +39,7 @@ public class PresentAnswersController {
     // SSE 이식
     @GetMapping(produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public ResponseEntity<SseEmitter> getAllAnswers (){
-        SseEmitter emitter = new SseEmitter(5000L);
+        SseEmitter emitter = new SseEmitter(1000L);
         sseEmitters.add(emitter);
 
             try{
@@ -80,7 +80,7 @@ public class PresentAnswersController {
     @GetMapping("/{questionId}")
     public ResponseEntity<SseEmitter> getAnswersDetail(@PathVariable("questionId") Long questionId){
 
-        SseEmitter emitter = new SseEmitter(5000L);
+        SseEmitter emitter = new SseEmitter(1000L);
         sseEmitters.add(emitter);
 
         try {
