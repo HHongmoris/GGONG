@@ -12,7 +12,7 @@ CREATE TABLE `user` (
 	`email` VARCHAR(45) NOT NULL,
 	`favorite_cigarette` VARCHAR(45) NULL,
 	`QR` VARCHAR(100) NULL,
-	`user_rating` VARCHAR(45) DEFAULT '새싹',
+	`user_rating` VARCHAR(45) DEFAULT 'seed',
     PRIMARY KEY (`user_no`)
 )ENGINE = InnoDB DEFAULT CHARACTER SET utf8mb4;
 
