@@ -57,7 +57,7 @@ const PointContainer = () => {
 
   useEffect(() => {
     search();
-  }, [location]);
+  }, [location.pathname]);
 
   return (
     <div>

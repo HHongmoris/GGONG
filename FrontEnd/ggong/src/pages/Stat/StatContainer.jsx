@@ -18,94 +18,65 @@ const StatContainer = () => {
     // 'set변수'로 변수에 데이터 할당
     const eventSource = new EventSource('http://i9a304.p.ssafy.io:8080/api/stat/today');
 
-    eventSource.onopen = () => {
-      console.log('연결');
-    };
-
     eventSource.addEventListener('todayUsers', res => {
       const userCount = JSON.parse(res.data)['todayUserCount'];
       setToday(userCount);
     });
 
-    // useApi('/stat/today', 'GET')
-    //   .then(res => {
-    //     // 요청이 성공적으로 처리된 경우, response.data를 사용하여 데이터를 업데이트합니다.
-    //     setToday(res.data.todayUser);
-    //   })
-    //   .catch(e => {
-    //     console.error(e.message);
-    //   });
+    useApi('/stat/user', 'GET').then(res => {
+      setUsers(res.data);
+    });
 
-    useApi('/stat/user', 'GET')
-      .then(res => {
-        setUsers(res.data);
-      })
-      .catch(e => {
-        console.error(e.message);
+    useApi('/stat/age', 'GET').then(res => {
+      const ages = [];
+
+      res.data.forEach(datum => {
+        const ageData = {};
+
+        const { ageRange, ageRangeCnt } = datum;
+
+        ageData.label = ageRange;
+        ageData.value = ageRangeCnt;
+
+        ages.push(ageData);
       });
 
-    useApi('/stat/age', 'GET')
-      .then(res => {
-        const ages = [];
+      setAges(ages);
+    });
 
-        res.data.forEach(datum => {
-          const ageData = {};
+    useApi('/stat/gender', 'GET').then(res => {
+      const genders = [];
 
-          const { ageRange, ageRangeCnt } = datum;
+      res.data.forEach(datum => {
+        const genderData = {};
 
-          ageData.label = ageRange;
-          ageData.value = ageRangeCnt;
+        const { gender, genderCnt } = datum;
 
-          ages.push(ageData);
-        });
+        genderData.label = gender;
+        genderData.value = genderCnt;
 
-        setAges(ages);
-      })
-      .catch(e => {
-        console.error(e.message);
+        genders.push(genderData);
       });
 
-    useApi('/stat/gender', 'GET')
-      .then(res => {
-        const genders = [];
+      setGender(genders);
+    });
 
-        res.data.forEach(datum => {
-          const genderData = {};
+    useApi('/stat/machine', 'GET').then(res => {
+      const machines = [];
 
-          const { gender, genderCnt } = datum;
+      res.data.forEach(datum => {
+        const machineCnt = {};
 
-          genderData.label = gender;
-          genderData.value = genderCnt;
+        const { machineName, userCount } = datum;
 
-          genders.push(genderData);
-        });
+        machineCnt.machineName = machineName;
+        machineCnt.userCnt = userCount;
 
-        setGender(genders);
-      })
-      .catch(e => {
-        console.error(e.message);
+        machines.push(machineCnt);
       });
 
-    useApi('/stat/machine', 'GET')
-      .then(res => {
-        const machines = [];
-
-        res.data.forEach(datum => {
-          const machineCnt = {};
-
-          const { machineName, userCount } = datum;
-
-          machineCnt.machineName = machineName;
-          machineCnt.userCnt = userCount;
-
-          machines.push(machineCnt);
-        });
-
-        setMachine(machines);
-      })
-      .catch(e => {
-        console.error(e.message);
-      });
+      setMachine(machines);
+    });
 
     return () => eventSource.close();
   }, []);

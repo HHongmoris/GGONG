@@ -21,10 +21,6 @@ const AnswerContainer = () => {
 
       const eventSource = new EventSource('http://i9a304.p.ssafy.io:8080/api/answers/present');
 
-      eventSource.onopen = () => {
-        console.log('연결');
-      };
-
       eventSource.addEventListener('allAnswers', res => {
         const answers = JSON.parse(res.data);
         setVoteData(answers);
@@ -32,7 +28,6 @@ const AnswerContainer = () => {
 
       return () => {
         eventSource.close();
-        console.log('종료');
       };
     } else if (location.pathname === '/vote/past') {
       useApi('/answers', 'GET').then(res => {
@@ -40,7 +35,7 @@ const AnswerContainer = () => {
         setVoteData(res.data);
       });
     }
-  }, [location]);
+  }, [location.pathname]);
 
   return (
     <div>
