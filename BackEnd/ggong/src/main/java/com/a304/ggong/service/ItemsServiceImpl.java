@@ -64,7 +64,10 @@ public class ItemsServiceImpl implements ItemsService{
         point.setVote(voteRepository.findById(1L).get());
         point.setUser(user);
         point.setBuy(buy);
-        point.setBalancePoint(pointRepository.selectBalancePoint(Timestamp.valueOf(LocalDateTime.now()),user.getUserNo()));
+        List<Point> pointList = pointRepository.findAllByUser_UserNo(user.getUserNo());
+        Integer points = pointList.get(pointList.size()-1).getBalancePoint();
+
+        point.setBalancePoint(points);
 
         pointRepository.save(point);
 
