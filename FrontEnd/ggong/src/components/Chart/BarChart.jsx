@@ -26,7 +26,7 @@ const BarChart = ({ title, data }) => {
           style={{ width: A.ratio + '%' }}
           className={'flex justify-between items-center min-w-fit bg-blue-400 h-10 px-2 space-x-1'}
         >
-          <div>{A.label}</div>
+          <div>{A.label?.length > 5 ? A.label.substring(0, 4) + '...' : A.label}</div>
           <div>{A.value}</div>
         </div>
         {/* 답변 A, B를 나누는 영역이며 중간에 VS 문구가 있음 */}
@@ -37,7 +37,7 @@ const BarChart = ({ title, data }) => {
           className={'flex justify-between items-center min-w-fit bg-red-400 h-10 px-2 space-x-1'}
         >
           <div>{B.value}</div>
-          <div>{B.label}</div>
+          <div>{B.label?.length > 5 ? B.label.substring(0, 4) + '...' : B.label}</div>
         </div>
       </div>
     </div>

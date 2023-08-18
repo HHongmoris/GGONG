@@ -29,7 +29,7 @@ const LineChart = ({ userCount = [] }) => {
   const stamp = [];
 
   userCount.forEach((count, idx) => {
-    const hour = ('0' + Math.round((idx * 15) / 60)).slice(-2);
+    const hour = ('0' + Math.floor((idx * 15) / 60)).slice(-2);
     const minute = ('0' + ((idx * 15) % 60)).slice(-2);
 
     const time = `${hour}:${minute}`;
@@ -48,6 +48,11 @@ const LineChart = ({ userCount = [] }) => {
     scales: {
       y: {
         min: 0, // 최소값을 0으로 설정
+        ticks: {
+          callback: value => {
+            if (value % 1 === 0) return value;
+          },
+        },
       },
     },
   };

@@ -27,7 +27,7 @@ public class PointListResponse {
         this.eventTime = entity.getEventTime();
         this.balancePoint = entity.getBalancePoint();
         this.point = entity.getPoint();
-//        this.machineName = entity.getVote().getMachine().getName();
-//        this.price = entity.getBuy().getProduct().getPrice();
+        this.machineName = entity.getVote().getMachine().getName();
+        this.price = entity.getBuy().getProduct().getPrice();
     }
 }
