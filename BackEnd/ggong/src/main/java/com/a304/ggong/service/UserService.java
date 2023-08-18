@@ -8,6 +8,7 @@ import com.a304.ggong.dto.response.SmokeCountResponse;
 import com.a304.ggong.dto.response.UserCigarResponse;
 import com.a304.ggong.dto.response.UserResponse;
 import com.a304.ggong.entity.FavoriteMachine;
+import com.a304.ggong.entity.Point;
 import com.a304.ggong.repository.FavoriteMachineRepository;
 import com.a304.ggong.repository.PointRepository;
 import com.a304.ggong.repository.VoteRepository;
@@ -155,9 +156,12 @@ public class UserService {
 	public UserResponse selectUser(String email){
 		User user = userRepository.findByEmail(email).orElseThrow(NoSuchElementException::new);
 
-		LocalDateTime now = LocalDateTime.now();
-		Timestamp Tnow = Timestamp.valueOf(now);
-		Integer points = pointRepository.selectBalancePoint(Tnow, user.getUserNo());
+		// LocalDateTime now = LocalDateTime.now();
+		// Timestamp Tnow = Timestamp.valueOf(now);
+		// Integer points = pointRepository.selectBalancePoint(Tnow, user.getUserNo());
+
+		List<Point> pointList = pointRepository.findAllByUser_UserNo(user.getUserNo());
+		Integer points = pointList.get(pointList.size()-1).getBalancePoint();
 
 		return new UserResponse(user, points);
 	}
