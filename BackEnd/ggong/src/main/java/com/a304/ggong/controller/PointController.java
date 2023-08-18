@@ -39,9 +39,8 @@ public class PointController {
 
         LocalDateTime now = LocalDateTime.now();
         Timestamp day = Timestamp.valueOf(now);
-        System.out.println("오늘 : "+day);
 
-        pointService.calculateBalancePoint(email, day);
+        // pointService.calculateBalancePoint(email, day);
 
         List<PointListResponse> list =pointService.selectPointAll(email);
 
@@ -64,11 +63,10 @@ public class PointController {
 //        end = end.replaceAll("\"","");
         Timestamp endtime = Timestamp.valueOf(end + " 23:59:59.9");
 
-        pointService.calculateBalancePoint(email, endtime);
+        // pointService.calculateBalancePoint(email, endtime);
 
         List<PointListResponse> points = pointService.selectPointListByUserEmailAndDate(email, start, end);
 
-        System.out.println(points.toString());
         return ResponseEntity.status(HttpStatus.OK).body(points);
 
     }
