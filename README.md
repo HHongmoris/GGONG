@@ -130,7 +130,7 @@
     <td align="center"><a href="https://github.com/"><img src="?s=100" width="100px;" alt=""/><br /><sub><b>민병기</b></sub></a><br /></td>
     <td align="center"><a href="https://github.com/"><img src="?s=100" width="100px;" alt=""/><br /><sub><b>전주영</b></sub></a><br /></td>      
     <td align="center"><a href="https://github.com/ian813"><img src="https://avatars.githubusercontent.com/u/118112177?v=4?s=100" width="100px;" alt=""/><br /><sub><b>정의석</b></sub></a><br /></td>     
-    <td align="center"><a href="https://github.com/"><img src="?s=100" width="100px;" alt=""/><br /><sub><b>홍성민</b></sub></a><br /></td>   
+    <td align="center"><a href="https://github.com/HHongmoris"><img src="https://avatars.githubusercontent.com/u/122426101?v=4?s=100" width="100px;" alt=""/><br /><sub><b>홍성민</b></sub></a><br /></td>   
   </tr>
 </table>
 
