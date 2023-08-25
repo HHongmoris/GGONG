@@ -19,15 +19,13 @@
 >   
 > [3. 시스템 아키텍처](#3-시스템-아키텍처)
 > 
-> [4. 개발 환경](#4-개발-환경)
+> [4. 컴포넌트 구성도](#4-컴포넌트-구성도)
 > 
-> [5. 컴포넌트 구성도 및 Figma](#5-컴포넌트-구성도-및-figma)
+> [5. ERD](#5-erd)
 > 
-> [6. ERD](#6-erd)
+> [6. 서비스 및 기술 특장점](#6-서비스-및-기술-특장점)
 > 
-> [7. 서비스 및 기술 특장점](#7-서비스-및-기술-특장점)
-> 
-> [8. 멤버 및 회고](#8-멤버-및-회고)
+> [7. 멤버 및 역할](#7-멤버-및-역할)
 
 ## 0. 프로젝트 개요
 
@@ -126,7 +124,7 @@
     <td align="center"><a href="https://github.com/ityeji"><img src="https://avatars.githubusercontent.com/u/110680436?v=4?s=100" width="100px;" alt=""/><br /><sub><b>정예지</b></sub></a><br /></td>
     <td align="center"><a href="https://github.com/"><img src="?s=100" width="100px;" alt=""/><br /><sub><b>김동현</b></sub></a><br /></td>      
     <td align="center"><a href="https://github.com/bmincof"><img src="https://avatars.githubusercontent.com/u/104330984?v=4?s=100" width="100px;" alt=""/><br /><sub><b>민병기</b></sub></a><br /></td>
-    <td align="center"><a href="https://github.com/"><img src="?s=100" width="100px;" alt=""/><br /><sub><b>전주영</b></sub></a><br /></td>      
+    <td align="center"><a href="https://github.com/juuyoungjeon"><img src="https://avatars.githubusercontent.com/u/44489852?v=4?s=100" width="100px;" alt=""/><br /><sub><b>전주영</b></sub></a><br /></td>      
     <td align="center"><a href="https://github.com/ian813"><img src="https://avatars.githubusercontent.com/u/118112177?v=4?s=100" width="100px;" alt=""/><br /><sub><b>정의석</b></sub></a><br /></td>     
       <td align="center"><a href="https://github.com/HHongmoris"><img src="https://avatars.githubusercontent.com/u/122426101?v=4?s=100" width="100px;" alt=""/><br /><sub><b>홍성민</b></sub></a><br /></td>   
   </tr>
