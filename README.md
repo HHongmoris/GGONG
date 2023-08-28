@@ -1,6 +1,6 @@
  # GGONG
 
-![ggong_logo](https://github.com/ian813/ggong/assets/118112177/a5fd6196-240c-4670-8eeb-2d44254bd0d3)
+![ggong_logo](./img/찐로고.png)
 
 > [0. 프로젝트 개요](#0-프로젝트-개요)
 > 
@@ -47,58 +47,63 @@
 
 ## 2. 서비스 화면
 
+### 웹
+#### 로그인 / 가입
 
-### 로그인 / 가입
+![login](./img/초기화면.png)
 
-![초기화면](https://github.com/ian813/ggong/assets/118112177/c8575980-f17a-4867-b9e8-a0a90481b754)
+#### 메인화면
 
-### 메인화면
+![main](./img/메인페이지.png)
 
-![메인페이지](https://github.com/ian813/ggong/assets/118112177/4cefd696-133e-4fce-9d73-5e7cc840ab51)
+![큐알](./img/큐알.png)
 
-![큐알](https://github.com/ian813/ggong/assets/118112177/9e3a5687-8e6c-4a5f-ae01-c89b8cc1ed97)
+#### 메뉴바
 
-### 메뉴바
+![메뉴바화면](./img/메뉴바화면.png)
 
-![메뉴바화면](https://github.com/ian813/ggong/assets/118112177/50c974cb-2a83-4d17-b20e-8a6c21ac6502)
+#### 마이페이지
 
-### 마이페이지
+![마이페이지](./img/마이페이지.png)
 
-![마이페이지](https://github.com/ian813/ggong/assets/118112177/88b0135b-6090-4f36-9a6a-ed968c0ceb6d)
+#### 지도
 
-### 지도
+![지도페이지](./img/지도페이지.png)
 
-![지도페이지](https://github.com/ian813/ggong/assets/118112177/c5b01576-4d5c-4fe0-b186-44282e15a64b)
+#### 투표 화면
 
-### 투표 화면
+![현재 진행중인 투표](./img/현재_진행중인_투표.png)
 
-![현재 진행중인 투표](https://github.com/ian813/ggong/assets/118112177/695bb89c-19ec-4684-b618-7d93ba1e5f56)
+![지난투표](./img/지난투표.png)
 
-![지난투표](https://github.com/ian813/ggong/assets/118112177/3bea4b0e-a5f4-42ae-a399-6985166fefd4)
+![상세보기 연령별](./img/상세보기_연령별.png)
 
-![상세보기 연령별](https://github.com/ian813/ggong/assets/118112177/3ec4478a-855a-477d-8763-9fb7752828bd)
+#### 포인트 관련 화면
 
-### 포인트 관련 화면
+![포인트샵](./img/포인트샵.png)
 
-![포인트샵](https://github.com/ian813/ggong/assets/118112177/4b152ca4-40a3-4222-9b42-38e92d178414)
+![구매모달](./img/구매모달.png)
 
-![구매모달](https://github.com/ian813/ggong/assets/118112177/6ef8fd1d-d169-49af-8a9b-566a59d8d91c)
+![포인트내역](./img/포인트내역.png)
 
-![포인트내역](https://github.com/ian813/ggong/assets/118112177/4a4625a0-554a-47d9-a924-0f7dc8929742)
+![구매내역](./img/구매내역.png)
 
-![구매내역](https://github.com/ian813/ggong/assets/118112177/a603a5d0-6cf8-494b-b5e5-daa098df213f)
+#### 통계
 
-### 통계
+![통계페이지](./img/통계페이지.png)
 
-![통계페이지](https://github.com/ian813/ggong/assets/118112177/bd5f7459-458b-40aa-8518-c2faf661c5c2)
+### IoT
+#### 멤버화면
 
-### 기기화면
+![멤버화면](./img/멤버화면.png)
 
-![멤버화면](https://github.com/ian813/ggong/assets/118112177/4218b601-55b0-4674-bf47-65e90166ef2a)
+#### 카메라
 
-![카메라](https://github.com/ian813/ggong/assets/118112177/61781b41-6a45-4e38-8ac2-8aa4f1b9a6e5)
+![카메라](./img/카메라.png)
 
-![메인화면](https://github.com/ian813/ggong/assets/118112177/4370034b-53d1-4a7f-a0ef-92497b0c8c68)
+#### 메인화면
+
+![메인화면](./img/메인화면.png)
 
 ## 3. 시스템 아키텍처
 
