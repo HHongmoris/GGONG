@@ -107,7 +107,7 @@
 
 ## 3. 시스템 아키텍처
 
-![servicearchitecture](https://github.com/ian813/ggong/assets/118112177/b710eec9-98e9-4e2e-ba44-9afab835fd0d)
+![servicearchitecture](./img/시스템아키텍처.png)
 
 
 ## 4. 컴포넌트 구성도
@@ -116,7 +116,7 @@
 
 ## 5. ERD
 
-![mysql erd](https://github.com/ian813/ggong/assets/118112177/3cca32cc-ffec-454e-805f-ae9bf77814a4)
+![mysql erd](./img/erd.png)
 
 ## 6. 서비스 및 기술 특장점
 
@@ -127,7 +127,7 @@
 <table>
   <tr>
     <td align="center"><a href="https://github.com/ityeji"><img src="https://avatars.githubusercontent.com/u/110680436?v=4?s=100" width="100px;" alt=""/><br /><sub><b>정예지</b></sub></a><br /></td>
-    <td align="center"><a href="https://github.com/"><img src="?s=100" width="100px;" alt=""/><br /><sub><b>김동현</b></sub></a><br /></td>      
+    <td align="center"><a href="https://github.com/hannernos"><img src="https://avatars.githubusercontent.com/u/82031197?v=4?s=100" width="100px;" alt=""/><br /><sub><b>김동현</b></sub></a><br /></td>     
     <td align="center"><a href="https://github.com/bmincof"><img src="https://avatars.githubusercontent.com/u/104330984?v=4?s=100" width="100px;" alt=""/><br /><sub><b>민병기</b></sub></a><br /></td>
     <td align="center"><a href="https://github.com/juuyoungjeon"><img src="https://avatars.githubusercontent.com/u/44489852?v=4?s=100" width="100px;" alt=""/><br /><sub><b>전주영</b></sub></a><br /></td>      
     <td align="center"><a href="https://github.com/ian813"><img src="https://avatars.githubusercontent.com/u/118112177?v=4?s=100" width="100px;" alt=""/><br /><sub><b>정의석</b></sub></a><br /></td>     
