@@ -107,16 +107,16 @@
 
 ## 3. 시스템 아키텍처
 
-![servicearchitecture](./img/시스템아키텍처.png)
+![servicearchitecture](./img/시스템아키텍처.PNG)
 
 
 ## 4. 컴포넌트 구성도
 
-![rdb-component](https://github.com/ian813/ggong/assets/118112177/9b26d9e4-0c3d-4efa-9439-e13df0b54ae6)
+![rdb-component](./img/component.png)
 
 ## 5. ERD
 
-![mysql erd](./img/erd.png)
+![mysql erd](./img/erd.PNG)
 
 ## 6. 서비스 및 기술 특장점
 
